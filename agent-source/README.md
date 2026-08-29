@@ -47,6 +47,8 @@ claude_learn/      x01~x06：claude-code 核心机制教学（插件结构/白�
 | **pi_learn** | p01~p07 | 事件流→steering→并行工具→失败进流→provider 层→分支压缩→JSONL 会话 | [入口](pi_learn/README.md) |
 | **claude_learn** | x01~x06 | 插件结构→allowed-tools 白名单→多 Agent 剧本→hooks→命令入口→插件引擎 | [入口](claude_learn/README.md) |
 
+> 每步 = 可运行 `code.py` + 详细 README（问题/SVG 架构图/原理/练习/自测问答/源码对照），共 27 步 + 27 张 SVG。
+
 ## 💡 一句话速查（自测急救）
 
 | 被问 | 答案（可引用） |

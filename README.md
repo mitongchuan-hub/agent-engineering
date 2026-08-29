@@ -16,7 +16,9 @@
 | `agent-source/deepdive-*.md` | 四家源码精读导览（代码地图 + 机制拆解 + 阅读路线） |
 | `agent-source/CODING_AGENTS_STRUCTURE.md` | 四家核心循环/工具/上下文 横向对比总表 |
 | `matcher-app/` | 基于所学实现的工程化 Agent 应用（评测/单测/MCP/真实 LLM 自主决策） |
-| `LEARNING_MAP.md` | 学习总地图：38 步索引 + 路线规划 + 知识点速查 |
+| `LEARNING_MAP.md` | 学习总地图：37 步索引 + 路线规划 + 知识点速查 |
+
+> 📖 所有教学步骤均为同一详细度：**故事化问题 + SVG 架构图 + 逐步原理 + 练习 + 自测问答 + 源码对照**（全库 45 张架构图）。
 
 ## 快速开始
 
