@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-c" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="520" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Mini Plugin Engine — 四层流水线</text>
+
+  <!-- 输入 -->
+  <rect x="30" y="90" width="150" height="70" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="105" y="114" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">/review</text>
+  <text x="105" y="138" fill="#64748b" font-size="9" text-anchor="middle">命令入口（x05）</text>
+
+  <line x1="180" y1="125" x2="225" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 四层流水线 -->
+  <rect x="227" y="80" width="460" height="290" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="457" y="106" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">引擎四层（提示词即软件）</text>
+  <line x1="247" y1="116" x2="667" y2="116" stroke="#e2e8f0"/>
+
+  <rect x="247" y="130" width="430" height="48" rx="8" fill="#f8fafc"/>
+  <text x="462" y="151" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">① 加载 manifest+commands</text>
+  <text x="462" y="169" fill="#94a3b8" font-size="9" text-anchor="middle">← x01/x05</text>
+
+  <line x1="462" y1="178" x2="462" y2="196" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="247" y="198" width="430" height="48" rx="8" fill="#fffbeb"/>
+  <text x="462" y="219" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">② 授权 authz（allowed-tools）</text>
+  <text x="462" y="237" fill="#94a3b8" font-size="9" text-anchor="middle">← x02 · deny by default</text>
+
+  <line x1="462" y1="246" x2="462" y2="264" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="247" y="266" width="430" height="48" rx="8" fill="#f0f4ff"/>
+  <text x="462" y="287" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">③ 拦截 hooks（危险/改写）</text>
+  <text x="462" y="305" fill="#94a3b8" font-size="9" text-anchor="middle">← x04 · deny 优先</text>
+
+  <line x1="462" y1="314" x2="462" y2="332" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="247" y="334" width="430" height="26" rx="8" fill="#ecfdf5"/>
+  <text x="462" y="352" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">④ 执行（剧本 → 工具调用）→ 审计日志</text>
+
+  <!-- 拦截分支 -->
+  <line x1="662" y1="222" x2="698" y2="222" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-c)"/>
+  <rect x="40" y="392" width="220" height="72" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="150" y="416" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">🚫 白名单外/钩子拦</text>
+  <text x="150" y="440" fill="#64748b" font-size="9" text-anchor="middle">cat /etc/passwd → 拒绝</text>
+  <text x="150" y="454" fill="#94a3b8" font-size="8" text-anchor="middle">审计记一条 authz=False</text>
+
+  <rect x="380" y="392" width="300" height="72" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="530" y="416" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">✅ 白名单 + 钩子放行</text>
+  <text x="530" y="440" fill="#475569" font-size="9" text-anchor="middle">gh pr view 42 / mcp__report__ … → 执行</text>
+  <text x="530" y="454" fill="#94a3b8" font-size="8" text-anchor="middle">审计日志全程可查</text>
+
+  <text x="360" y="504" fill="#94a3b8" font-size="11" text-anchor="middle">软件工程四件套换个介质：接口(头) + 权限(allowed) + 钩子(hooks) + 逻辑(剧本)</text>
+  <text x="360" y="524" fill="#cbd5e1" font-size="9" text-anchor="middle">配套代码：agent-source/claude_learn/x06_comprehensive/code.py</text>
+</svg>

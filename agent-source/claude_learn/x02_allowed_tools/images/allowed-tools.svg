@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-c" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Allowed-tools — 声明式权限白名单</text>
+
+  <!-- 白名单声明 -->
+  <rect x="40" y="90" width="260" height="130" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="2"/>
+  <text x="170" y="114" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">命令 YAML 头声明</text>
+  <text x="170" y="138" fill="#475569" font-size="10" text-anchor="middle">Bash(gh issue view:*)</text>
+  <text x="170" y="156" fill="#475569" font-size="10" text-anchor="middle">Bash(gh pr view:*)</text>
+  <text x="170" y="174" fill="#475569" font-size="10" text-anchor="middle">Bash(gh pr diff:*)</text>
+  <text x="170" y="192" fill="#475569" font-size="10" text-anchor="middle">mcp__github_inline_comment__*</text>
+  <text x="170" y="212" fill="#94a3b8" font-size="9" text-anchor="middle">= 模型能用什么·预先锁死</text>
+
+  <line x1="300" y1="155" x2="360" y2="155" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 匹配引擎 -->
+  <rect x="362" y="110" width="180" height="90" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="452" y="136" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">匹配引擎</text>
+  <line x1="382" y1="146" x2="522" y2="146" stroke="#e2e8f0"/>
+  <text x="452" y="168" fill="#475569" font-size="10" text-anchor="middle">Bash 前缀匹配</text>
+  <text x="452" y="186" fill="#475569" font-size="10" text-anchor="middle">mcp 精确匹配</text>
+
+  <line x1="542" y1="155" x2="590" y2="155" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 决策 -->
+  <polygon points="592,130 650,155 592,180 534,155" fill="#fff8f0" stroke="#d97706" stroke-width="2"/>
+  <text x="592" y="153" fill="#92400e" font-size="9" font-weight="600" text-anchor="middle">白名单?</text>
+  <text x="592" y="170" fill="#92400e" font-size="8" text-anchor="middle">deny by default</text>
+
+  <line x1="465" y1="200" x2="300" y2="290" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-c)" stroke-dasharray="5,3"/>
+  <rect x="60" y="282" width="240" height="80" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="180" y="306" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">实例：rm -rf /</text>
+  <text x="180" y="328" fill="#64748b" font-size="9" text-anchor="middle">Bash(gh pr view:*) 不匹配</text>
+  <text x="180" y="346" fill="#94a3b8" font-size="8" text-anchor="middle">→ 拦截（声明的边界外）</text>
+
+  <line x1="600" y1="250" x2="640" y2="330" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="470" y="332" width="220" height="80" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="580" y="356" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">实例：gh pr view 123</text>
+  <text x="580" y="378" fill="#64748b" font-size="9" text-anchor="middle">前缀命中 → 放行</text>
+  <text x="580" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">（执行前就锁死）</text>
+
+  <!-- 底部 -->
+  <rect x="120" y="430" width="480" height="44" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="452" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">对比 codex c03 审批：它是"决策时审批"，这是"执行前锁死"——两种权限模型</text>
+  <text x="360" y="474" fill="#cbd5e1" font-size="9" text-anchor="middle">配套代码：agent-source/claude_learn/x02_allowed_tools/code.py</text>
+</svg>
