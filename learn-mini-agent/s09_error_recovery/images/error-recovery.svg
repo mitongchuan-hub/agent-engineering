@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="520" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Error Recovery — 把失败变成数据流</text>
+
+  <!-- 四道防线 -->
+  <rect x="40" y="80" width="290" height="120" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="185" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">① 参数兜底 _coerce_args</text>
+  <text x="185" y="128" fill="#475569" font-size="11" text-anchor="middle">arguments 可能是 JSON 字符串</text>
+  <text x="185" y="146" fill="#64748b" font-size="10" text-anchor="middle">"{\"a\":1}" → {"a":1} 统一 dict</text>
+  <text x="185" y="168" fill="#94a3b8" font-size="9" text-anchor="middle">真实 Bug：模型把 args 传成字符串</text>
+  <text x="185" y="188" fill="#cbd5e1" font-size="9" text-anchor="middle">发生在 s08 桥接层（已修）</text>
+
+  <rect x="40" y="210" width="290" height="100" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="185" y="234" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">② 结果截断 truncate</text>
+  <text x="185" y="258" fill="#475569" font-size="11" text-anchor="middle">超长工具输出统一截断</text>
+  <text x="185" y="278" fill="#64748b" font-size="10" text-anchor="middle">保头尾 + 标注"已截断 N 字符"</text>
+  <text x="185" y="298" fill="#94a3b8" font-size="9" text-anchor="middle">防撑爆上下文（配合 s04 预算）</text>
+
+  <rect x="390" y="80" width="290" height="120" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="535" y="104" fill="#92400e" font-size="13" font-weight="700" text-anchor="middle">③ 错误回传（自愈核心）</text>
+  <text x="535" y="128" fill="#475569" font-size="11" text-anchor="middle">工具异常 → 字符串回传模型</text>
+  <text x="535" y="148" fill="#64748b" font-size="10" text-anchor="middle">"ZeroDivisionError" → 模型看到</text>
+  <text x="535" y="166" fill="#92400e" font-size="10" font-weight="700" text-anchor="middle">→ 模型自愈：改用 b=2 重试成功</text>
+  <text x="535" y="188" fill="#94a3b8" font-size="9" text-anchor="middle">原则：不抛异常，把失败喂回推理</text>
+
+  <rect x="390" y="210" width="290" height="100" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="535" y="234" fill="#92400e" font-size="13" font-weight="700" text-anchor="middle">④ 迭代上限 max_iters</text>
+  <text x="535" y="258" fill="#475569" font-size="11" text-anchor="middle">模型反复调工具 → 超限强制收尾</text>
+  <text x="535" y="278" fill="#64748b" font-size="10" text-anchor="middle">防"死循环烧钱"的最后一道闸</text>
+  <text x="535" y="298" fill="#94a3b8" font-size="9" text-anchor="middle">生产还叠加 token 预算与超时</text>
+
+  <!-- 自愈剧情 -->
+  <rect x="150" y="356" width="420" height="96" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="380" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">自愈剧情（场景 B 现场演示）</text>
+  <text x="360" y="404" fill="#475569" font-size="11" text-anchor="middle">模型: risky_div(10, 0) → 工具: ZeroDivisionError 回传</text>
+  <text x="360" y="424" fill="#475569" font-size="11" text-anchor="middle">模型看到错误: "b=0 不行" → 自动改为 b=2 → 成功 ✅</text>
+  <text x="360" y="444" fill="#94a3b8" font-size="9" text-anchor="middle">失败不是终点，是模型推理的输入</text>
+
+  <text x="360" y="494" fill="#94a3b8" font-size="11" text-anchor="middle">四道防线：兜底+截断+回传+上限 = 摔不坏的最小骨架</text>
+  <text x="360" y="514" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：learn-mini-agent/s09_error_recovery/code.py</text>
+</svg>

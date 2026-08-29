@@ -124,7 +124,7 @@ def run_pipeline() -> str:
 
 def run_real() -> None:
     """真实 LLM 驱动同一个循环：模型自己决定调哪些工具。"""
-    from s03_llm_client.code import ChatClient
+    from s03_llm_client.code import ChatClient, LLMError
 
     registry = build_registry()
     chat = ChatClient(base_url=os.getenv("LLM_BASE_URL", ""),
@@ -132,18 +132,22 @@ def run_real() -> None:
                       model=os.getenv("LLM_MODEL", ""))
     messages = [{"role": "user", "content": f"评估 {DATA} 下的简历与 JD，"
                                             f"生成报告保存到 {ROOT}/report.md"}]
-    for step in range(1, 10):
-        resp = chat.chat(messages, tools=registry.schemas())
-        messages.append(resp)
-        if not resp.get("tool_calls"):
-            print("最终回答：", (resp.get("content") or "")[:300])
-            return
-        for tc in resp["tool_calls"]:
-            name = tc["function"]["name"]
-            print(f"[agent] step {step}: {name}")
-            out = registry.call(name, tc["function"]["arguments"])
-            messages.append({"role": "tool", "tool_call_id": tc["id"], "content": out[:1500]})
-    print("(达到迭代上限)")
+    try:
+        for step in range(1, 10):
+            resp = chat.chat(messages, tools=registry.schemas())
+            messages.append(resp)
+            if not resp.get("tool_calls"):
+                print("最终回答：", (resp.get("content") or "")[:300])
+                return
+            for tc in resp["tool_calls"]:
+                name = tc["function"]["name"]
+                print(f"[agent] step {step}: {name}")
+                out = registry.call(name, tc["function"]["arguments"])
+                messages.append({"role": "tool", "tool_call_id": tc["id"], "content": out[:1500]})
+        print("(达到迭代上限)")
+    except LLMError as e:
+        print(f"[error] {e}")
+        print("提示：演示模式无需 Key——移开仓库根 .env（或设 LEARN_NO_ENV=1）再运行即可。")
 
 
 if __name__ == "__main__":

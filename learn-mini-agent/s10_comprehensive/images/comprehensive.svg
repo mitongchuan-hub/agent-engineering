@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="b1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f0f4ff"/><stop offset="100%" stop-color="#e8efff"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="560" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Comprehensive — 十步拼成一个完整应用</text>
+
+  <!-- 四块工具 -->
+  <rect x="40" y="80" width="150" height="110" rx="10" fill="url(#b1)" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="115" y="108" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">list_files</text>
+  <text x="115" y="130" fill="#475569" font-size="10" text-anchor="middle">发现输入文件</text>
+  <text x="115" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">来自 s02 注册</text>
+  <text x="115" y="172" fill="#cbd5e1" font-size="9" text-anchor="middle">装饰器 = Tool</text>
+
+  <rect x="200" y="80" width="150" height="110" rx="10" fill="url(#b1)" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="275" y="108" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">read_text_file</text>
+  <text x="275" y="130" fill="#475569" font-size="10" text-anchor="middle">读取输入内容</text>
+  <text x="275" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">UTF-8/GBK 自动</text>
+
+  <rect x="360" y="80" width="150" height="110" rx="10" fill="url(#b1)" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="435" y="108" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">match</text>
+  <text x="435" y="130" fill="#475569" font-size="10" text-anchor="middle">规则打分器</text>
+  <text x="435" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">复用 s05</text>
+  <text x="435" y="172" fill="#cbd5e1" font-size="9" text-anchor="middle">确定性、可审计</text>
+
+  <rect x="520" y="80" width="160" height="110" rx="10" fill="url(#b1)" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="600" y="108" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">write_file</text>
+  <text x="600" y="130" fill="#475569" font-size="10" text-anchor="middle">输出结构报告</text>
+  <text x="600" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">自动建目录</text>
+
+  <!-- 流程 -->
+  <line x1="115" y1="190" x2="115" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="275" y1="190" x2="275" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="435" y1="190" x2="435" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="190" x2="600" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Agent 循环 -->
+  <rect x="180" y="230" width="360" height="130" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="360" y="256" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">Agent 主循环（s01 骨架 + s09 兜底）</text>
+  <line x1="205" y1="266" x2="515" y2="266" stroke="#e2e8f0"/>
+  <text x="360" y="290" fill="#475569" font-size="11" text-anchor="middle">list → read → match(×2) → write → 总结</text>
+  <text x="360" y="312" fill="#64748b" font-size="10" text-anchor="middle">真实 LLM 模式：模型自主决策调用顺序</text>
+  <text x="360" y="332" fill="#94a3b8" font-size="9" text-anchor="middle">演示模式：确定性管线（同一套工具顺序跑通）</text>
+  <text x="360" y="350" fill="#cbd5e1" font-size="9" text-anchor="middle">s03 客户端 / s04 上下文 / s07~s08 MCP 任选</text>
+
+  <!-- 产物 -->
+  <line x1="360" y1="360" x2="360" y2="400" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="200" y="402" width="320" height="80" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="428" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">report.md（结构化工单报告）</text>
+  <text x="360" y="450" fill="#475569" font-size="11" text-anchor="middle">真实值：ai 93.0 分 / backend 100.0 分</text>
+  <text x="360" y="468" fill="#94a3b8" font-size="9" text-anchor="middle">真实 LLM 运行实录见仓库 Demo 输出</text>
+
+  <text x="360" y="528" fill="#94a3b8" font-size="11" text-anchor="middle">收官：10 += 21 += 6 步 = 37 步；一键回归 python scripts/check_all.py</text>
+  <text x="360" y="550" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：learn-mini-agent/s10_comprehensive/code.py</text>
+</svg>
