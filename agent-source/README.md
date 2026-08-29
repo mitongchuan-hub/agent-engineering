@@ -20,10 +20,11 @@ agent-source/
 ├── deepdive-pi.md                # pi 精读：事件流+并行工具+40 家 provider
 └── deepdive-claude-code.md       # claude 精读：allowed-tools+多 agent 剧本
 
-# —— 三家的分步教学（learn-claude-code 格式，Python 可运行） ——
+# —— 四家的分步教学（learn-claude-code 格式，Python 可运行） ——
 codex_learn/       c01~c07：codex 核心机制教学（Bash 工具/并行/审批/沙箱/压缩/持久化/多 agent）
 deepseek_learn/    d01~d07：deepseek 核心机制教学（状态机/插件钩子/Inbox/严格 schema/子代理/裁剪/提示词组装）
 pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/失败进流/provider 层/压缩/JSONL）
+claude_learn/      x01~x06：claude-code 核心机制教学（插件结构/白名单/剧本/钩子/命令/引擎）
 ```
 
 ## 🗺️ 阅读路径（三条线任选）
@@ -44,6 +45,7 @@ pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/�
 | **codex_learn** | c01~c07 | Bash 工具→并行执行→审批流→沙箱→上下文压缩→会话持久化→多 Agent | [入口](codex_learn/README.md) |
 | **deepseek_learn** | d01~d07 | 状态机循环→插件钩子→Inbox→严格 schema→子代理→结果裁剪→提示词组装 | [入口](deepseek_learn/README.md) |
 | **pi_learn** | p01~p07 | 事件流→steering→并行工具→失败进流→provider 层→分支压缩→JSONL 会话 | [入口](pi_learn/README.md) |
+| **claude_learn** | x01~x06 | 插件结构→allowed-tools 白名单→多 Agent 剧本→hooks→命令入口→插件引擎 | [入口](claude_learn/README.md) |
 
 ## 💡 一句话速查（自测急救）
 

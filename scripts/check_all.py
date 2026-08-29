@@ -39,7 +39,8 @@ def check_teaching() -> tuple:
     """跑全部教学 code.py（演示模式，跳过真实 LLM 分支）。"""
     steps = []
     for base in ("learn-mini-agent", "agent-source/codex_learn",
-                 "agent-source/deepseek_learn", "agent-source/pi_learn"):
+                 "agent-source/deepseek_learn", "agent-source/pi_learn",
+                 "agent-source/claude_learn"):
         for f in sorted((ROOT / base).glob("*/code.py")):
             steps.append(f)
     print(f"① 教学步骤：{len(steps)} 个\n")

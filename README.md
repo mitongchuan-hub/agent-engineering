@@ -12,6 +12,7 @@
 | `agent-source/codex_learn/` | **c01~c07** codex 机制重建：Bash 工具 / 并行 / 审批 / 沙箱 / 压缩 / 持久化 / 多 Agent |
 | `agent-source/deepseek_learn/` | **d01~d07** deepseek 机制重建：状态机 / 插件钩子 / Inbox / 严格 Schema / 子 Agent / 裁剪 / 提示词组装 |
 | `agent-source/pi_learn/` | **p01~p07** pi 机制重建：事件流 / steering / 并行双轨 / 失败进流 / Provider / 分支压缩 / JSONL |
+| `agent-source/claude_learn/` | **x01~x06** claude 机制重建：插件结构 / 白名单 / 多 Agent 剧本 / hooks / 命令 / 引擎 |
 | `agent-source/deepdive-*.md` | 四家源码精读导览（代码地图 + 机制拆解 + 阅读路线） |
 | `agent-source/CODING_AGENTS_STRUCTURE.md` | 四家核心循环/工具/上下文 横向对比总表 |
 | `matcher-app/` | 基于所学实现的工程化 Agent 应用（评测/单测/MCP/真实 LLM 自主决策） |
@@ -27,6 +28,7 @@ python learn-mini-agent/s01_agent_loop/code.py
 python agent-source/codex_learn/c01_bash_tool/code.py
 python agent-source/deepseek_learn/d01_turn_step_loop/code.py
 python agent-source/pi_learn/p01_event_stream/code.py
+python agent-source/claude_learn/x01_plugin_manifest/code.py
 
 # ③ 工程化应用（Mock 无需 Key / 配 .env 走真实 LLM）
 python matcher-app/run.py --mock

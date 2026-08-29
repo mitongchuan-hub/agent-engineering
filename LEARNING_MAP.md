@@ -2,7 +2,7 @@
 
 > 学习 Agent 工程外壳（harness）的一套完整笔记：
 > 原理 → 手写 → 源码精读 → 机制重建 → 集成应用。
-> 覆盖：**38 个可运行教学步骤 + 4 份源码精读 + 1 个工程化应用**。
+> 覆盖：**37 个可运行教学步骤 + 4 份源码精读 + 1 个工程化应用**。
 
 ---
 
@@ -14,6 +14,7 @@
 | **codex 机制重建** | `agent-source/codex_learn/` | c01~c07 分步可运行 | ② 工程外壳 |
 | **deepseek 机制重建** | `agent-source/deepseek_learn/` | d01~d07 分步可运行 | ② 可插拔架构 |
 | **pi 机制重建** | `agent-source/pi_learn/` | p01~p07 分步可运行 | ② 事件驱动 |
+| **claude 机制重建** | `agent-source/claude_learn/` | x01~x06 分步可运行 | ② 提示词生态 |
 | **源码精读导览** | `agent-source/deepdive-*.md` | 4 份文档 | ③ 精读溯源 |
 | **四家对比总表** | `agent-source/CODING_AGENTS_STRUCTURE.md` | 1 份文档 | ③ 横向对比 |
 | **工程化应用** | `matcher-app/` | 真实项目 | ④ 集成应用 |
@@ -22,13 +23,13 @@
 ```
 learn-mini-agent（手写框架，建立心智模型）
    └─► 读四家源码（对照原版，理解工程取舍）
-        └─► 三家机制重建（用 Python 亲手复刻核心设计）
+        └─► 四家机制重建（用 Python 亲手复刻核心设计）
              └─► matcher-app（把所学沉淀成可运行的 Agent 应用）
 ```
 
 ---
 
-## 二、38 步索引（每步一句话）
+## 二、37 步索引（每步一句话）
 
 ### A. 手写框架（learn-mini-agent，10 步）
 
@@ -81,6 +82,17 @@ learn-mini-agent（手写框架，建立心智模型）
 | p06 | 分支压缩 | 沉岔路保主线 | branch-summarization |
 | p07 | JSONL 会话 | 带 codec 版本化的存档 | session/jsonl |
 
+### E. claude_learn（6 步）· 提示词生态
+
+| 步 | 主题 | 一句话 | 对应源码 |
+|---|---|---|---|
+| x01 | 插件结构 | manifest + commands 目录 | plugins/code-review |
+| x02 | allowed-tools | 声明式权限白名单 | commands/*.md YAML 头 |
+| x03 | 多 Agent 剧本 | 成本分层 + 并行编排 | code-review.md |
+| x04 | hooks | 执行瞬间拦截/改写 | examples/hooks |
+| x05 | 命令入口 | /命令 即能力 | .claude/commands |
+| x06 | 插件引擎 | 四层流水线合体 | 以上全部 |
+
 ### E. 源码精读（4 份文档）
 
 | 文档 | 内容 |
@@ -111,7 +123,7 @@ Day5:   精读 2 份文档 + matcher-app 全文跑通
 ### 📗 系统学习（2 周）
 ```
 第1周：learn-mini-agent 全 10 步，每步跑通并记笔记
-第2周：三家教学 21 步（每天 3 步）+ 精读 4 份文档 + 横向对比总表
+第2周：四家教学 27 步（每天约 4 步）+ 精读 4 份文档 + 横向对比总表
 ```
 
 ### 📕 完整体系（4 周）
@@ -143,6 +155,7 @@ Day5:   精读 2 份文档 + matcher-app 全文跑通
 | 插件化怎么设计？ | waterfall 钩子；order 排序 | d02 |
 | 系统提示词怎么管？ | 分节组装 + tool-order | d07 |
 | 用户中途输入？ | steering 排队注入 | p02 |
+| 提示词即软件？ | 插件=manifest+commands；白名单+钩子+剧本 | x01~x06 |
 
 ---
 
