@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 648" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="760" height="648" fill="#fafbfc" rx="10"/>
+  <rect x="0" y="0" width="760" height="50" fill="url(#hd)" rx="10"/>
+  <rect x="0" y="42" width="760" height="8" fill="url(#hd)"/>
+  <text x="380" y="33" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">Agent Harness 工程学习路径 · 37 步图文教学</text>
+
+  <!-- ① 手写框架 -->
+  <rect x="40" y="84" width="274" height="178" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="177" y="112" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">① 手写框架 · learn-mini-agent</text>
+  <text x="177" y="132" fill="#64748b" font-size="10" text-anchor="middle">从零建立 Agent 心智模型（10 步）</text>
+  <line x1="60" y1="142" x2="294" y2="142" stroke="#e2e8f0"/>
+  <g font-size="8" font-weight="600">
+    <rect x="58" y="152" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="80" y="165" fill="#1e3a5f" text-anchor="middle">s01 循环</text>
+    <rect x="109" y="152" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="131" y="165" fill="#1e3a5f" text-anchor="middle">s02 工具</text>
+    <rect x="160" y="152" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="182" y="165" fill="#1e3a5f" text-anchor="middle">s03 客户端</text>
+    <rect x="211" y="152" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="233" y="165" fill="#1e3a5f" text-anchor="middle">s04 记忆</text>
+    <rect x="58" y="176" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="80" y="189" fill="#1e3a5f" text-anchor="middle">s05 匹配</text>
+    <rect x="109" y="176" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="131" y="189" fill="#1e3a5f" text-anchor="middle">s06 评测</text>
+    <rect x="160" y="176" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="182" y="189" fill="#1e3a5f" text-anchor="middle">s07 MCP</text>
+    <rect x="211" y="176" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="233" y="189" fill="#1e3a5f" text-anchor="middle">s08 桥接</text>
+    <rect x="58" y="200" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="80" y="213" fill="#1e3a5f" text-anchor="middle">s09 容错</text>
+    <rect x="109" y="200" width="44" height="20" rx="4" fill="#f0f4ff"/><text x="131" y="213" fill="#1e3a5f" text-anchor="middle">s10 综合</text>
+  </g>
+  <text x="177" y="244" fill="#94a3b8" font-size="9" text-anchor="middle">10 步 · 10 张 SVG 架构图 · 可离线运行</text>
+
+  <!-- ② 源码精读 -->
+  <rect x="390" y="84" width="342" height="178" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="561" y="112" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">② 源码精读 · deepdive</text>
+  <text x="561" y="132" fill="#64748b" font-size="10" text-anchor="middle">对照 GitHub 四家真实实现，读工程取舍</text>
+  <line x1="410" y1="142" x2="712" y2="142" stroke="#e2e8f0"/>
+  <g font-size="11" font-weight="700">
+    <rect x="410" y="152" width="70" height="62" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/><text x="445" y="177" fill="#334155" text-anchor="middle">codex</text><text x="445" y="197" fill="#94a3b8" font-size="8" font-weight="400" text-anchor="middle">工程外壳</text>
+    <rect x="486" y="152" width="70" height="62" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/><text x="521" y="177" fill="#334155" text-anchor="middle">deepseek</text><text x="521" y="197" fill="#94a3b8" font-size="8" font-weight="400" text-anchor="middle">可插拔架构</text>
+    <rect x="562" y="152" width="70" height="62" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/><text x="597" y="177" fill="#334155" text-anchor="middle">pi</text><text x="597" y="197" fill="#94a3b8" font-size="8" font-weight="400" text-anchor="middle">事件驱动</text>
+    <rect x="638" y="152" width="70" height="62" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/><text x="673" y="177" fill="#334155" text-anchor="middle">claude-code</text><text x="673" y="197" fill="#94a3b8" font-size="8" font-weight="400" text-anchor="middle">提示词生态</text>
+  </g>
+  <text x="561" y="246" fill="#94a3b8" font-size="9" text-anchor="middle">精读导览 4 份 + 结构对比表</text>
+
+  <!-- 箭头 ①→② ②→③ -->
+  <line x1="314" y1="173" x2="382" y2="173" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="500" y1="262" x2="500" y2="308" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ③ 机制重建 -->
+  <rect x="40" y="318" width="398" height="174" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="239" y="346" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">③ 机制重建 · 四家 27 步</text>
+  <text x="239" y="366" fill="#64748b" font-size="10" text-anchor="middle">用 Python 亲手重刻四个引擎的核心设计</text>
+  <line x1="60" y1="376" x2="418" y2="376" stroke="#e2e8f0"/>
+  <g font-size="9" font-weight="700">
+    <rect x="60" y="386" width="82" height="64" rx="8" fill="#f0f4ff" stroke="#93c5fd" stroke-width="1"/><text x="101" y="410" fill="#1e3a5f" text-anchor="middle">codex_learn</text><text x="101" y="428" fill="#334155" font-size="8" fontWeight="400" text-anchor="middle">c01~c07</text><text x="101" y="444" fill="#64748b" font-size="8" font-weight="400" text-anchor="middle">工程外壳</text>
+    <rect x="150" y="386" width="82" height="64" rx="8" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/><text x="191" y="410" fill="#92400e" text-anchor="middle">deepseek_learn</text><text x="191" y="428" fill="#334155" font-size="8" font-weight="400" text-anchor="middle">d01~d07</text><text x="191" y="444" fill="#64748b" font-size="8" font-weight="400" text-anchor="middle">可插拔架构</text>
+    <rect x="240" y="386" width="82" height="64" rx="8" fill="#fdf4ff" stroke="#e9d5ff" stroke-width="1"/><text x="281" y="410" fill="#6b21a8" text-anchor="middle">pi_learn</text><text x="281" y="428" fill="#334155" font-size="8" font-weight="400" text-anchor="middle">p01~p07</text><text x="281" y="444" fill="#64748b" font-size="8" font-weight="400" text-anchor="middle">事件驱动</text>
+    <rect x="330" y="386" width="82" height="64" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/><text x="371" y="410" fill="#166534" text-anchor="middle">claude_learn</text><text x="371" y="428" fill="#334155" font-size="8" font-weight="400" text-anchor="middle">x01~x06</text><text x="371" y="444" fill="#64748b" font-size="8" font-weight="400" text-anchor="middle">提示词生态</text>
+  </g>
+  <text x="239" y="474" fill="#94a3b8" font-size="9" text-anchor="middle">27 步 · 每步 = code.py + 详细 README + 专属 SVG</text>
+
+  <!-- ④ 应用沉淀 -->
+  <rect x="488" y="318" width="244" height="174" rx="12" fill="#fff" stroke="#d97706" stroke-width="2.5"/>
+  <text x="610" y="346" fill="#92400e" font-size="14" font-weight="700" text-anchor="middle">④ 应用沉淀 · matcher-app</text>
+  <text x="610" y="366" fill="#64748b" font-size="10" text-anchor="middle">把所学做成真能用的 Agent 应用</text>
+  <line x1="508" y1="376" x2="712" y2="376" stroke="#e2e8f0"/>
+  <text x="610" y="398" fill="#475569" font-size="9" text-anchor="middle">mini_agent：tools/memory/llm/agent/MCP</text>
+  <text x="610" y="418" fill="#475569" font-size="9" text-anchor="middle">15 单测 + 6 评测用例（Oracle 对照）</text>
+  <text x="610" y="438" fill="#475569" font-size="9" text-anchor="middle">演示模式可运行 · 配 Key 走真实 LLM</text>
+  <text x="610" y="458" fill="#475569" font-size="9" text-anchor="middle">CI：GitHub Actions 一键回归</text>
+
+  <!-- 箭头 ③→④ ④→收尾 -->
+  <line x1="438" y1="405" x2="480" y2="405" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="610" y1="492" x2="610" y2="528" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 收尾 -->
+  <rect x="140" y="534" width="480" height="66" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="380" y="563" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">🔁 一键回归 · scripts/check_all.py</text>
+  <text x="380" y="585" fill="#475569" font-size="10" text-anchor="middle">37 教学步 + 15 单测 + 6 评测 = 全部通过 · 随时可复现</text>
+
+  <text x="380" y="632" fill="#94a3b8" font-size="10" text-anchor="middle">学习笔记 · github.com/mitongchuan-hub/agent-engineering · 37 步 · 45 张 SVG</text>
+</svg>
