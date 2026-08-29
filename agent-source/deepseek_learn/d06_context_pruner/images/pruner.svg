@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Context Pruner — 先剪最划算的</text>
+
+  <!-- 预算检查 -->
+  <rect x="40" y="80" width="200" height="80" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="104" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">超预算？</text>
+  <text x="140" y="126" fill="#475569" font-size="10" text-anchor="middle">工具结果 1771 字符</text>
+  <text x="140" y="146" fill="#64748b" font-size="9" text-anchor="middle">历史消息 N 条</text>
+
+  <line x1="240" y1="120" x2="300" y2="120" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 两级压缩 -->
+  <rect x="302" y="80" width="378" height="240" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="491" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">两级压缩（先便宜后贵）</text>
+  <line x1="322" y1="114" x2="660" y2="114" stroke="#e2e8f0"/>
+
+  <rect x="322" y="128" width="300" height="72" rx="8" fill="#fffbeb" stroke="#16a34a" stroke-width="2"/>
+  <text x="472" y="152" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">① 工具结果裁剪（零成本）</text>
+  <text x="472" y="174" fill="#475569" font-size="10" text-anchor="middle">大 JSON：保头尾 + 骨架摘要</text>
+  <text x="472" y="192" fill="#64748b" font-size="9" text-anchor="middle">"1771 字符 → 625 字符"（-65%）</text>
+
+  <line x1="472" y1="200" x2="472" y2="226" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="322" y="228" width="300" height="72" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="472" y="252" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">② 历史压缩（一次小模型调用）</text>
+  <text x="472" y="274" fill="#475569" font-size="10" text-anchor="middle">旧对话 → 一条摘要 + 保留最新</text>
+  <text x="472" y="292" fill="#64748b" font-size="9" text-anchor="middle">仍超限才走这步</text>
+
+  <!-- shape -->
+  <rect x="322" y="86" width="0" height="0" fill="#fff"/>
+
+  <!-- 结果 -->
+  <line x1="491" y1="320" x2="491" y2="356" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="240" y="358" width="240" height="72" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="382" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">回预算内 ✅</text>
+  <text x="360" y="404" fill="#64748b" font-size="9" text-anchor="middle">本次：pruned:1（只裁剪就够）</text>
+  <text x="360" y="420" fill="#94a3b8" font-size="8" text-anchor="middle">一次 LLM 都没花</text>
+
+  <!-- 原则 -->
+  <rect x="120" y="400" width="480" height="58" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+  <text x="360" y="424" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle">执行顺序 = 成本顺序：先免费（工具裁剪）→ 再收费（历史压缩）→ 最后才是截断丢信息</text>
+  <text x="360" y="444" fill="#cbd5e1" font-size="8" text-anchor="middle">deepseek 单列 compaction-tool-result-pruner，因为第一步最划算</text>
+  <text x="360" y="472" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/deepseek_learn/d06_context_pruner/code.py</text>
+</svg>

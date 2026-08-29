@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Sub-Agent — 契约化的函数式调用</text>
+
+  <!-- Manager -->
+  <rect x="30" y="90" width="220" height="140" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="140" y="116" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">Manager（主 Agent）</text>
+  <line x1="50" y1="126" x2="230" y2="126" stroke="#e2e8f0"/>
+  <text x="140" y="150" fill="#475569" font-size="10" text-anchor="middle">spawn(任务) → Task</text>
+  <text x="140" y="170" fill="#475569" font-size="10" text-anchor="middle">await(结果) ← Report</text>
+  <text x="140" y="196" fill="#64748b" font-size="9" text-anchor="middle">契约：Task in / Report out</text>
+  <text x="140" y="214" fill="#94a3b8" font-size="8" text-anchor="middle">子 Agent = 一个"函数"的放大版</text>
+
+  <!-- 两个子 Agent -->
+  <line x1="250" y1="160" x2="330" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="250" y1="180" x2="330" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="332" y="66" width="200" height="120" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="432" y="92" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">analyzer</text>
+  <line x1="352" y1="102" x2="512" y2="102" stroke="#e2e8f0"/>
+  <text x="432" y="124" fill="#475569" font-size="10" text-anchor="middle">driver: in-process（共享内存）</text>
+  <text x="432" y="146" fill="#64748b" font-size="9" text-anchor="middle">快 · prototype 阶段适用</text>
+  <text x="432" y="168" fill="#94a3b8" font-size="8" text-anchor="middle">Report{ok,summary,data}</text>
+
+  <rect x="332" y="200" width="200" height="120" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="432" y="226" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">reviewer</text>
+  <line x1="352" y1="236" x2="512" y2="236" stroke="#e2e8f0"/>
+  <text x="432" y="258" fill="#475569" font-size="10" text-anchor="middle">driver: fork（独立域）</text>
+  <text x="432" y="280" fill="#64748b" font-size="9" text-anchor="middle">隔离 · 受信边界适用</text>
+
+  <!-- 深水区 -->
+  <rect x="560" y="100" width="140" height="160" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="630" y="126" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90,630,126)">深水区</text>
+  <text x="630" y="180" fill="#475569" font-size="10" text-anchor="middle">driver 可插拔：</text>
+  <text x="630" y="200" fill="#475569" font-size="9" text-anchor="middle">in-process / fork</text>
+  <text x="630" y="216" fill="#475569" font-size="9" text-anchor="middle">远程 / 协议兼容</text>
+  <text x="630" y="246" fill="#94a3b8" font-size="8" text-anchor="middle">同一份子Agent代码</text>
+
+  <!-- 底部 -->
+  <rect x="150" y="368" width="420" height="76" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="392" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">deepseek 杀手锏：协议兼容层</text>
+  <text x="360" y="414" fill="#475569" font-size="10" text-anchor="middle">subagent-claude-code / subagent-codex → 别家 Agent 也能当子代理</text>
+  <text x="360" y="434" fill="#94a3b8" font-size="8" text-anchor="middle">Task/Report 契约翻译两边的协议——互作到协议层</text>
+
+  <text x="360" y="474" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/deepseek_learn/d05_subagent/code.py ｜ 原版：packages/subagent/*</text>
+</svg>

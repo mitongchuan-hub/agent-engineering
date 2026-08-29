@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">System Prompt — 分节组装 + 工具排序</text>
+
+  <!-- 分节 -->
+  <rect x="40" y="80" width="200" height="300" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="106" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">提示词分节（Section）</text>
+  <line x1="60" y1="116" x2="220" y2="116" stroke="#e2e8f0"/>
+  <rect x="55" y="130" width="170" height="44" rx="6" fill="#fff"/>
+  <text x="140" y="150" fill="#475569" font-size="10" text-anchor="middle">identity（order=10）</text>
+  <text x="140" y="166" fill="#94a3b8" font-size="8" text-anchor="middle">你是谁</text>
+  <rect x="55" y="180" width="170" height="44" rx="6" fill="#fff"/>
+  <text x="140" y="200" fill="#475569" font-size="10" text-anchor="middle">rules（order=20）</text>
+  <text x="140" y="216" fill="#94a3b8" font-size="8" text-anchor="middle">铁律（禁止编造…）</text>
+  <rect x="55" y="230" width="170" height="44" rx="6" fill="#fff"/>
+  <text x="140" y="250" fill="#475569" font-size="10" text-anchor="middle">memory（order=25）</text>
+  <text x="140" y="266" fill="#94a3b8" font-size="8" text-anchor="middle">候选背景（可替换）</text>
+  <rect x="55" y="280" width="170" height="44" rx="6" fill="#fff"/>
+  <text x="140" y="300" fill="#475569" font-size="10" text-anchor="middle">tools_guide（order=30）</text>
+  <text x="140" y="316" fill="#94a3b8" font-size="8" text-anchor="middle">工具清单</text>
+  <rect x="55" y="330" width="170" height="34" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4,2"/>
+  <text x="140" y="350" fill="#94a3b8" font-size="9" text-anchor="middle">legacy（enabled=false 不渲染）</text>
+
+  <!-- 组装 -->
+  <line x1="240" y1="230" x2="300" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="302" y="150" width="200" height="160" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="402" y="176" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">PromptAssembler</text>
+  <line x1="322" y1="186" x2="482" y2="186" stroke="#e2e8f0"/>
+  <text x="402" y="210" fill="#475569" font-size="10" text-anchor="middle">过滤 enabled</text>
+  <text x="402" y="228" fill="#475569" font-size="10" text-anchor="middle">按 order 排序</text>
+  <text x="402" y="246" fill="#475569" font-size="10" text-anchor="middle">\n\n 拼接 + 任务节</text>
+  <text x="402" y="286" fill="#94a3b8" font-size="9" text-anchor="middle">可定位·可替换·可启停·可排序</text>
+
+  <line x1="502" y1="230" x2="540" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 工具排序 -->
+  <rect x="542" y="120" width="150" height="220" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="2"/>
+  <text x="617" y="146" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">tool-order</text>
+  <line x1="560" y1="156" x2="674" y2="156" stroke="#e2e8f0"/>
+  <text x="617" y="178" fill="#475569" font-size="10" text-anchor="middle">compute_match ★</text>
+  <text x="617" y="198" fill="#475569" font-size="10" text-anchor="middle">list_files ★</text>
+  <text x="617" y="222" fill="#94a3b8" font-size="9" text-anchor="middle">（重要工具前置）</text>
+  <text x="617" y="246" fill="#64748b" font-size="9" text-anchor="middle">read/write/search</text>
+  <text x="617" y="268" fill="#94a3b8" font-size="9" text-anchor="middle">首因效应：模型偏</text>
+  <text x="617" y="284" fill="#94a3b8" font-size="9" text-anchor="middle">向先看到的工具</text>
+  <text x="617" y="316" fill="#cbd5e1" font-size="8" text-anchor="middle">省 token·少歧义</text>
+
+  <!-- 底部 -->
+  <rect x="120" y="404" width="480" height="54" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="428" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">提示词的工程化：不是"一坨静态长文"，是"可配置的装配件"</text>
+  <text x="360" y="448" fill="#cbd5e1" font-size="8" text-anchor="middle">deepseek 的 system-prompt 包连 tool-order 都有专属测试</text>
+  <text x="360" y="474" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/deepseek_learn/d07_system_prompt/code.py</text>
+</svg>
