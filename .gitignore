@@ -1,0 +1,27 @@
+# 密钥与本地环境（绝不提交）
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 产物
+reports/
+*.log
+session*.jsonl
+
+# 编辑器/系统
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# 克隆的开源源码（154MB，本地学习用，不进仓库）
+agent-source/codex/
+agent-source/deepseek-harness/
+agent-source/pi/
+agent-source/claude-code/
