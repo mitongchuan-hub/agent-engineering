@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Compaction — 压缩是"沉淀"不是"丢"</text>
+
+  <!-- 超限触发 -->
+  <rect x="60" y="80" width="240" height="90" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="180" y="104" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">① 触发：token 超预算</text>
+  <text x="180" y="128" fill="#475569" font-size="11" text-anchor="middle">20 条消息 ＞ 预算 800</text>
+  <text x="180" y="148" fill="#64748b" font-size="9" text-anchor="middle">对话越长越容易触发</text>
+
+  <line x1="300" y1="125" x2="350" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 钩子 -->
+  <rect x="352" y="80" width="200" height="90" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="452" y="106" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">② Pre/Post 钩子</text>
+  <text x="452" y="128" fill="#475569" font-size="10" text-anchor="middle">Pre：压缩前干预/策略</text>
+  <text x="452" y="146" fill="#475569" font-size="10" text-anchor="middle">Post：压缩后校验/记录</text>
+  <text x="452" y="164" fill="#94a3b8" font-size="9" text-anchor="middle">可观测 · 可拦截 · 可审计</text>
+
+  <line x1="552" y1="125" x2="590" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 压缩动作 -->
+  <rect x="592" y="90" width="110" height="70" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="647" y="116" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">③ 摘要</text>
+  <text x="647" y="136" fill="#64748b" font-size="9" text-anchor="middle">LLM 提炼 old</text>
+  <text x="647" y="152" fill="#94a3b8" font-size="8" text-anchor="middle">（便宜模型）</text>
+
+  <!-- 结果 -->
+  <line x1="647" y1="160" x2="647" y2="210" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="430" y="212" width="270" height="110" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="565" y="238" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">重建后的上下文</text>
+  <line x1="455" y1="249" x2="675" y2="249" stroke="#e2e8f0"/>
+  <text x="565" y="272" fill="#475569" font-size="10" text-anchor="middle">1 条"历史摘要"user 消息</text>
+  <text x="565" y="292" fill="#475569" font-size="10" text-anchor="middle">+ 保留最新 N 条原文</text>
+  <text x="565" y="310" fill="#64748b" font-size="9" text-anchor="middle">摘要继续任务，原文保新鲜</text>
+
+  <!-- 对比 -->
+  <rect x="60" y="330" width="330" height="118" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="225" y="354" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">截断 vs 压缩（s04 对照）</text>
+  <text x="225" y="378" fill="#475569" font-size="10" text-anchor="middle">截断 = 直接丢（零成本，信息蒸发）</text>
+  <text x="225" y="398" fill="#475569" font-size="10" text-anchor="middle">压缩 = 提炼成摘要再丢（一次小调用）</text>
+  <text x="225" y="418" fill="#64748b" font-size="9" text-anchor="middle">关键约束（用户原话）不丢 → 语义保真</text>
+  <text x="225" y="438" fill="#94a3b8" font-size="9" text-anchor="middle">生产还有 fallback：主模型挂 → 换便宜模型压缩</text>
+
+  <rect x="410" y="330" width="280" height="118" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="550" y="356" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">反复对话时可循环</text>
+  <text x="550" y="380" fill="#475569" font-size="10" text-anchor="middle">压缩后继续对话 → 又超限 → 再压缩</text>
+  <text x="550" y="402" fill="#64748b" font-size="9" text-anchor="middle">摘要层层叠加（老摘要+新一轮）</text>
+  <text x="550" y="424" fill="#94a3b8" font-size="9" text-anchor="middle">Hook 日志记录每次压缩的代价</text>
+  <text x="550" y="440" fill="#cbd5e1" font-size="8" text-anchor="middle">对应 codex compact.rs + fallback</text>
+
+  <text x="360" y="486" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/codex_learn/c05_context_compaction/code.py</text>
+</svg>

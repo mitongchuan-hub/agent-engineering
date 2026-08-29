@@ -1,24 +1,38 @@
-# c06: 会话持久化 —— 断电也能续上
+# c06: 会话持久化 — 断电也能续上
 
-> codex 源码对照：`rollout_reconstruction.rs`（81KB）、`thread-store/`
-> pi 同款：`harness/session/jsonl/`（codec/repo/storage）
+> 对应原版：`codex-rs/core/session/rollout_reconstruction.rs`（81KB）`thread-store/`
 > 上一步：[c05 上下文压缩](../c05_context_compaction/) ｜ 下一步：[c07 多 Agent](../c07_multi_agent/)
+> *"恢复 = 把存的每行原样读回 messages。JSONL 是 Agent 会话的天然格式。"*
+
+---
 
 ## 问题
 
 Agent 跑 1 小时，突然断电/超时/崩了。一切重来？
 生产级 Agent 的答案：**会话是持久化的，恢复 = 回放**。
 
-## 方案：JSONL 追加式存储 + 回放恢复
+但"存会话"有个坑：如果存成一个 JSON 文件，**写一半崩溃 = 整个文件损坏**。
+怎么存才抗崩溃？
+
+---
+
+## 方案
+
+![Session JSONL](images/session-jsonl.svg)
+
+**JSONL 追加式存储 + 回放恢复**：
 
 ```
-每轮对话 → append 一行 JSON（user / assistant / tool 消息）
+每轮对话 → append 一行 JSON（user/assistant/tool 消息）
 恢复     → load() 逐行读回，坏行跳过
+断点续跑 → 恢复后从最后一条继续循环
 ```
+
+---
 
 ## 原理（读 code.py）
 
-### 为什么用 JSONL 而不是一个 JSON 文件？
+### 第 1 步：为什么 JSONL 而不是一个 JSON 文件？
 
 ```python
 def append(self, msg):
@@ -30,41 +44,67 @@ def load(self):
         try: out.append(json.loads(line))
         except json.JSONDecodeError: continue   # 崩溃残留的坏行跳过
 ```
-
-- **追加写**：写一半崩溃只坏最后一行，前面全好（JSON 整文件会全损）
+- **追加写**：写一半崩溃只坏最后一行，前面全好（整文件 JSON 会全损）
 - **逐行独立**：坏行可跳，其他消息照样恢复
 - **幂等**：重复 load 不影响数据
 
-### 恢复 = 把消息放回 messages
+### 第 2 步：恢复 = 把消息放回 messages
 
-codex 的 rollout_reconstruction 更进一步：
+codex 的 rollout_reconstruction 比教学版更进一步：
 
-| 维度 | 教学版 | codex 真实版 |
+| | 教学版 | codex 真实版 |
 |---|---|---|
 | 存什么 | messages（消息） | 消息 + 事件日志 + 世界状态 |
 | 恢复精度 | 从最后一条继续 | 精确重演到任意 turn |
-| 存储 | 本地文件 | thread-store + 云端 | 
+| 存储 | 本地文件 | thread-store + 云端 |
 
-## 运行
+---
+
+## 代码走读
+
+- `SessionStore`：append / load / clear（约 30 行，全章核心）
+- `simulate_turn()`：模拟一轮对话写入（user+assistant+tool 三行）
+- `__main__`：3 轮落盘 → 手写一行坏 JSON（模拟崩溃残留）→ load 恢复 → 继续第 4 轮
+
+调用链：`对话 → append(JSONL) → [崩溃] → load(跳坏行) → 恢复继续`
+
+---
+
+## 试一下
 
 ```bash
-python c06_session_persistence/code.py
-# 3 轮对话落盘 → "崩溃"（留一条坏行）→ 重启 load() 跳过坏行
-# → 追加第 4 轮 → 因果链连续
+python agent-source/codex_learn/c06_session_persistence/code.py
+# [第 1 次运行] 3 轮对话全部落盘
+# [进程重启] 从 JSONL 回放恢复 → 读取 N 条消息（坏行被跳过）
+# [恢复后继续] 追加第 4 轮，因果链连续
 ```
+
+---
+
+## 练习
+
+1. **手动看文件**：运行后打开 session.jsonl，数数每轮几行、坏行长什么样
+2. **注入坏行**：往文件中间插一行乱码，load 验证"前后都恢复"
+3. **加轮次恢复**：恢复时只取最后 5 个回合（配 s04 的缓冲思想）
+4. **换 SQLite**：deepseek 有 session-persistence-sqlite——对比 JSONL 的取舍
+5. **加 codec**：升级到 pi_learn p07 的版本化格式（版本号 + 迁移）
+
+---
 
 ## 自测问答
 
 **Q：会话存什么粒度合适？**
-A：至少存 messages（可回放续跑）；升级存事件日志（可回放 UI）；再升级存世界状态快照（可精确恢复工具/沙箱状态）。粒度越细成本越高，按需取舍。
+A：至少 messages（可回放续跑）；升级存事件日志（可回放 UI）；再升级存世界状态快照（可精确恢复工具/沙箱）。粒度越细成本越高。
 
 **Q：并发写会话怎么办？**
-A：单写者追加即可；多写者用锁或换 SQLite（deepseek-harness 有 session-persistence-sqlite）。
+A：单写者追加即可；多写者用锁或换 SQLite（文件锁在上层，别在协议层解决）。
 
-**Q：恢复后怎么保证安全？**
-A：恢复会话 = 恢复信任级别。重要操作重新审批（c03）——"人能保证的是当前时刻，不是一小时前"。
+**Q：恢复后安全吗？**
+A：恢复"信息"≠恢复"信任"。重要操作重新审批（c03）——人能保证的是当前时刻，不是一小时前。
+
+---
 
 ## 延伸
 
-- 关联 learn-mini-agent：s04 的 MessageBuffer + 本步 = 完整会话管理
-- pi_learn p07：pi 的 JSONL 会话（含 codec 版本化，格式可演进）
+- pi_learn p07：JSONL + codec 版本化（读老版本文件也不崩）——本章的升级版
+- 参考实现：`matcher-app/mini_agent/memory.py`（MessageBuffer 可与 SessionStore 组合）

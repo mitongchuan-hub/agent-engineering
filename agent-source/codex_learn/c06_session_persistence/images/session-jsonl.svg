@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Session Persistence — JSONL 断点恢复</text>
+
+  <!-- 第 1 段会话 -->
+  <rect x="40" y="80" width="280" height="190" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="180" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">第 1 次运行</text>
+  <text x="180" y="126" fill="#475569" font-size="10" text-anchor="middle">3 轮对话</text>
+  <line x1="60" y1="136" x2="300" y2="136" stroke="#e2e8f0"/>
+  <text x="180" y="156" fill="#334155" font-size="10" text-anchor="middle">user → assistant → tool</text>
+  <text x="180" y="174" fill="#334155" font-size="10" text-anchor="middle">每轮 3 条消息</text>
+  <text x="180" y="196" fill="#64748b" font-size="9" text-anchor="middle">全部 append 到 JSONL</text>
+  <text x="180" y="216" fill="#b91c1c" font-size="10" font-weight="700" text-anchor="middle">💥 崩溃（留下一行坏 JSON）</text>
+  <text x="180" y="248" fill="#94a3b8" font-size="9" text-anchor="middle">坏行 = 最后写入半个 JSON</text>
+
+  <line x1="320" y1="160" x2="380" y2="160" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 文件 -->
+  <rect x="382" y="100" width="240" height="140" rx="10" fill="#fff" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="502" y="126" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">session.jsonl</text>
+  <line x1="402" y1="136" x2="602" y2="136" stroke="#e2e8f0"/>
+  <text x="502" y="158" fill="#475569" font-size="10" text-anchor="middle">每行一条独立 JSON</text>
+  <text x="502" y="178" fill="#64748b" font-size="9" text-anchor="middle">追加写 = 写坏只坏最后一行</text>
+  <text x="502" y="198" fill="#64748b" font-size="9" text-anchor="middle">坏行可跳（崩溃残留）</text>
+  <text x="502" y="222" fill="#94a3b8" font-size="9" text-anchor="middle">JSON 整文件则全损 vs JSONL 抗崩溃</text>
+
+  <line x1="622" y1="170" x2="668" y2="170" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 第 2 段 -->
+  <rect x="670" y="110" width="50" height="120" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="695" y="180" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90,695,180)">重启</text>
+  <line x1="360" y1="190" x2="360" y2="240" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="180" y="242" width="360" height="120" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="268" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">进程重启 → load() 回放恢复</text>
+  <text x="360" y="294" fill="#475569" font-size="11" text-anchor="middle">跳过坏行，其余消息原样放回 messages</text>
+  <text x="360" y="316" fill="#475569" font-size="11" text-anchor="middle">继续追加 4 轮 → 因果链连续</text>
+  <text x="360" y="340" fill="#94a3b8" font-size="9" text-anchor="middle">断点续跑 = 恢复后从最后一条继续</text>
+
+  <text x="360" y="424" fill="#94a3b8" font-size="11" text-anchor="middle">codex 更进一步：rollout_reconstruction 存"消息+事件+世界状态"，可精确重建</text>
+  <text x="360" y="446" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/codex_learn/c06_session_persistence/code.py</text>
+  <text x="360" y="470" fill="#cbd5e1" font-size="10" text-anchor="middle">升级版（带 codec 版本化）：pi_learn/p07_session_jsonl</text>
+</svg>
