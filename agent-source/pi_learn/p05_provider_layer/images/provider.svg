@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Provider Layer — 模型无关的工程答案</text>
+
+  <!-- 业务 -->
+  <rect x="40" y="90" width="200" height="80" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="140" y="114" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">业务代码</text>
+  <text x="140" y="138" fill="#64748b" font-size="9" text-anchor="middle">只认 Provider 接口（chat/stream）</text>
+
+  <line x1="240" y1="130" x2="300" y2="130" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 接口层 -->
+  <rect x="302" y="100" width="200" height="60" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="402" y="124" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">Provider 接口</text>
+  <text x="402" y="146" fill="#64748b" font-size="9" text-anchor="middle">chat(messages, tools) → 标准消息</text>
+
+  <line x1="502" y1="130" x2="560" y2="130" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 注册表 -->
+  <rect x="562" y="100" width="140" height="60" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="2"/>
+  <text x="632" y="124" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">Registry</text>
+  <text x="632" y="146" fill="#64748b" font-size="9" text-anchor="middle">get(name) 按需取</text>
+
+  <!-- 实现层 -->
+  <line x1="360" y1="160" x2="360" y2="240" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="632" y1="160" x2="632" y2="240" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="40" y="242" width="170" height="80" rx="8" fill="#f0f4ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="125" y="266" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">OpenAI 系</text>
+  <text x="125" y="290" fill="#64748b" font-size="9" text-anchor="middle">base_url=…/v1</text>
+  <text x="125" y="308" fill="#94a3b8" font-size="8" text-anchor="middle">gpt-4o / gpt-5</text>
+
+  <rect x="220" y="242" width="170" height="80" rx="8" fill="#f0f4ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="305" y="266" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">DeepSeek 等</text>
+  <text x="305" y="290" fill="#64748b" font-size="9" text-anchor="middle">兼容协议</text>
+  <text x="305" y="308" fill="#94a3b8" font-size="8" text-anchor="middle">deepseek-chat</text>
+
+  <rect x="400" y="242" width="170" height="80" rx="8" fill="#f0f4ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="485" y="266" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">假模型</text>
+  <text x="485" y="290" fill="#64748b" font-size="9" text-anchor="middle">无 Key 演示</text>
+  <text x="485" y="308" fill="#94a3b8" font-size="8" text-anchor="middle">fake provider</text>
+
+  <rect x="580" y="242" width="110" height="80" rx="8" fill="#fff8f0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="635" y="266" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90,635,266)">+30 家…</text>
+  <text x="635" y="292" fill="#94a3b8" font-size="8" text-anchor="middle">qwen/kimi/</text>
+  <text x="635" y="306" fill="#94a3b8" font-size="8" text-anchor="middle">xai/zai/…</text>
+
+  <!-- 收益 -->
+  <rect x="120" y="360" width="480" height="80" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="384" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">加一家模型 = 注册一个类，零侵入</text>
+  <text x="360" y="408" fill="#475569" font-size="10" text-anchor="middle">每家实现单独治理（鉴权/重试/限流/模型清单）</text>
+  <text x="360" y="428" fill="#94a3b8" font-size="8" text-anchor="middle">pi 有 40+ 家，甚至支持 OAuth（GitHub Copilot / OpenAI Codex 登录也能当 provider）</text>
+
+  <text x="360" y="472" fill="#cbd5e1" font-size="9" text-anchor="middle">对比 s03 的 ChatClient：这里是"多 provider 注册表"的工业版</text>
+</svg>

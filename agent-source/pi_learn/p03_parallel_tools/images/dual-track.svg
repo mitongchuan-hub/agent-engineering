@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Parallel 双轨 — 完成序事件 × 发起序消息</text>
+
+  <!-- 三个调用 -->
+  <rect x="40" y="90" width="200" height="120" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="114" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">3 个调用（发起序）</text>
+  <line x1="60" y1="124" x2="220" y2="124" stroke="#e2e8f0"/>
+  <text x="140" y="148" fill="#475569" font-size="10" text-anchor="middle">#0 fetch_weather (0.8s)</text>
+  <text x="140" y="168" fill="#475569" font-size="10" text-anchor="middle">#1 fetch_stats   (0.2s)</text>
+  <text x="140" y="188" fill="#475569" font-size="10" text-anchor="middle">#2 search        (0.5s)</text>
+
+  <line x1="240" y1="150" x2="300" y2="150" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 执行池 -->
+  <rect x="302" y="100" width="150" height="200" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="377" y="126" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">线程池并发</text>
+  <rect x="314" y="140" width="126" height="30" rx="6" fill="#ecfdf5"/>
+  <text x="377" y="160" fill="#166534" font-size="9" text-anchor="middle">stats 0.2s ✓先完成</text>
+  <rect x="314" y="174" width="126" height="30" rx="6" fill="#ecfdf5"/>
+  <text x="377" y="194" fill="#166534" font-size="9" text-anchor="middle">search 0.5s</text>
+  <rect x="314" y="208" width="126" height="30" rx="6" fill="#ecfdf5"/>
+  <text x="377" y="228" fill="#166534" font-size="9" text-anchor="middle">weather 0.8s</text>
+  <text x="377" y="276" fill="#94a3b8" font-size="8" text-anchor="middle">完成顺序 ≠ 发起顺序</text>
+
+  <!-- 双轨 -->
+  <rect x="480" y="90" width="210" height="220" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="2"/>
+  <text x="585" y="114" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">双轨制</text>
+  <line x1="500" y1="124" x2="670" y2="124" stroke="#e2e8f0"/>
+  <rect x="500" y="136" width="172" height="70" rx="6" fill="#fffbeb"/>
+  <text x="586" y="158" fill="#92400e" font-size="10" font-weight="700" text-anchor="middle">轨道1·事件（完成序）</text>
+  <text x="586" y="178" fill="#475569" font-size="9" text-anchor="middle">stats(0.2s) → search → weather</text>
+  <text x="586" y="196" fill="#94a3b8" font-size="8" text-anchor="middle">给 UI/进度显示</text>
+  <rect x="500" y="216" width="172" height="70" rx="6" fill="#ecfdf5"/>
+  <text x="586" y="238" fill="#166534" font-size="10" font-weight="700" text-anchor="middle">轨道2·消息（发起序）</text>
+  <text x="586" y="258" fill="#475569" font-size="9" text-anchor="middle">weather(#0) → stats(#1) → search(#2)</text>
+  <text x="586" y="276" fill="#94a3b8" font-size="8" text-anchor="middle">给模型保因果</text>
+
+  <!-- 谁看哪条 -->
+  <rect x="120" y="350" width="480" height="90" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="376" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">谁看哪条轨？</text>
+  <text x="360" y="400" fill="#475569" font-size="10" text-anchor="middle">UI/进度条 → 事件轨（完成序，好看）；模型/推理 → 消息轨（发起序，好吃）</text>
+  <text x="360" y="422" fill="#94a3b8" font-size="8" text-anchor="middle">pi 的 tool_execution_end 按完成序发；tool-result 消息按发起序落位 —— 双轨并存</text>
+
+  <text x="360" y="478" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/pi_learn/p03_parallel_tools/code.py ｜ 原版：types.ts ToolExecutionMode</text>
+</svg>

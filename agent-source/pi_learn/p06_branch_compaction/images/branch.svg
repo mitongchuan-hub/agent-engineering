@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Branch Compaction — 沉岔路，保主线</text>
+
+  <!-- 原始对话（带岔路） -->
+  <rect x="40" y="80" width="280" height="340" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="180" y="104" fill="#334155" font-size="12" font-weight="600" text-anchor="middle">原始对话（8 条）</text>
+  <line x1="60" y1="114" x2="300" y2="114" stroke="#e2e8f0"/>
+  <rect x="55" y="122" width="250" height="30" rx="6" fill="#fff"/>
+  <text x="180" y="142" fill="#475569" font-size="9" text-anchor="middle">🧵 主线：实现用户登录</text>
+  <rect x="55" y="156" width="250" height="30" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="180" y="176" fill="#b91c1c" font-size="9" text-anchor="middle">↪ 岔路①：看看 Docker 部署</text>
+  <rect x="55" y="190" width="250" height="30" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="180" y="210" fill="#b91c1c" font-size="9" text-anchor="middle">↪ 岔路②：查 JWT 过期配置</text>
+  <rect x="55" y="224" width="250" height="30" rx="6" fill="#fff8f0" stroke="#d97706" stroke-width="1"/>
+  <text x="180" y="244" fill="#92400e" font-size="9" text-anchor="middle">↩ 回到主任务：登录接口先做</text>
+  <rect x="55" y="258" width="250" height="30" rx="6" fill="#fff"/>
+  <text x="180" y="278" fill="#475569" font-size="9" text-anchor="middle">🧵 主线：按 JWT 方案写接口…</text>
+  <text x="180" y="330" fill="#94a3b8" font-size="9" text-anchor="middle">岔路不处理 → 主线被淹没</text>
+  <text x="180" y="350" fill="#94a3b8" font-size="9" text-anchor="middle">全压缩 → 主线细节也丢</text>
+
+  <!-- 箭头 -->
+  <line x1="320" y1="230" x2="370" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 识别与压缩 -->
+  <rect x="372" y="140" width="180" height="180" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="462" y="166" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">先识别，再压缩</text>
+  <line x1="392" y1="176" x2="532" y2="176" stroke="#e2e8f0"/>
+  <text x="462" y="200" fill="#475569" font-size="10" text-anchor="middle">识别主线 vs 岔路</text>
+  <text x="462" y="220" fill="#475569" font-size="10" text-anchor="middle">岔路 → 沉成 1 条摘要</text>
+  <text x="462" y="240" fill="#475569" font-size="10" text-anchor="middle">主线 → 原文保留</text>
+  <text x="462" y="266" fill="#92400e" font-size="10" font-weight="700" text-anchor="middle">识别比压缩更难</text>
+  <text x="462" y="288" fill="#94a3b8" font-size="8" text-anchor="middle">识别错 = 把主线当岔路沉了</text>
+
+  <line x1="552" y1="230" x2="590" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 压缩后 -->
+  <rect x="592" y="170" width="110" height="120" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="647" y="196" fill="#166534" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90,647,196)">压缩后</text>
+  <text x="647" y="230" fill="#475569" font-size="9" text-anchor="middle">（分支摘要）</text>
+  <text x="647" y="248" fill="#475569" font-size="9" text-anchor="middle">+ 主线原样</text>
+
+  <!-- 对比 -->
+  <rect x="120" y="404" width="480" height="68" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+  <text x="360" y="428" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle">全局摘要：整段对话变 1 条 → 主任务细节皆无</text>
+  <text x="360" y="450" fill="#475569" font-size="10" text-anchor="middle">分支压缩：只沉岔路，主线原文保留 → 主任务不中断、细节不失</text>
+  <text x="360" y="492" fill="#cbd5e1" font-size="9" text-anchor="middle">配套代码：agent-source/pi_learn/p06_branch_compaction/code.py ｜ 原版：branch-summarization.ts</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Event Stream — Agent 全程变成事件</text>
+
+  <!-- Agent -->
+  <rect x="40" y="90" width="200" height="120" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="114" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">Agent（只管 emit）</text>
+  <line x1="60" y1="124" x2="220" y2="124" stroke="#e2e8f0"/>
+  <text x="140" y="150" fill="#475569" font-size="10" text-anchor="middle">agent_start</text>
+  <text x="140" y="168" fill="#475569" font-size="10" text-anchor="middle">turn_start / message_*</text>
+  <text x="140" y="186" fill="#475569" font-size="10" text-anchor="middle">tool_call / tool_result</text>
+  <text x="140" y="204" fill="#94a3b8" font-size="8" text-anchor="middle">不知道谁在听</text>
+
+  <line x1="240" y1="150" x2="300" y2="150" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- EventBus -->
+  <rect x="302" y="120" width="200" height="60" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="402" y="146" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">EventBus</text>
+  <text x="402" y="168" fill="#64748b" font-size="9" text-anchor="middle">on() 订阅 · emit() 广播</text>
+
+  <line x1="502" y1="150" x2="550" y2="150" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 订阅者 -->
+  <rect x="552" y="80" width="150" height="56" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="627" y="102" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">控制台日志</text>
+  <text x="627" y="122" fill="#94a3b8" font-size="8" text-anchor="middle">看 step-by-step</text>
+
+  <rect x="552" y="146" width="150" height="56" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="627" y="168" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">进度统计</text>
+  <text x="627" y="188" fill="#94a3b8" font-size="8" text-anchor="middle">工具数/耗时/回合</text>
+
+  <rect x="552" y="212" width="150" height="56" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="627" y="234" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">遥测/评测/UI</text>
+  <text x="627" y="254" fill="#94a3b8" font-size="8" text-anchor="middle">按需订阅</text>
+
+  <!-- 事件序列 -->
+  <rect x="120" y="330" width="480" height="90" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+  <text x="360" y="354" fill="#92400e" font-size="11" font-weight="700" text-anchor="middle">事件序列（可观测的全过程）</text>
+  <text x="360" y="378" fill="#475569" font-size="10" text-anchor="middle">agent_start → turn_start → message_start → tool_call → tool_result → turn_end → agent_end</text>
+  <text x="360" y="400" fill="#94a3b8" font-size="9" text-anchor="middle">调试看事件·回放看事件·评测打点也看事件——一套序列三用</text>
+
+  <text x="360" y="452" fill="#94a3b8" font-size="11" text-anchor="middle">核心收益：加 UI/遥测/评测 = 加订阅者，核心零改动</text>
+  <text x="360" y="474" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/pi_learn/p01_event_stream/code.py ｜ 原版：agent-loop.ts emit</text>
+</svg>
