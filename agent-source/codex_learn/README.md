@@ -22,8 +22,3 @@
 # 任意一步，无需 Key：
 python agent-source/codex_learn/c01_bash_tool/code.py
 ```
-
-## 自测一句话（学完说这个系列）
-
-> "我精读过 openai/codex 的 Rust 源码，并用 Python 重建了它的并行工具执行、
-> 审批流和沙箱模型——生产级 Agent 的工程外壳，我手上过一遍。"
