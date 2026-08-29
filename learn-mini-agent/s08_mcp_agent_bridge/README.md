@@ -27,7 +27,7 @@ Agent(mcp_call_tool) ──▶ MCP Client ──stdio──▶ MCP Server（外�
                                                     └─ compute_match / read_text_file / 任意
 ```
 
-## 为什么这个设计好（面试三个点）
+## 为什么这个设计好（自测三个点）
 
 ### ① 工具即插件
 
@@ -67,7 +67,7 @@ python s08_mcp_agent_bridge/code.py
 2. 故意让 Server 提前退出，观察 Agent 收到什么错误（错误是否被 Agent 消化）
 3. （进阶）接入一个社区 MCP Server（如 GitHub MCP），让 Agent 调用外部服务
 
-## 面试问答
+## 自测问答
 
 **Q：Agent 需要把工具做进进程里吗？**
 A：不一定。生产上两类混合：高频低延迟的（文件读写）内置；低频或有隔离需求的（外部 API、数据库、浏览器）走 MCP/插件进程。

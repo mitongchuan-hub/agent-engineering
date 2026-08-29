@@ -1,4 +1,4 @@
-# 四大 Coding Agent 源码对比分析（秋招向）
+# 四大 Coding Agent 源码对比分析（学习笔记）
 
 > 对比对象：openai/codex（Rust）、deepseek-ai/deepseek-harness（TS）、
 > earendil-works/pi（TS）、anthropics/claude-code（提示词生态，核心闭源）
@@ -19,7 +19,7 @@
 
 ---
 
-## 1. Agent 主循环（面试必考"你的 agent 怎么跑"）
+## 1. Agent 主循环（自测必考"你的 agent 怎么跑"）
 
 ### pi — 最简单直白（和我们手写的结构最近）
 `packages/agent/src/agent-loop.ts`（约 300 行，核心可读）：
@@ -75,7 +75,7 @@ description: Code review a pull request
 3. Launch 4 agents in parallel 独立评审，返回 issues...
 ```
 - 亮点：**声明式工具白名单**（allowed-tools）+ 编排多 agent 剧本 = 提示词即软件
-- 面试价值：这是"提示词工程上限"的公开样本
+- 自测价值：这是"提示词工程上限"的公开样本
 
 ---
 
@@ -88,7 +88,7 @@ description: Code review a pull request
 | deepseek | packages/core/tools + skill 包 | dispatch 钩子链 | 插件可包一层工具（改参/拦截） |
 | codex | tools/registry.rs | router（分发）+ parallel（并发）+ orchestrator | **approvals 审批** + **sandboxing 沙箱** + 工具 namespace |
 
-面试点：codex 的 `approvals.rs`（34KB）值得讲——工具按危险等级分片（读/写/执行/网络），超过阈值要用户批准；deepseek 的插件钩子=工具调用前可插拦截器。
+自测点：codex 的 `approvals.rs`（34KB）值得讲——工具按危险等级分片（读/写/执行/网络），超过阈值要用户批准；deepseek 的插件钩子=工具调用前可插拦截器。
 
 ## 3. 上下文管理对比
 
@@ -99,16 +99,16 @@ description: Code review a pull request
 | pi | 文档 compaction.md + session-backends | 会话文件格式 |
 | claude-code | 闭源 | **CLAUDE.md/AGENTS.md 约定**（社区标准） |
 
-面试点：codex 的 compact 有 **model fallback**（主模型太贵/不可用时换便宜模型做摘要）——比我们 mini_agent 的窗口截断更进一步，这就是"生产级 vs 教学级"的差距。
+自测点：codex 的 compact 有 **model fallback**（主模型太贵/不可用时换便宜模型做摘要）——比我们 mini_agent 的窗口截断更进一步，这就是"生产级 vs 教学级"的差距。
 
-## 4. 独有亮点（面试谈资）
+## 4. 独有亮点（自测谈资）
 
 - **codex**：Rust 性能、三套沙箱（linux-sandbox/bwrap、windows-sandbox-rs、sandboxing crate）、MCP 自研（mcp-server/rmcp-client/codex-mcp）、多 agent 角色
 - **deepseek**："Everything is a Plugin"——webhook、subagent、plan、goal 都是插件；llm 包同时支持 deepseek / pi 协议（`llm-pi-ai`），模型无关
 - **pi**：TUI+server+SDK 一体化，AI 层支持 bedrock/oauth/compat 多 provider，**自带 packages/evals 评测包**（和你的评测集思想一致！）
 - **claude-code**：allowed-tools 白名单、多 agent 剧本、plugins 生态最成熟
 
-## 5. 秋招学习路线建议
+## 5. 学习学习路线建议
 
 | 目标 | 选谁 | 怎么学 |
 |---|---|---|
@@ -119,7 +119,7 @@ description: Code review a pull request
 
 ## 6. 我们的 mini_agent 站在哪
 
-对照结论（面试怎么自我定位）：
+对照结论（自测怎么自我定位）：
 1. **循环结构**：我们的 while loop 本质和 pi 内层循环、deepseek step 一致——原理没差，缺的是事件流/turn 状态机/恢复机制
 2. **差距项**：审批流、沙箱、并行工具、上下文压缩 fallback、会话持久化——这些是"生产级"的共同答案
 3. **我们的亮点**：测试覆盖（15 单测 + 评测集）比很多开源项目还规范；MCP 协议从零实现（deepseek 的 mcp 包也是封装，我们理解更深）

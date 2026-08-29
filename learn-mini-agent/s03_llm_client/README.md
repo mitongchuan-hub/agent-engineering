@@ -80,7 +80,7 @@ LLM_API_KEY=sk-xxx python s03_llm_client/code.py  # 真实模型
 2. 给 ChatClient 加 `retry(times=3)`（µs 级退避）——生产必备
 3. 加一个 `timeout` 参数并模拟慢响应，观察超时处理
 
-## 面试问答
+## 自测问答
 
 **Q：怎么做到模型无关？**
 A：三层：① 协议层——OpenAI 兼容格式统一（stack 的请求/响应）；② 客户端层——ChatClient 封装 base_url/api_key/model；③ 配置层——.env 外置。业务代码只见 ChatClient。

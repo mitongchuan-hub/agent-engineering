@@ -42,7 +42,7 @@ python p02_steering/code.py
 # [agent] 第 2 轮：进度 60%  （模型已经看到插话）
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：steering 和实时打断的取舍？**
 A：steering 保顺序（下一轮处理），适合"补充性输入"；紧急中断（stop 信号）走 aborted（p04）。pi 两者都有——按紧急程度选。

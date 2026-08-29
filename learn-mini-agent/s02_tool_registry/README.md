@@ -66,7 +66,7 @@ else:
     required.append(pname)
 ```
 
-### ③ 一个经典坑（面试送分题）
+### ③ 一个经典坑（自测送分题）
 
 ```python
 # 文件顶部若写了 from __future__ import annotations，
@@ -102,7 +102,7 @@ python s02_tool_registry/code.py
 2. 写一个返回 `list[str]` 的工具，确认生成 `"type": "array"`
 3. 把 `arg_desc` 去掉，观察 description 从哪里来（答案：函数 docstring）
 
-## 面试问答
+## 自测问答
 
 **Q：Function Calling 的协议长什么样？**
 A：模型侧接收 `tools: [{type:"function", function:{name, description, parameters(JSON Schema)}}]`；响应侧返回 `tool_calls: [{id, function:{name, arguments(string)}}]`。参数是字符串，由宿主 `json.loads` 后执行。

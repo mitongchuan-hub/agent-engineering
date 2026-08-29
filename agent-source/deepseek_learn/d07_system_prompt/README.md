@@ -53,7 +53,7 @@ python d07_system_prompt/code.py
 # tool-order：compute_match/list_files 前置
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：提示词为什么要"工程化"？**
 A：静态长文的痛点：不可测试（哪句有效说不清）、不可组合（场景多时没法复用）、不可演进而焦虑（改一处影响全局）。分节后每节可单独评测（deepseek 的 system-prompt.spec / tool-order.spec 就是这么干的）。
@@ -67,4 +67,4 @@ A：两步：① 按当前任务 scene 选出候选工具（不是全量）；�
 ## 收官
 
 三家教学全部完成：**codex_learn（工程外壳）/ deepseek_learn（可插拔+契约）/ pi_learn（事件流+模型无关）**。
-回总览 [agent-source/README.md](../README.md) 看三家对比与面试速查。
+回总览 [agent-source/README.md](../README.md) 看三家对比与自测速查。

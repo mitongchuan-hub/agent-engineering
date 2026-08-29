@@ -38,7 +38,7 @@ ctx.messages = [{"role": "user", "content": f"（历史摘要）{summary} 继续
 | 成本 | 零 | 一次小模型调用 |
 | 兜底 | 无 | 压缩模型回退（fallback） |
 
-### Hook 的价值（面试点）
+### Hook 的价值（自测点）
 
 ```python
 self.hook_log.append("[PreCompactHook] 触发压缩...")
@@ -54,7 +54,7 @@ python c05_context_compaction/code.py
 # 持续对话超限 → 再次压缩（可循环）
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：什么时候用截断、什么时候用压缩？**
 A：压缩成本高（一次 LLM 调用），截断零成本。策略：大部分时间轻量截断 + 接近预算或关键轮次触发压缩；codex 还会在压缩前评估"压缩 vs 不压缩的收益"。

@@ -33,7 +33,7 @@ class ForkDriver:       # fork 隔离：独立域，状态隔离（教学版用�
 deepseek 的 subagent-claude-code / subagent-codex：
 把 **Claude Code / codex 自己的子代理协议**翻译成 deepseek 的 Task/Report。
 效果：别人家的 Agent 可以当我们的子 Agent，反之亦然——
-**多 Agent 互操作做到协议层**，这是面试讲出来最惊人的点之一。
+**多 Agent 互操作做到协议层**，这是自测讲出来最惊人的点之一。
 
 ## 运行
 
@@ -44,7 +44,7 @@ python d05_subagent/code.py
 #   [reviewer] (fork) 完成 ...（独立域）
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：什么时候用子 Agent？**
 A：三条件任一：任务可并行（省时）、需要不同角色/模型（省钱省心智）、单上下文太长（省 token）。反之单 Agent 更简单可靠。

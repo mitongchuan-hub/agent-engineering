@@ -92,7 +92,7 @@ LLM_API_KEY=sk-xxx python s01_agent_loop/code.py
 2. 把 `max_iters` 改小到 1，观察防御逻辑触发
 3. 手写一个 `subtract` 工具并加入 TOOLS，看真实模型能不能用对
 
-## 面试问答
+## 自测问答
 
 **Q：Agent 和单纯 LLM 调用的区别？**
 A：LLM 调用是"一次性问答"；Agent 是"循环"——模型可以请求执行工具、拿到结果继续推理，直到自己给出最终答案。区别的本质是**执行回路**。

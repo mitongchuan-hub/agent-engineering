@@ -82,7 +82,7 @@ core/src
         next_event() ◀── 事件总线（UI/CLI 消费）
 ```
 
-## 1.4 关键设计决策（面试谈资）
+## 1.4 关键设计决策（自测谈资）
 
 1. **沙箱三件套**：`linux-sandbox`（bwrap 用户态）、`windows-sandbox-rs`、通用 `sandboxing` crate——"agent 如何安全执行命令"的标准答案
 2. **审批流**：`approvals.rs`——工具按危险等级分类（读/写/执行/网络），阈值外需用户批准
@@ -158,7 +158,7 @@ private async turn(): Promise<boolean> {
 | **应用** | apps/cli、apps/web | CLI 入口 + Web 前端 |
 | **其他** | workflow、webhook、todo、terminal、subprocess、shell、storage、identity、credentials、guard、acp、api、client、bundle、boot、jobs、preset、schedule、lsp、feedback… | 全套工程支撑 |
 
-## 2.4 独有设计（面试亮点）
+## 2.4 独有设计（自测亮点）
 
 1. **插件钩子贯穿循环**：`dispatch.waterfall("agent/pre-step")`——安全审查、消息改写都是插件，改循环不改核心
 2. **subagent 协议兼容层**：能直接当 Claude Code / codex 的子代理跑（subagent-claude-code / subagent-codex）
@@ -307,11 +307,11 @@ description: Code review a pull request
 2. **多 agent 编排**：haiku（省 token 的轻活）/ sonnet（重活）/ parallel 并行——成本分层
 3. **hooks**：事件挂钩（如 bash 命令执行前校验），`examples/hooks` 有 Python 示例
 
-## 4.4 学习价值（面试怎么用）
+## 4.4 学习价值（自测怎么用）
 
 - 它是"**当前提示词工程的天花板公开样本**"：工具白名单写法、agent 成本分层、可重复剧本
-- 面试被问"如何设计 Agent 权限"→ 答 allowed-tools 前缀匹配分级
-- 面试被问"多 agent 怎么分工"→ 答 claude 的 haiku/sonnet 成本分层 + 并行评审
+- 自测被问"如何设计 Agent 权限"→ 答 allowed-tools 前缀匹配分级
+- 自测被问"多 agent 怎么分工"→ 答 claude 的 haiku/sonnet 成本分层 + 并行评审
 
 ---
 

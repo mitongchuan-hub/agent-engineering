@@ -1,18 +1,18 @@
-# 🤖 Learn Mini Agent —— 从 0 到 1 手写 Agent 框架（秋招向）
+# 🤖 Learn Mini Agent —— 从 0 到 1 手写 Agent 框架（学习向）
 
 > 借鉴 [shareAI-lab/learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) 的"分步演进 + 每步可运行 + 教学文档"形态，
 > 从零构建一个**通用 Agent 框架**，并在其上实现**简历×JD 匹配应用**，再逐步加上**评测**与 **MCP 协议**。
 
 ## 为什么值得看
 
-面试 Agent 岗位被问"你写过 Agent 吗"？与其说"我调过 LangGraph"，不如说：
+自测 Agent 岗位被问"你写过 Agent 吗"？与其说"我调过 LangGraph"，不如说：
 **"我从一个 while 循环开始，逐步手写了工具注册、上下文管理、LLM 客户端、评测集和 MCP 协议。"**
 
-每一章都是独立的可运行代码 + 面试问答。全部代码无需 API Key 也能演示（内置演示模型），配 Key 后走真实大模型。
+每一章都是独立的可运行代码 + 自测问答。全部代码无需 API Key 也能演示（内置演示模型），配 Key 后走真实大模型。
 
 ## 学习路径（s01 → s10）
 
-| 步骤 | 主题 | 一句话 | 对应面试题 |
+| 步骤 | 主题 | 一句话 | 对应自测题 |
 |---|---|---|---|
 | [s01](s01_agent_loop/) | Agent Loop | 一个 `while` 循环就是 Agent 的心脏 | Agent 主循环怎么写？ |
 | [s02](s02_tool_registry/) | 工具注册 | 函数签名自动生成 JSON Schema | Function Calling 协议是什么？ |
@@ -42,9 +42,9 @@ python s01_agent_loop/code.py
 1. **每步一个可运行文件**：`sXX/code.py`，直接 `python` 跑
 2. **零框架依赖**：核心不依赖 LangChain/LangGraph，全手写
 3. **演示模式优先**：没 Key 也能看到完整行为
-4. **README 即笔记**：每步含「问题→方案→原理→运行→练习→面试问答」
+4. **README 即笔记**：每步含「问题→方案→原理→运行→练习→自测问答」
 
-## 面试价值速查
+## 自测价值速查
 
 | 简历写法（推荐） | 对应章节 |
 |---|---|

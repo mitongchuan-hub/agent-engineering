@@ -75,7 +75,7 @@ private async turn(): Promise<boolean> {
 - **半天**：agent-loop 三件套 + system-prompt 包（tool-order 测试），理解"上下文怎么组装"
 - **3 周**：subagent 体系 + hooks 桥接 + compaction，画一张"插件如何挂进循环"的图
 
-## 五、面试考点
+## 五、知识要点
 
 1. "Agent 的循环有哪几种实现？" → pi 双层 while / deepseek 状态机 / codex 事件泵，各说一句差异
 2. "怎么给 Agent 加安全审查？" → hook 钩子（deepseek waterfal）/ partner（codex approvals），两种答案都要会

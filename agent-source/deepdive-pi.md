@@ -68,7 +68,7 @@ moonshot、qwen、zai… **每个 provider 一个文件 + 一个 .models.ts 生�
 - **半天**：agent-loop + types.ts（StreamFn/事件类型）+ agent.ts，能画出事件流图
 - **2 周**：harness 全目录（session/compaction/tools）+ ai/providers 挑 3 家对比，最后跑 `packages/evals` 看评测怎么挂
 
-## 五、面试考点
+## 五、知识要点
 
 1. "模型调用失败怎么处理？" → pi 把失败编码进流（stopReason），不抛异常
 2. "Agent 循环有几种写法？" → 双层 while（pi）/ 状态机（deepseek）/ 事件泵（codex）

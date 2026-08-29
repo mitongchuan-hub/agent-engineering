@@ -55,7 +55,7 @@ python d03_inbox/code.py
 #   [demo] 同 turn 内插话：先总结上次结论
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：Inbox 的价值在哪？**
 A：解耦。消息来源不关心 Agent 忙不忙；Agent 处理时也不阻塞 Producer。多 agent 协作、用户插话、调度任务都用同一套接入口。

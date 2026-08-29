@@ -45,7 +45,7 @@ python p05_provider_layer/code.py
 # 未注册的厂商会被明确拒绝：未知 provider: qwen
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：为什么 OpenAI 兼容协议成了事实标准？**
 A：DeepSeek/智谱/Moonshot/Qwen 全部兼容 OpenAI 格式——协议统一让"注册新厂商"成本趋近于零；pi 甚至把 GitHub Copilot、OpenAI Codex 的 OAuth 登录也包成 provider。

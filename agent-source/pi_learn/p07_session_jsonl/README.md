@@ -43,7 +43,7 @@ python p07_session_jsonl/code.py
 # [mixed] v2 继续写，新旧混存正常
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：JSONL 和 SQLite 怎么选？**
 A：JSONL：零依赖、可读、追加写崩溃安全——适合本地会话。SQLite：查询/并发强——deepseek-harness 有 session-persistence-sqlite。按规模升级，接口保持异步友好。
@@ -65,4 +65,4 @@ A：恢复 = 信息恢复，不等于信任恢复。重启后危险操作重新�
 | [deepseek_learn](../deepseek_learn/) | 可插拔架构 | 状态机、插件钩子、Inbox、严格 schema、子 agent |
 | [pi_learn](../pi_learn/) | 现代 Agent | 事件流、steering、双轨并行、失败进流、provider |
 
-回总览 [agent-source/README.md](../README.md) 看对比表与面试速查。
+回总览 [agent-source/README.md](../README.md) 看对比表与自测速查。

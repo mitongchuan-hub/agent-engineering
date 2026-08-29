@@ -24,7 +24,7 @@ MCP = JSON-RPC 2.0（消息格式） + stdio（传输：每行一个 JSON）
 
 ## 工作原理
 
-### ① 生命周期四步（面试手绘）
+### ① 生命周期四步（自测手绘）
 
 ```python
 # Client 侧（我们实现的 MCPClient）：
@@ -35,7 +35,7 @@ client.request("tools/call", {"name": ..., "arguments": ...})  # ④ 调用
 ```
 前两步是"手拉手认识"，后两步才是干活。
 
-### ② 协议错误 vs 业务错误（面试细节题）
+### ② 协议错误 vs 业务错误（自测细节题）
 
 ```python
 # 工具不存在 / 方法不存在   -> JSON-RPC error 字段（协议层问题）
@@ -68,7 +68,7 @@ python s07_mcp_server/code.py --serve     # 常驻成 Server，供任意 MCP 客
 2. （进阶）把 transport 从 stdio 换成 HTTP/SSE——MCP 的传输层是可替换的
 3. （进阶）查一下官方 SDK 的 `tools/call` 返回结构，对比本章实现差在哪
 
-## 面试问答
+## 自测问答
 
 **Q：MCP 和 Function Calling 什么关系？**
 A：Function Calling 是"模型↔宿主"的协议（模型请求调函数）；MCP 是"宿主↔外部工具服务"的协议。它让工具在网络边界上被复用：一个 MCP Server 可以有任意客户端接入。两者是分层关系，不冲突。

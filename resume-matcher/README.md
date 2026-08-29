@@ -1,7 +1,7 @@
-# Resume × JD 匹配 Agent（秋招作品集项目）
+# Resume × JD 匹配 Agent（学习笔记项目）
 
 从零手写 Mini Agent 框架（无第三方框架依赖），再在其上实现「简历 × 岗位 JD 匹配 Agent」。
-**面试价值**：既能讲清楚 Agent 原理（ReAct / function calling / 上下文管理），又有完整可跑的应用与报告产出。
+**自测价值**：既能讲清楚 Agent 原理（ReAct / function calling / 上下文管理），又有完整可跑的应用与报告产出。
 
 ## 架构一览
 
@@ -30,9 +30,9 @@ run.py  (CLI 入口)
         └ agent.py（主循环）
 ```
 
-## 三类面试题对应代码位置
+## 三类自测题对应代码位置
 
-| 面试题 | 答案在 | 一句话答案 |
+| 自测题 | 答案在 | 一句话答案 |
 |---|---|---|
 | Function calling 协议是什么？ | `mini_agent/tools.py` | 函数签名 + type hints 自动生成 JSON Schema；`registry.call` 执行并把结果以字符串回填 |
 | Agent 主循环怎么写？ | `mini_agent/agent.py` | `循环 { LLM 生成 → 解析 tool_calls → 执行工具 → tool 消息回填 }`，无 tool_calls 即结束 |
@@ -108,7 +108,7 @@ python run.py --verbose
 - [x] MCP：从零实现协议层（stdio + JSON-RPC），Agent 可动态连接外部 MCP Server
 - [x] 15 个单测含两大联调：假 OpenAI 服务器协议联调、MCP 子进程级联调
 
-## 下一步扩展（面试加分方向）
+## 下一步扩展（自测加分方向）
 
 - [ ] 向量检索版 RAG：给 Agent 加 `search_jd_by_keyword` 工具
 - [ ] 多 Agent：HR 评审 Agent + 候选人自评 Agent 双角色对撞

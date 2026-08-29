@@ -1,7 +1,7 @@
 # codex_learn —— 用 Python 重建 codex 的核心机制（分步教学）
 
 > 配套源码：`agent-source/codex/`（Rust 原版）
-> 教学方式：每步一个可运行 Python 文件，重建 codex 的一个关键设计，配面试问答。
+> 教学方式：每步一个可运行 Python 文件，重建 codex 的一个关键设计，配自测问答。
 > 与 learn-mini-agent 的关系：那边教你写框架，这里教你学工程外壳。
 
 ## 步骤导航
@@ -23,7 +23,7 @@
 python agent-source/codex_learn/c01_bash_tool/code.py
 ```
 
-## 面试一句话（学完说这个系列）
+## 自测一句话（学完说这个系列）
 
 > "我精读过 openai/codex 的 Rust 源码，并用 Python 重建了它的并行工具执行、
 > 审批流和沙箱模型——生产级 Agent 的工程外壳，我手上过一遍。"

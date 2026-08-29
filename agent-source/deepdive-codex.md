@@ -67,7 +67,7 @@ ctx：WorldState（世界状态快照，压缩时保持一致）
 - **半天**：registry → parallel → approvals 三连，能讲清"工具怎么注册/并发/审批"
 - **3 周**：session 事件泵 → sandboxing → compact → agent/control，边读边在 Rust 里运行 `cargo test` 的对应测试
 
-## 五、面试考点（回答即加分）
+## 五、知识要点（回答即加分）
 
 1. "你的 Agent 怎么安全执行命令？" → codex 三件套：策略匹配 + 沙箱 + 审批流
 2. "上下文爆了怎么办？" → 压缩 hooks + 摘要 + model fallback（比"截断"高一级）

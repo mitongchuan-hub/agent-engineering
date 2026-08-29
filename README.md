@@ -1,33 +1,37 @@
-# Agent 秋招备战体系总仓库
+# Agent Harness 工程学习笔记
 
-> 从零备战 AI Agent 岗位的完整学习与实战资产（见 **[LEARNING_MAP.md](LEARNING_MAP.md)** 学习总地图）。
+> 从零手写一个 Agent 框架，再逐一拆解 codex / deepseek-harness / pi / claude-code
+> 四家开源 harness（Agent 工程外壳）的实现与设计取舍。
+> 全部代码无需 API Key 即可运行（内置演示模型），配 Key 走真实大模型。
 
-## 仓库内容
+## 内容导航
 
-| 目录 | 内容 | 定位 |
-|---|---|---|
-| `learn-mini-agent/` | s01~s10 从零手写 Agent 框架教学 | 原理：循环/工具/上下文/MCP/评测/健壮性 |
-| `agent-source/codex_learn/` | c01~c07 | codex 源码机制重建（工程外壳） |
-| `agent-source/deepseek_learn/` | d01~d07 | deepseek 源码机制重建（可插拔架构） |
-| `agent-source/pi_learn/` | p01~p07 | pi 源码机制重建（事件驱动） |
-| `agent-source/deepdive-*.md` | 4 份源码精读导览 | codex / deepseek / pi / claude-code |
-| `resume-matcher/` | 工程化 Agent 应用成品 | 15 单测 + 6 评测用例 + MCP + 真实 LLM 自主决策 |
-| `agent_projects_research.md` | 项目调研 | 秋招选型情报 |
+| 目录/文件 | 内容 |
+|---|---|
+| `learn-mini-agent/` | **s01~s10** 从零手写框架：循环 → 工具注册 → LLM 客户端 → 上下文 → 应用 → 评测 → MCP → 健壮性 |
+| `agent-source/codex_learn/` | **c01~c07** codex 机制重建：Bash 工具 / 并行 / 审批 / 沙箱 / 压缩 / 持久化 / 多 Agent |
+| `agent-source/deepseek_learn/` | **d01~d07** deepseek 机制重建：状态机 / 插件钩子 / Inbox / 严格 Schema / 子 Agent / 裁剪 / 提示词组装 |
+| `agent-source/pi_learn/` | **p01~p07** pi 机制重建：事件流 / steering / 并行双轨 / 失败进流 / Provider / 分支压缩 / JSONL |
+| `agent-source/deepdive-*.md` | 四家源码精读导览（代码地图 + 机制拆解 + 阅读路线） |
+| `agent-source/CODING_AGENTS_STRUCTURE.md` | 四家核心循环/工具/上下文 横向对比总表 |
+| `resume-matcher/` | 基于所学实现的工程化 Agent 应用（评测/单测/MCP/真实 LLM 自主决策） |
+| `LEARNING_MAP.md` | 学习总地图：38 步索引 + 路线规划 + 知识点速查 |
 
 ## 快速开始
 
 ```bash
-# ① 手写框架教学（无需 Key）
+# ① 手写框架（从第一个 while 循环开始）
 python learn-mini-agent/s01_agent_loop/code.py
 
-# ② 源码机制重建（21 步全可跑）
+# ② 机制重建（21 步全可跑）
 python agent-source/codex_learn/c01_bash_tool/code.py
 python agent-source/deepseek_learn/d01_turn_step_loop/code.py
 python agent-source/pi_learn/p01_event_stream/code.py
 
-# ③ 成品项目（无 Key Mock / 配 Key 真实 LLM）
+# ③ 工程化应用（Mock 无需 Key / 配 .env 走真实 LLM）
 python resume-matcher/run.py --mock
-python resume-matcher/run.py --verbose     # 配 .env 后走真实大模型
+python resume-matcher/run.py --verbose
+```
 
 ## 🎬 Demo 输出（均为真实运行记录）
 
@@ -66,7 +70,11 @@ step 5: 模型给出最终总结，循环结束
 上下文统计：{total_msgs: 15, used_chars: 11508 / 24000}
 ```
 
-> 全部教学代码无需 API Key（内置演示模型，`python xxx/code.py` 即跑即出）。
-```
+## 学习主题
 
-> 本仓库所有教学代码无需 API Key（内置演示模型）；`.env` 密钥已排除，不提交。
+- **主循环**：双层 while / turn-step 状态机 / 事件泵三种形态的取舍
+- **工具系统**：函数签名→Schema 自动生成、并行执行与保序、错误回传自愈
+- **上下文**：窗口截断 → 摘要压缩 → 分支压缩 → 工具结果裁剪的演进
+- **工程外壳**：审批流、沙箱、会话持久化（JSONL + codec 版本化）
+- **协议**：MCP 从零实现（JSON-RPC + stdio），Agent 动态外接
+- **架构**：插件钩子（waterfall）、Provider 层模型无关、事件驱动可观测性

@@ -31,7 +31,7 @@ self.turn_no, self.step                    # 计数：第几轮第几步
 ```
 **状态**决定"现在能不能动"；**计数**决定"统计到哪了"——职责分开。
 
-### ② 全程会话日志（面试亮点）
+### ② 全程会话日志（自测亮点）
 
 ```python
 self._log("turn/start", {"turn": 1})
@@ -63,7 +63,7 @@ python d01_turn_step_loop/code.py
 #   [turn/end]        {"turn": 1, "reason": "completed"}
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：状态机和"双层 while"差在哪？**
 A：while 只关心"还有没有工具调用"；状态机额外提供两级粒度（turn/step）+ 全程日志 + 明确的钩子点。代价是代码更绕——所以 pi 用 while（简单），deepseek 用状态机（可插拔）。

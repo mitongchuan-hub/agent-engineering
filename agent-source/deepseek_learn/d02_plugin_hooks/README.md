@@ -59,7 +59,7 @@ python d02_plugin_hooks/code.py
 # [任务] 删除数据库并清空日志 → ❌ 被 检测到敏感操作：删除数据库 阻断
 ```
 
-## 面试问答
+## 自测问答
 
 **Q："一切皆插件"到底指什么？**
 A：循环的每个环节（pre-step、tool-call、post-step…）都是钩子点，能力以插件形式挂载：工具、subagent、webhook、评测全是插件。改需求=换插件，不换代。

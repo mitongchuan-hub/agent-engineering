@@ -1,4 +1,4 @@
-# Agent 源码精读系列（秋招向）
+# Agent 源码精读系列（学习向）
 
 > 4 大 Coding Agent 源码（真实 GitHub 克隆）的精读导览 + 结构对比 + 动手路线。
 > 与 [learn-mini-agent](../learn-mini-agent/)（手写教程）互补：**那边教原理，这边看天花板**。
@@ -35,7 +35,7 @@ pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/�
 → 上下文（codex compact / deepseek compaction / pi branch-summarization）
 → 工具体系（codex approvals+parallel / deepseek tools+schema / claude allowed-tools）
 
-**C. 面试突击（每份读"面试考点"一节即可）**：约 40 分钟过完 4 份考点清单
+**C. 自测突击（每份读"自测考点"一节即可）**：约 40 分钟过完 4 份考点清单
 
 ## ⭐ 分步教学（推荐：看懂机制，动手跑）
 
@@ -45,7 +45,7 @@ pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/�
 | **deepseek_learn** | d01~d07 | 状态机循环→插件钩子→Inbox→严格 schema→子代理→结果裁剪→提示词组装 | [入口](deepseek_learn/README.md) |
 | **pi_learn** | p01~p07 | 事件流→steering→并行工具→失败进流→provider 层→分支压缩→JSONL 会话 | [入口](pi_learn/README.md) |
 
-## 💡 一句话速查（面试急救）
+## 💡 一句话速查（自测急救）
 
 | 被问 | 答案（可引用） |
 |---|---|
@@ -74,4 +74,4 @@ pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/�
 
 - 源码为 2026-08 GitHub 快照（浅克隆，无 git 历史；需要历史请 `git fetch --unshallow`）
 - claude-code 无引擎源码（官方闭源），仓库内容是插件/命令/hooks 生态
-- Star 数勿背死数，面试说量级即可
+- Star 数勿背死数，自测说量级即可

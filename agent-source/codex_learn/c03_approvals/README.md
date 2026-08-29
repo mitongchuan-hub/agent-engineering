@@ -47,7 +47,7 @@ python c03_approvals/code.py
 # ✅ ls（白名单） ❌ rm -rf /（黑名单） ✅ git push（批准+缓存） ✅ git push（缓存免审）
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：审批流和黑名单的区别？**
 A：黑名单是"规则漏了 = 事故"；审批是"规则没覆盖的交给人在决策环里判"。codex 是 策略预判 + guardian AI 生成审查理由 + hooks 自定义决策 三层。

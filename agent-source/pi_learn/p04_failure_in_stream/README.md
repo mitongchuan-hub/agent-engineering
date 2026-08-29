@@ -44,7 +44,7 @@ python p04_failure_in_stream/code.py
 # 用户中断  stopReason=aborted   error='user cancelled'
 ```
 
-## 面试问答
+## 自测问答
 
 **Q：失败进流 vs 抛异常，什么时候选哪个？**
 A：模型调用是"长期运行、部分结果已流出"的操作——此时异常会丢掉已流出部分；流式事件保留过程。真正"程序错误"（配置错）仍可抛。pi 也是混用：契约只约束"流本身的中断"。
