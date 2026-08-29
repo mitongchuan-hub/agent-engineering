@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+      - name: 教学步骤一键回归（35 步，演示模式无需 Key）
+        run: python scripts/check_all.py
+      - name: 应用单测（15 个）
+        run: |
+          pip install openai>=1.40.0
+          python -m unittest discover -s matcher-app/tests
+      - name: 评测集（6 个 Oracle 用例）
+        run: python matcher-app/eval/run_eval.py

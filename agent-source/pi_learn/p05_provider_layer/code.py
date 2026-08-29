@@ -100,11 +100,17 @@ if __name__ == "__main__":
     import os
     from pathlib import Path
 
-    # 读 .env 决定用哪家
-    p = Path(__file__).resolve().parent.parent.parent / "learn-mini-agent" / ".env"
+    # 读 .env 决定用哪家（密钥统一放仓库根 .env，向上回溯查找）
+    here = Path(__file__).resolve()
+    target = None
+    for base in [here.parent, here.parent.parent, here.parent.parent.parent,
+                 here.parent.parent.parent.parent]:
+        if (base / ".env").is_file():
+            target = base / ".env"
+            break
     model_choice = "fake"
-    if p.is_file():
-        for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
+    if target:
+        for line in target.read_text(encoding="utf-8", errors="ignore").splitlines():
             if line.startswith("LLM_BASE_URL="):
                 u = line.split("=", 1)[1].strip()
                 model_choice = "deepseek" if "deepseek" in u else "openai"

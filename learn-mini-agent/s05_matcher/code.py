@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-s05_resume_matcher.py - 规则工具 + LLM 推理的混合应用
+s05_matcher.py - 规则工具 + LLM 推理的混合应用
 
 把前面 4 步拼成一个真实应用：简历 × 岗位 JD 匹配。
 
@@ -16,7 +16,7 @@ s05_resume_matcher.py - 规则工具 + LLM 推理的混合应用
 LLM 那一半在 s10 综合版里演示完整闭环。
 
 Usage:
-    python s05_resume_matcher/code.py
+    python s05_matcher/code.py
 """
 
 import json

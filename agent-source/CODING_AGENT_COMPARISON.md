@@ -3,7 +3,7 @@
 > 对比对象：openai/codex（Rust）、deepseek-ai/deepseek-harness（TS）、
 > earendil-works/pi（TS）、anthropics/claude-code（提示词生态，核心闭源）
 > 源码位置：`D:/work/xiangmu/agent-source/`
-> 视角：与我们手写的 mini_agent（resume-matcher）做横向参照
+> 视角：与我们手写的 mini_agent（matcher-app）做横向参照
 
 ---
 

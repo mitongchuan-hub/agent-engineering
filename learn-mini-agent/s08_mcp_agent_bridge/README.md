@@ -81,4 +81,4 @@ A：tools/list 在启动时拉一次，把返回的 schema 合并进 Agent 的�
 ## 延伸阅读
 
 - s09：参数兜底、错误自愈、迭代上限——让这套外接体系在生产里站得住
-- 参考实现：resume-matcher 的 `app/mcp_tools.py`（含 `_coerce_args`，生产版）
+- 参考实现：matcher-app 的 `app/mcp_tools.py`（含 `_coerce_args`，生产版）

@@ -30,15 +30,20 @@ from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------- ① 配置
 
-def load_env(path: str = ".env") -> None:
-    p = Path(__file__).resolve().parent.parent / ".env"
-    if p.is_file():
+def load_env() -> None:
+    """读取 .env：向上回溯找到的第一份（密钥统一放仓库根 .env）。"""
+    here = Path(__file__).resolve()
+    for base in [here.parent, here.parent.parent, here.parent.parent.parent]:
+        p = base / ".env"
+        if not p.is_file():
+            continue
         for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, _, v = line.partition("=")
                 if k:
                     os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        return
 
 
 load_env()

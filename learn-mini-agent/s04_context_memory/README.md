@@ -1,7 +1,7 @@
 # s04: Context Memory —— 预算 + 窗口截断
 
 > **Harness 层**：上下文管理是 Agent "活得久"的关键。
-> 前一步：[s03 LLM 客户端](../s03_llm_client/) ｜ 后一步：[s05 简历匹配应用](../s05_resume_matcher/)
+> 前一步：[s03 LLM 客户端](../s03_llm_client/) ｜ 后一步：[s05 简历匹配应用](../s05_matcher/)
 
 ## 问题
 

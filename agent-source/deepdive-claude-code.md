@@ -67,7 +67,7 @@ code-review 命令的正文：
 
 - **20 分钟**：读 `plugins/code-review/commands/` 的一个命令 + plugin.json，看懂"剧本=软件"
 - **1 小时**：把所有 15 个插件的 description 扫一遍，看 Anthropic 官方把能力边界设计在哪
-- **半天**：抄 3 个命令的精髓，给我们的 resume-matcher 写一个"招聘评估"命令剧本
+- **半天**：抄 3 个命令的精髓，给我们的 matcher-app 写一个"招聘评估"命令剧本
 
 ## 五、知识要点
 

@@ -10,31 +10,38 @@
 import os
 
 
-def _load_dotenv(path: str = ".env") -> None:
-    """极简 .env 加载器（不加依赖）：KEY=VALUE 逐行注入 os.environ，不覆盖已有值。
-    面试点：密钥与代码分离 + 多环境配置（dev/prod 切换 base_url 即可）。"""
-    if not os.path.isfile(path):
-        return
-    with open(path, "rb") as f:
-        raw = f.read()
-    text = None
-    for enc in ("utf-8-sig", "utf-8", "gbk"):
-        try:
-            text = raw.decode(enc)
-            break
-        except UnicodeDecodeError:
+def _load_dotenv() -> None:
+    """极简 .env 加载器（不加依赖）：向上回溯找到第一份 .env，逐行注入 os.environ
+    （密钥统一放仓库根 .env，不覆盖已有环境变量）。"""
+    import os
+    import sys
+    from pathlib import Path
+    candidates = [Path.cwd()] + list(Path(__file__).resolve().parents)
+    for base in candidates:
+        path = base / ".env"
+        if not os.path.isfile(path):
             continue
-    if text is None:
+        with open(path, "rb") as f:
+            raw = f.read()
+        text = None
+        for enc in ("utf-8-sig", "utf-8", "gbk"):
+            try:
+                text = raw.decode(enc)
+                break
+            except UnicodeDecodeError:
+                continue
+        if text is None:
+            return
+        for line in text.splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, _, v = line.partition("=")
+            k = k.strip()
+            v = v.strip().strip('"').strip("'")
+            if k:
+                os.environ.setdefault(k, v)
         return
-    for line in text.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        k, _, v = line.partition("=")
-        k = k.strip()
-        v = v.strip().strip('"').strip("'")
-        if k:
-            os.environ.setdefault(k, v)
 
 
 _load_dotenv()  # 允许从项目根目录 .env 读取配置（已被 .gitignore 排除）

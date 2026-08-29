@@ -1,7 +1,7 @@
 # s06: Evaluation —— 用 Oracle 用例量化 Agent
 
 > **质量层**：没有度量就没有改进。
-> 前一步：[s05 简历匹配应用](../s05_resume_matcher/) ｜ 后一步：[s07 MCP 协议](../s07_mcp_server/)
+> 前一步：[s05 简历匹配应用](../s05_matcher/) ｜ 后一步：[s07 MCP 协议](../s07_mcp_server/)
 
 ## 问题
 
@@ -79,5 +79,5 @@ A：它是"需求说明书"的活体版本。加新能力 = 先写新 oracle 再
 
 ## 延伸阅读
 
-- 完整项目 resume-matcher：15 个单测 + 6 个评测用例 + Mock 管线（CI 可全离线跑）
+- 完整项目 matcher-app：15 个单测 + 6 个评测用例 + Mock 管线（CI 可全离线跑）
 - 参考实现：`earendil-works/pi` 自带 `packages/evals/`——大厂也把评测当一等公民

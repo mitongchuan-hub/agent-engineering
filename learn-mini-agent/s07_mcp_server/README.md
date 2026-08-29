@@ -83,4 +83,4 @@ A：业务失败（参数错、文件不存在）是"预期内的非预期"，�
 
 - s08：让我们的 Agent 当 MCP 客户端，动态外接外部服务器
 - s09：arguments 参数类型兜底（模型把 JSON 对象传成字符串的真 bug）
-- 参考实现：resume-matcher 的 `mini_agent/mcp.py`（本协议的完整版，封装更好）
+- 参考实现：matcher-app 的 `mini_agent/mcp.py`（本协议的完整版，封装更好）

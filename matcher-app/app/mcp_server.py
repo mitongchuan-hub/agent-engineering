@@ -21,7 +21,7 @@ from app.tools import compute_match, read_text_file
 
 
 def build_server() -> MCPToolServer:
-    server = MCPToolServer(name="resume-matcher", version="1.0.0")
+    server = MCPToolServer(name="matcher-app", version="1.0.0")
     for func in (compute_match, read_text_file):
         t = Tool(func)  # 复用函数签名 → JSON Schema 自动生成
         server.add_tool(name=t.name, description=t.description,

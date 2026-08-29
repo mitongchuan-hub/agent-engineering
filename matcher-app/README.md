@@ -46,7 +46,7 @@ run.py  (CLI 入口)
 ## 快速开始
 
 ```bash
-cd resume-matcher
+cd matcher-app
 python -m venv .venv
 .venv\Scripts\activate          # Windows
 pip install -r requirements.txt

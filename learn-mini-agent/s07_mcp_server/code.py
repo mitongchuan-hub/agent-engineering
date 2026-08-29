@@ -37,7 +37,7 @@ from typing import Any, Dict, List
 # ---------------------------------------------------------------- ① 一个待暴露的工具（复用 s05）
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from s05_resume_matcher.code import compute_match  # noqa: E402
+from s05_matcher.code import compute_match  # noqa: E402
 
 # MCP 工具描述：name/description/inputSchema（JSON Schema）
 MCP_TOOLS = {

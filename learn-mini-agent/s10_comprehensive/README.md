@@ -31,7 +31,7 @@ list_files → read_text_file(简历) → read_text_file(JD×2)
 直接产出 `report.md`——演示"Agent 干了什么"。
 
 **② 真实模式（配 Key）**：真实 LLM 自主决策调哪些工具
-（和完整项目 resume-matcher 行为一致）——演示"Agent 怎么决策"。
+（和完整项目 matcher-app 行为一致）——演示"Agent 怎么决策"。
 
 ## 运行
 
@@ -74,6 +74,6 @@ A：先看懂了循环、状态、上下文这些本质，再用框架就是"使
 
 ## 延伸阅读
 
-- 完整项目：`D:/work/xiangmu/resume-matcher/`（15 个单测 + 评测集 + MCP + .env 支持）
+- 完整项目：`D:/work/xiangmu/matcher-app/`（15 个单测 + 评测集 + MCP + .env 支持）
 - 四大生产级源码结构对比：`D:/work/xiangmu/agent-source/CODING_AGENTS_STRUCTURE.md`
 - 本项目学习路线：回到 [总览](../README.md)

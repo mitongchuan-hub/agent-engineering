@@ -328,7 +328,7 @@ description: Code review a pull request
 | 评测 | 大规模 _tests.rs | vitest 全包 + pytest | ★packages/evals | 无 |
 | 读源码难度 | 极高 | 中 | 低（建议从这入门） | 读提示词 |
 
-## 与我们的 mini_agent（resume-matcher）对照
+## 与我们的 mini_agent（matcher-app）对照
 
 | 我们的模块 | 对应生产级答案 |
 |---|---|

@@ -14,6 +14,9 @@ reports/
 *.log
 session*.jsonl
 
+# 教学步骤运行产物
+learn-mini-agent/s10_comprehensive/report.md
+
 # 编辑器/系统
 .idea/
 .vscode/

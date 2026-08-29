@@ -14,7 +14,7 @@
 | `agent-source/pi_learn/` | **p01~p07** pi 机制重建：事件流 / steering / 并行双轨 / 失败进流 / Provider / 分支压缩 / JSONL |
 | `agent-source/deepdive-*.md` | 四家源码精读导览（代码地图 + 机制拆解 + 阅读路线） |
 | `agent-source/CODING_AGENTS_STRUCTURE.md` | 四家核心循环/工具/上下文 横向对比总表 |
-| `resume-matcher/` | 基于所学实现的工程化 Agent 应用（评测/单测/MCP/真实 LLM 自主决策） |
+| `matcher-app/` | 基于所学实现的工程化 Agent 应用（评测/单测/MCP/真实 LLM 自主决策） |
 | `LEARNING_MAP.md` | 学习总地图：38 步索引 + 路线规划 + 知识点速查 |
 
 ## 快速开始
@@ -29,8 +29,8 @@ python agent-source/deepseek_learn/d01_turn_step_loop/code.py
 python agent-source/pi_learn/p01_event_stream/code.py
 
 # ③ 工程化应用（Mock 无需 Key / 配 .env 走真实 LLM）
-python resume-matcher/run.py --mock
-python resume-matcher/run.py --verbose
+python matcher-app/run.py --mock
+python matcher-app/run.py --verbose
 ```
 
 ## 🎬 Demo 输出（均为真实运行记录）
@@ -78,3 +78,10 @@ step 5: 模型给出最终总结，循环结束
 - **工程外壳**：审批流、沙箱、会话持久化（JSONL + codec 版本化）
 - **协议**：MCP 从零实现（JSON-RPC + stdio），Agent 动态外接
 - **架构**：插件钩子（waterfall）、Provider 层模型无关、事件驱动可观测性
+
+## 环境与密钥
+
+- **Python** 3.12（教学演示无需任何第三方库）；真实 LLM 模式需 `openai`：`pip install -r requirements.txt`
+- **密钥**：统一放仓库根 `.env`（已被 .gitignore 排除，不会提交）；不配 Key 时全部代码走内置演示模型
+- **一键回归**：`python scripts/check_all.py`（35 步教学 + 应用单测 + 评测集）
+- **CI**：`.github/workflows/ci.yml`（push 时自动跑上述回归，均无需 Key）

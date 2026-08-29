@@ -11,7 +11,7 @@ s10_comprehensive.py - 综合：把十步拼成一个完整应用
     → compute_match(×2) → write_file(报告) → 总结
 
 配 Key 时（.env 填入 LLM_API_KEY），改为真实 LLM 驱动同一个 Agent 循环
-完成以上全部步骤（与 resume-matcher 完整版行为一致）。
+完成以上全部步骤（与 matcher-app 完整版行为一致）。
 
 Usage:
     python s10_comprehensive/code.py          # 演示（无需 Key）
@@ -32,22 +32,26 @@ sys.path.insert(0, str(ROOT))
 # ---------------------------------------------------------------- 加载 .env（若存在）
 
 def load_env() -> None:
-    """加载 learn-mini-agent/.env（否则真实模式读不到 Key）。"""
-    p = PROJ / ".env"
-    if p.is_file():
+    """读取 .env：向上回溯找到的第一份（密钥统一放仓库根 .env）。"""
+    here = Path(__file__).resolve()
+    for base in [PROJ, PROJ.parent, PROJ.parent.parent]:
+        p = base / ".env"
+        if not p.is_file():
+            continue
         for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, _, v = line.partition("=")
                 if k:
                     os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        return
 
 
 load_env()
 
 # 复用前面几步的组件（综合 = 拼装）
 from s02_tool_registry.code import ToolRegistry  # noqa: E402
-from s05_resume_matcher.code import compute_match  # noqa: E402
+from s05_matcher.code import compute_match  # noqa: E402
 
 DATA = ROOT / "data"
 

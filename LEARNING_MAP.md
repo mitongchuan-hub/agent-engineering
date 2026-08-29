@@ -16,14 +16,14 @@
 | **pi 机制重建** | `agent-source/pi_learn/` | p01~p07 分步可运行 | ② 事件驱动 |
 | **源码精读导览** | `agent-source/deepdive-*.md` | 4 份文档 | ③ 精读溯源 |
 | **四家对比总表** | `agent-source/CODING_AGENTS_STRUCTURE.md` | 1 份文档 | ③ 横向对比 |
-| **工程化应用** | `resume-matcher/` | 真实项目 | ④ 集成应用 |
+| **工程化应用** | `matcher-app/` | 真实项目 | ④ 集成应用 |
 
 **学习路径**：
 ```
 learn-mini-agent（手写框架，建立心智模型）
    └─► 读四家源码（对照原版，理解工程取舍）
         └─► 三家机制重建（用 Python 亲手复刻核心设计）
-             └─► resume-matcher（把所学沉淀成可运行的 Agent 应用）
+             └─► matcher-app（把所学沉淀成可运行的 Agent 应用）
 ```
 
 ---
@@ -105,7 +105,7 @@ s01 s02 s06 → s07 s08（MCP 闭环）→ 精读文档的"知识要点"节（40
 Day1-2: learn-mini-agent s01~s06
 Day3:   s07~s10
 Day4:   pi_learn p01 p03 p04 + codex_learn c03 c04 + deepseek_learn d02
-Day5:   精读 2 份文档 + resume-matcher 全文跑通
+Day5:   精读 2 份文档 + matcher-app 全文跑通
 ```
 
 ### 📗 系统学习（2 周）
@@ -117,7 +117,7 @@ Day5:   精读 2 份文档 + resume-matcher 全文跑通
 ### 📕 完整体系（4 周）
 ```
 第1周：learn-mini-agent s01~s06
-第2周：s07~s10 + 明确 resume-matcher 的设计文档
+第2周：s07~s10 + 明确 matcher-app 的设计文档
 第3周：codex_learn + deepseek_learn（14 步）
 第4周：pi_learn（7 步）+ 4 份精读 + 三家用一句话各自总结
 加餐：对照 4 份 deepdive 回读原版源码，把"机制重建 vs 原版"的差异记入笔记
@@ -162,7 +162,7 @@ python learn-mini-agent/s01_agent_loop/code.py        # 手写框架入口
 python agent-source/codex_learn/c01_bash_tool/code.py  # codex 机制
 python agent-source/deepseek_learn/d01_turn_step_loop/code.py
 python agent-source/pi_learn/p01_event_stream/code.py
-python resume-matcher/run.py --mock                     # 工程化应用（无 Key）
-python resume-matcher/run.py --verbose                  # 配 .env 走真实 LLM
+python matcher-app/run.py --mock                     # 工程化应用（无 Key）
+python matcher-app/run.py --verbose                  # 配 .env 走真实 LLM
 ```
-> 环境：测试用 Python 3.12；resume-matcher 自带 .venv。密钥（.env）不入仓库。
+> 环境：测试用 Python 3.12；matcher-app 自带 .venv。密钥（.env）不入仓库。

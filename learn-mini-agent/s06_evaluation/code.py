@@ -26,7 +26,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from s05_resume_matcher.code import compute_match  # 复用上一步的打分器
+from s05_matcher.code import compute_match  # 复用上一步的打分器
 
 
 # ---------------------------------------------------------------- ① Oracle 用例
@@ -100,7 +100,7 @@ def run_eval(verbose: bool = True) -> tuple:
 class TestCore(unittest.TestCase):
     """两个最小单测：schema 生成 + 工具异常兜底。
 
-    真实项目里这些放在 tests/（resume-matcher 项目有 15 个）。"""
+    真实项目里这些放在 tests/（matcher-app 项目有 15 个）。"""
 
     def test_schema_generation(self):
         from s02_tool_registry.code import Tool

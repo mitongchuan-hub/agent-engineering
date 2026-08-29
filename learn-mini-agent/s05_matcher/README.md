@@ -59,7 +59,7 @@ LLM 输出有随机性，规则没有。**把能确定的部分从 LLM 手里拿
 ## 运行
 
 ```bash
-python s05_resume_matcher/code.py
+python s05_matcher/code.py
 # 演示：两个 JD 的打分明细 + 可复现性验证
 ```
 
@@ -83,4 +83,4 @@ A：下章就是——Oracle 用例回归，结论准确率 + 评分均误差。
 ## 延伸阅读
 
 - 完整闭环（Agent 自动读文件 + 打分 + 写报告）见 s10
-- 参考实现：resume-matcher 完整版（同思路）
+- 参考实现：matcher-app 完整版（同思路）

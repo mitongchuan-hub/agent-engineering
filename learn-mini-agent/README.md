@@ -18,12 +18,12 @@
 | [s02](s02_tool_registry/) | 工具注册 | 函数签名自动生成 JSON Schema | Function Calling 协议是什么？ |
 | [s03](s03_llm_client/) | LLM 客户端 | OpenAI 兼容协议，模型无关 | 怎么让 Agent 不绑定 GPT/DeepSeek？ |
 | [s04](s04_context_memory/) | 上下文管理 | 字符预算窗口截断，不拆散工具问答对 | Context 无限膨胀怎么办？ |
-| [s05](s05_resume_matcher/) | 规则工具 + LLM 混合 | 可计算的交给规则，可推理的交给 LLM | Agent 应用怎么做？规则 vs LLM 怎么分工？ |
+| [s05](s05_matcher/) | 规则工具 + LLM 混合 | 可计算的交给规则，可推理的交给 LLM | Agent 应用怎么做？规则 vs LLM 怎么分工？ |
 | [s06](s06_evaluation/) | 评测集 | Oracle 用例回归 + 单测 | 你怎么量化 Agent 效果？ |
 | [s07](s07_mcp_server/) | MCP 协议 | 从零实现 JSON-RPC 生命周期 | 什么是 MCP？和 function calling 区别？ |
 | [s08](s08_mcp_agent_bridge/) | MCP × Agent | Agent 动态连接外部 MCP 服务器 | 你的 Agent 怎么接入外部工具生态？ |
 | [s09](s09_error_recovery/) | 健壮性 | 参数兜底、错误自愈、迭代上限 | 工具调用失败怎么办？死循环怎么防？ |
-| [s10](s10_comprehensive/) | 综合成品 | 完整 resume-matcher 全量 | 完整项目演示 |
+| [s10](s10_comprehensive/) | 综合成品 | 完整 matcher-app 全量 | 完整项目演示 |
 
 ## 快速开始
 
