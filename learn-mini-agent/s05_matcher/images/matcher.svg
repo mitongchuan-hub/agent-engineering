@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-o" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="520" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Matcher — 可计算的归规则，可推理的归 LLM</text>
+
+  <!-- 输入 -->
+  <rect x="40" y="80" width="200" height="110" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">输入（两块文本）</text>
+  <line x1="60" y1="114" x2="220" y2="114" stroke="#e2e8f0"/>
+  <text x="140" y="136" fill="#334155" font-size="11" text-anchor="middle">resume_text（候选人）</text>
+  <text x="140" y="156" fill="#334155" font-size="11" text-anchor="middle">jd_text（职位要求）</text>
+  <text x="140" y="180" fill="#94a3b8" font-size="9" text-anchor="middle">同一输入 → 永远同一输出</text>
+
+  <line x1="240" y1="135" x2="296" y2="135" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 规则打分器 -->
+  <rect x="298" y="80" width="180" height="210" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="388" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">compute_match
+（规则，确定性）</text>
+  <line x1="318" y1="118" x2="458" y2="118" stroke="#e2e8f0"/>
+  <rect x="312" y="128" width="152" height="34" rx="6" fill="#fff8f0"/>
+  <text x="388" y="141" fill="#92400e" font-size="10" text-anchor="middle">技能重合度</text>
+  <text x="388" y="155" fill="#64748b" font-size="9" text-anchor="middle">gloss 词表命中</text>
+  <rect x="312" y="170" width="152" height="34" rx="6" fill="#fff8f0"/>
+  <text x="388" y="183" fill="#92400e" font-size="10" text-anchor="middle">工作年限（N 年正则）</text>
+  <text x="388" y="197" fill="#64748b" font-size="9" text-anchor="middle">达标 ? 100 : 0</text>
+  <rect x="312" y="212" width="152" height="34" rx="6" fill="#fff8f0"/>
+  <text x="388" y="225" fill="#92400e" font-size="10" text-anchor="middle">学历门槛</text>
+  <text x="388" y="239" fill="#64748b" font-size="9" text-anchor="middle">等级比较 3/4/5</text>
+  <text x="388" y="268" fill="#475569" font-size="10" text-anchor="middle">加权总分</text>
+  <text x="388" y="284" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">overall_score ← 技能50%+年限25%+学历25%</text>
+
+  <line x1="478" y1="150" x2="530" y2="150" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-o)"/>
+
+  <!-- 输出 -->
+  <rect x="532" y="90" width="150" height="120" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="607" y="116" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">结构化结果</text>
+  <line x1="550" y1="126" x2="664" y2="126" stroke="#e2e8f0"/>
+  <text x="607" y="146" fill="#475569" font-size="10" text-anchor="middle">overall_score</text>
+  <text x="607" y="162" fill="#475569" font-size="10" text-anchor="middle">gap_skills</text>
+  <text x="607" y="178" fill="#475569" font-size="10" text-anchor="middle">dim_scores</text>
+  <text x="607" y="194" fill="#64748b" font-size="9" text-anchor="middle">verdict 结论</text>
+
+  <!-- 底部：LLM 参与 -->
+  <rect x="120" y="330" width="480" height="110" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="356" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">LLM 负责的另一半（本章点题，s10 合成）</text>
+  <text x="360" y="380" fill="#475569" font-size="11" text-anchor="middle">读规则输出 → 写报告/给建议/讲故事</text>
+  <text x="360" y="400" fill="#64748b" font-size="10" text-anchor="middle">铁律：分数与缺失项必须来自规则输出，禁止编造</text>
+  <text x="360" y="422" fill="#94a3b8" font-size="9" text-anchor="middle">混合架构价值：可审计(规则) + 可说服(LLM)</text>
+
+  <text x="360" y="484" fill="#94a3b8" font-size="11" text-anchor="middle">为什么不用 LLM 打分？贵、不可复现；规则零成本、永远一致</text>
+  <text x="360" y="506" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：learn-mini-agent/s05_matcher/code.py</text>
+</svg>

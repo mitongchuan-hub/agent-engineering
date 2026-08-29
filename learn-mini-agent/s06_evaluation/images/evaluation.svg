@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="520" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Evaluation — 用 Oracle 用例量化 Agent</text>
+
+  <!-- 用例库 -->
+  <rect x="30" y="80" width="210" height="330" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="135" y="102" fill="#334155" font-size="12" font-weight="600" text-anchor="middle">Oracle 用例库（输入+期望）</text>
+  <line x1="50" y1="112" x2="220" y2="112" stroke="#e2e8f0"/>
+  <rect x="45" y="118" width="180" height="52" rx="6" fill="#fff"/>
+  <text x="135" y="134" fill="#475569" font-size="9" text-anchor="middle">case_backend_full</text>
+  <text x="135" y="148" fill="#94a3b8" font-size="8" text-anchor="middle">期望：强烈推荐 95~100</text>
+  <text x="135" y="162" fill="#cbd5e1" font-size="8" text-anchor="middle">输入(文本对)</text>
+  <rect x="45" y="176" width="180" height="52" rx="6" fill="#fff"/>
+  <text x="135" y="192" fill="#475569" font-size="9" text-anchor="middle">case_ai_missing_es</text>
+  <text x="135" y="206" fill="#94a3b8" font-size="8" text-anchor="middle">期望：强烈推荐 85~95</text>
+  <rect x="45" y="234" width="180" height="52" rx="6" fill="#fff"/>
+  <text x="135" y="250" fill="#475569" font-size="9" text-anchor="middle">case_years_fail …</text>
+  <text x="135" y="264" fill="#94a3b8" font-size="8" text-anchor="middle">共 6 组，覆盖正常/缺口/降档</text>
+  <rect x="45" y="300" width="180" height="52" rx="6" fill="#fff8f0"/>
+  <text x="135" y="316" fill="#92400e" font-size="9" text-anchor="middle">min_score/max_score</text>
+  <text x="135" y="332" fill="#64748b" font-size="8" text-anchor="middle">容忍区间（防小调整误报）</text>
+  <text x="135" y="348" fill="#cbd5e1" font-size="8" text-anchor="middle">verdict 精确相等</text>
+  <text x="135" y="380" fill="#94a3b8" font-size="9" text-anchor="middle">= 需求说明书的活体版本</text>
+
+  <line x1="240" y1="220" x2="298" y2="220" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 被测对象 -->
+  <rect x="300" y="160" width="170" height="120" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="385" y="188" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">被测对象</text>
+  <line x1="320" y1="198" x2="450" y2="198" stroke="#e2e8f0"/>
+  <text x="385" y="220" fill="#334155" font-size="11" text-anchor="middle">compute_match</text>
+  <text x="385" y="240" fill="#64748b" font-size="10" text-anchor="middle">（或 any 被测单元）</text>
+  <text x="385" y="260" fill="#94a3b8" font-size="9" text-anchor="middle">跑全部用例 → 对比期望</text>
+
+  <line x1="470" y1="220" x2="530" y2="220" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 结果 -->
+  <rect x="532" y="150" width="158" height="140" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="611" y="176" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">汇总指标</text>
+  <line x1="550" y1="186" x2="672" y2="186" stroke="#d1fae5"/>
+  <text x="611" y="206" fill="#475569" font-size="10" text-anchor="middle">结论准确率</text>
+  <text x="611" y="224" fill="#475569" font-size="10" text-anchor="middle">评分均误差</text>
+  <text x="611" y="242" fill="#475569" font-size="10" text-anchor="middle">失败用例明细</text>
+  <text x="611" y="264" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">exit 0 / 1（挂 CI）</text>
+
+  <!-- 底部流程 -->
+  <rect x="120" y="340" width="480" height="96" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="360" y="364" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">升级流程（TDD）：先写 Oracle → 再改代码 → 重跑评测</text>
+  <text x="360" y="388" fill="#475569" font-size="11" text-anchor="middle">改权重/改词表 → 影响一目了然 → 永不静默回归</text>
+  <text x="360" y="408" fill="#94a3b8" font-size="10" text-anchor="middle">对 LLM 输出：人工标注 golden + LLM-as-a-judge（进阶）</text>
+  <text x="360" y="428" fill="#cbd5e1" font-size="9" text-anchor="middle">本步曾抓到真 bug：裸 list 类型 schema 生成错误</text>
+
+  <text x="360" y="484" fill="#94a3b8" font-size="11" text-anchor="middle">没有度量就没有管理——评测是工程素养的分水岭</text>
+  <text x="360" y="506" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：learn-mini-agent/s06_evaluation/code.py</text>
+</svg>
