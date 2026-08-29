@@ -47,9 +47,10 @@ def check_teaching() -> tuple:
     passed = 0
     for f in steps:
         label = str(f.relative_to(ROOT)).replace("\\", "/")
-        # 演示模式：清掉 API key 环境变量，强制走演示分支
+        # 演示模式：清掉 API key 环境变量 + 哨兵，强制走演示分支（防 load_env 重新读入）
         env = dict((k, v) for k, v in __import__("os").environ.items()
                    if k != "LLM_API_KEY")
+        env.setdefault("LEARN_NO_ENV", "1")
         try:
             r = subprocess.run([sys.executable, str(f)],
                                cwd=ROOT, env=env, capture_output=True,

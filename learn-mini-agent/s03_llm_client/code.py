@@ -32,6 +32,8 @@ from typing import Any, Dict, List, Optional
 
 def load_env() -> None:
     """读取 .env：向上回溯找到的第一份（密钥统一放仓库根 .env）。"""
+    if os.getenv("LEARN_NO_ENV"):  # 一键回归 scripts/check_all.py 强制演示模式
+        return
     here = Path(__file__).resolve()
     for base in [here.parent, here.parent.parent, here.parent.parent.parent]:
         p = base / ".env"
@@ -94,8 +96,12 @@ class ChatClient:
         try:
             from openai import OpenAI
             client = OpenAI(base_url=self.base_url, api_key=self.api_key, timeout=self.timeout)
+        except ImportError:
+            raise LLMError(
+                "真实模式需要 openai 依赖（请先 pip install -r requirements.txt）。"
+                "若只想看演示：移开仓库根 .env 或让其不含 LLM_API_KEY。") from None
         except Exception as e:
-            raise LLMError(f"openai SDK 不可用: {e}")
+            raise LLMError(f"openai SDK 初始化失败: {e}") from e
         kwargs: Dict[str, Any] = {"model": self.model, "messages": messages,
                                   "temperature": self.temperature}
         if tools:

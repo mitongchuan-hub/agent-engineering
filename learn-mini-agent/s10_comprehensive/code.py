@@ -33,6 +33,8 @@ sys.path.insert(0, str(ROOT))
 
 def load_env() -> None:
     """读取 .env：向上回溯找到的第一份（密钥统一放仓库根 .env）。"""
+    if os.getenv("LEARN_NO_ENV"):  # 一键回归 scripts/check_all.py 强制演示模式
+        return
     here = Path(__file__).resolve()
     for base in [PROJ, PROJ.parent, PROJ.parent.parent]:
         p = base / ".env"

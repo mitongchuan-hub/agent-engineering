@@ -1,63 +1,65 @@
-# s03: LLM Client —— 模型无关，协议统一
+# s03: LLM Client — 模型无关的统一接口
 
+>[s02 工具注册](../s02_tool_registry/) → [s04 上下文管理](../s04_context_memory/)
 > **Harness 层**：模型接入层是所有 Agent 的公共地基。
-> 前一步：[s02 工具注册](../s02_tool_registry/) ｜ 后一步：[s04 上下文管理](../s04_context_memory/)
+> *"协议统一 + 配置外置" — 换模型只动 .env，代码一行不改。*
+
+---
 
 ## 问题
 
-Agent 要干活必须接大模型。但你发现：
-- OpenAI 有自己一套 SDK，DeepSeek 也有，智谱也有……
-- 每家 base_url、鉴权、请求格式略有差异
-- 今天用 GPT，明天想换 DeepSeek，业务代码改一片
+Agent 离不开大模型，但接模型是一件"看起来简单、实际处处是雷"的事：
+- OpenAI 自己一套 SDK，DeepSeek 一套，智谱一套，Moonshot 一套……
+- 每家 base_url、鉴权头、错误信息格式略有差异
+- 今天用 GPT，明天想换 DeepSeek，业务代码散落的 `OpenAI(...)` 调用要改一片
 
-**如果 Agent 代码里到处是厂商 SDK 调用，换模型就是一场灾难。**
+如果 Agent 代码里到处都是厂商 SDK 调用——**换模型就是一场事故**。
+
+---
 
 ## 解决方案
 
-**协议统一 + 配置外置**。幸运的是：OpenAI 兼容协议已经成为事实标准
-（DeepSeek/智谱/Moonshot/通义/千问 等全部兼容），所以只需要：
+![ChatClient](images/chat-client.svg)
+
+**协议统一 + 配置外置**。幸运的是，OpenAI 兼容协议已经成为事实标准
+（DeepSeek / 智谱 / Moonshot / 通义 / 千问 全部兼容），所以只需要一个类：
 
 ```python
 class ChatClient:
-    def __init__(self, base_url, api_key, model, ...):
-        # 自动补 /v1（行业惯例：兼容端点都挂在 /v1 下）
-        ...
-
-    def chat(self, messages, tools=None) -> dict:
-        # 所有厂商差异在这一行里被抹平
-        ...
+    def __init__(self, base_url, api_key, model, ...): ...
+    def chat(self, messages, tools=None) -> dict: ...
 ```
 
-换模型 = 改 `.env` 里两个字符串，代码零改动。
+业务代码只面向 `ChatClient.chat()` 这个稳定接口；**所有厂商差异在这一行里被抹平**。
+换模型 = 改 `.env` 里两个字符串。
+
+---
 
 ## 工作原理
 
-### ① 统一的入参/出参
+### 第 1 步：自动补 /v1（防御式编程的小例子）
 
 ```python
-# 入参：消息 + 工具 schema
-chat(messages, tools)
-# 出参：标准 assistant 消息
-{"role": "assistant",
- "content": "...",
- "tool_calls": [{"id", "function": {"name", "arguments"}}] | None}
+base_url = base_url.rstrip("/")
+if not base_url.endswith("/v1"):
+    base_url += "/v1"     # OpenAI 兼容服务约定挂 /v1 下
 ```
-这个返回值形状从 s01 起就是 Agent 循环唯一依赖的"世界接口"。
+用户给 `api.deepseek.com` 就给补全成 `api.deepseek.com/v1`——少一个"怎么传不出问题"的坑。
 
-### ② 演示模式：假服务器验证真实协议
+### 第 2 步：统一出参（Agent 循环唯一依赖的"世界接口"）
 
-本章没有 Key 也能跑，靠的是一个**本地假 OpenAI 服务器**（`HTTPHandler` 实现 `/v1/chat/completions`）。
-真实 `ChatClient` 发 HTTP 打它，能亲眼看到：
-
+```python
+def chat(self, messages, tools=None) -> dict:
+    ...
+    return {
+        "role": "assistant",
+        "content": msg.content,
+        "tool_calls": [{"id", "function": {"name", "arguments"}}] | None,
+    }
 ```
-[协议观察] 发给服务器的请求体：
-  model     : deepseek-chat
-  messages  : [{"role": "user", "content": "计算 1+2"}]
-  tools     : []
-```
-等配了 Key，把 transport 换成 openai SDK 分支即可——**协议透明可验证**。
+这个返回值和 s01 的循环严丝合缝：有 `tool_calls` 就继续，没有就结束。
 
-### ③ 错误统一
+### 第 3 步：错误统一
 
 ```python
 try:
@@ -65,33 +67,78 @@ try:
 except Exception as e:
     raise LLMError(f"LLM 请求失败（{self.model}）: {e}")
 ```
-上层只 catch `LLMError`，不用关心是哪家 500 了——为后续重试/降级铺路。
+上层只 `except LLMError`，不关心是哪家的 500——为 s09 的重试/降级铺路。
 
-## 运行
+### 第 4 步：无 Key 也能验证协议（本步演示核心）
+
+```python
+class FakeOpenAITransport:
+    """本地简易 /v1/chat/completions 服务器 + transport 注入"""
+```
+真实 `ChatClient` 发 HTTP 打到**本地假服务器**，你能亲眼看到：
+```
+[协议观察] 发给服务器的请求体：
+  model     : deepseek-chat
+  messages  : [{"role": "user", "content": "计算 1+2"}]
+  tools     : []
+```
+等配了 Key，把 transport 换成真实 openai SDK 分支即可——**协议透明、可离线验证**。
+
+---
+
+## 代码走读（code.py）
+
+- `load_env()`：读根 .env（向上回溯查找）
+- `LLMError`：统一异常类型
+- `ChatClient.__init__`：base_url 归一 + 字段
+- `ChatClient.chat()`：transport 注入（演示）or openai SDK（真实）
+- `FakeOpenAITransport`：本地假服务器（HTTPHandler 实现 tools 协议手势）
+- `__main__`：演示两轮调用 + 打印发出的请求体形状
+
+---
+
+## 试一下
 
 ```bash
-python s03_llm_client/code.py                     # 演示：假服务器验证协议
-LLM_API_KEY=sk-xxx python s03_llm_client/code.py  # 真实模型
+# ① 演示模式：本地假服务器验证完整协议流程（无需 Key）
+python learn-mini-agent/s03_llm_client/code.py
+#   [协议观察] 请求体：model / messages / tools
+
+# ② 真实模型：仓库根 .env 配好 Key 后
+python learn-mini-agent/s03_llm_client/code.py
+#   真实模式：https://…/v1 / {你的model}
 ```
+
+---
 
 ## 练习
 
-1. 把 `.env` 的 base_url 改成 `https://api.deepseek.com/v1` + model 改 `deepseek-chat`，跑到真模型
-2. 给 ChatClient 加 `retry(times=3)`（µs 级退避）——生产必备
-3. 加一个 `timeout` 参数并模拟慢响应，观察超时处理
+1. **换家模型**：改 `.env` 的 `LLM_BASE_URL`/`LLM_MODEL`（如 DeepSeek），跑真实模式零改动
+2. **加超时重试**：给 ChatClient 加 `retry(times=3)`（指数退避）——生产必备
+3. **transport 可替换**：把 FakeOpenAITransport 换成"记录型"transport，断言请求次数
+4. **对比 pi provider 层**：读 `agent-source/pi/ai/src/providers/`，数一数 pi 支持多少家
+5. **错误测试**：把 base_url 指向不存在的端口，观察 LLMError 的抛出与信息
+
+---
 
 ## 自测问答
 
-**Q：怎么做到模型无关？**
-A：三层：① 协议层——OpenAI 兼容格式统一（stack 的请求/响应）；② 客户端层——ChatClient 封装 base_url/api_key/model；③ 配置层——.env 外置。业务代码只见 ChatClient。
+**Q：怎么做到的"模型无关"？**
+A：三层。① 协议层：OpenAI 兼容格式统一请求/响应；② 客户端层：ChatClient 封装 base_url/api_key/model；③ 配置层：.env 外置。业务代码只见 ChatClient。
 
-**Q：为什么要自动补 `/v1`？**
-A：OpenAI 兼容服务的公共端点约定在 `/v1` 下（如 `api.deepseek.com/v1`）。用户只给域名时补上，是"防御式编程"的典型例子。
+**Q：为什么要自动补 /v1？**
+A：OpenAI 兼容服务的公共端点约定在 `/v1` 下（如 api.deepseek.com/v1）。用户只给域名时补全，是"防御式编程"——少一种常见的配置错误。
 
-**Q：LLM 调用失败的鲁棒性？**
-A：错误统一为 LLMError → 上层可重试（指数退避）→ 可降级（切备用模型/备用厂商）→ 最终失败要保留上下文以便恢复。
+**Q：LLM 调用失败怎么办？**
+A：错误统一为 LLMError → 上层可重试（指数退避）→ 可降级（切备用模型/厂商）→ 最终失败保留上下文以便恢复（s09 展开）。
 
-## 延伸阅读
+**Q：transport 注入有什么用？**
+A：解耦"传输方式"与"业务语义"。测试/演示时注入假 transport，生产切真实 SDK——协议正确性可以离线验证，这是可测试性的关键设计。
 
-- s08：Agent 通过 MCP 调用外部工具——同样的"协议统一"思想，从 LLM 扩展到工具层
-- 参考实现：`earendil-works/pi` 的 `packages/ai/`（40+ provider，是本章 ChatClient 的工业级放大版）
+---
+
+## 接下来
+
+- [s04 上下文管理](../s04_context_memory/)：解决了"能调模型"，下一个问题是"省着调"——上下文怎么管
+- s09 错误恢复：LLMError 的消费端（重试/降级）
+- 参考实现：`earendil-works/pi` 的 `packages/ai/`（40+ provider，本步 ChatClient 的工业级放大版）

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="540" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">MessageBuffer — 预算窗口截断，不拆散工具问答对</text>
+
+  <!-- 左：对话长河 -->
+  <rect x="30" y="78" width="180" height="360" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="120" y="100" fill="#334155" font-size="12" font-weight="600" text-anchor="middle">消息长河（12 条）</text>
+  <line x1="50" y1="112" x2="190" y2="112" stroke="#e2e8f0"/>
+  <rect x="50" y="120" width="140" height="22" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="120" y="135" fill="#b91c1c" font-size="9" text-anchor="middle">✗ 最早 8 条：被裁剪</text>
+  <rect x="50" y="150" width="140" height="22" rx="4" fill="#fee2e2"/>
+  <text x="120" y="165" fill="#94a3b8" font-size="9" text-anchor="middle">assistant + tool...</text>
+  <rect x="50" y="178" width="140" height="22" rx="4" fill="#fee2e2"/>
+  <text x="120" y="193" fill="#94a3b8" font-size="9" text-anchor="middle">assistant + tool...</text>
+  <rect x="50" y="220" width="140" height="22" rx="4" fill="#fff"/>
+  <text x="120" y="235" fill="#475569" font-size="9" text-anchor="middle">…（中间略）…</text>
+  <rect x="50" y="262" width="140" height="22" rx="4" fill="#d1fae5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="120" y="277" fill="#166534" font-size="9" text-anchor="middle">✓ 最新回合：保留</text>
+
+  <!-- 箭头 -->
+  <line x1="210" y1="250" x2="268" y2="250" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 中：Buffer -->
+  <rect x="270" y="150" width="200" height="200" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="370" y="180" fill="#1e3a5f" font-size="14" font-weight="700" text-anchor="middle">MessageBuffer</text>
+  <line x1="290" y1="192" x2="450" y2="192" stroke="#e2e8f0"/>
+  <text x="370" y="215" fill="#334155" font-size="11" text-anchor="middle">system（永不丢）</text>
+  <text x="370" y="238" fill="#334155" font-size="11" text-anchor="middle">character_budget = 800</text>
+  <text x="370" y="261" fill="#334155" font-size="11" text-anchor="middle">_turns() 按"回合"切分</text>
+  <text x="370" y="284" fill="#64748b" font-size="10" text-anchor="middle">for_llm 从尾部向前凑</text>
+  <text x="370" y="310" fill="#94a3b8" font-size="9" text-anchor="middle">预算内 = 最新、最相关</text>
+  <text x="370" y="326" fill="#94a3b8" font-size="9" text-anchor="middle">超预算 = 丢弃最早回合</text>
+
+  <!-- 右：给模型 -->
+  <line x1="470" y1="250" x2="530" y2="250" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-g)"/>
+  <rect x="532" y="196" width="158" height="108" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="611" y="222" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">发给 LLM</text>
+  <text x="611" y="246" fill="#475569" font-size="10" text-anchor="middle">system + 最新回合</text>
+  <text x="611" y="264" fill="#64748b" font-size="9" text-anchor="middle">工具问答对完整</text>
+  <text x="611" y="282" fill="#94a3b8" font-size="9" text-anchor="middle">stats() 可观测</text>
+
+  <!-- 底部：工具对保护 -->
+  <rect x="120" y="400" width="480" height="82" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="360" y="424" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">关键约束：不能拆散"工具问答对"</text>
+  <text x="360" y="446" fill="#475569" font-size="10" text-anchor="middle">assistant(tool_calls=c5) ─── tool(id=c5) 必须成对出现</text>
+  <text x="360" y="464" fill="#64748b" font-size="9" text-anchor="middle">孤儿 tool 消息会让模型困惑 → 按"回合"粒度裁剪而非按条</text>
+
+  <text x="360" y="512" fill="#94a3b8" font-size="11" text-anchor="middle">三大解法：窗口截断（本章）→ 摘要压缩 → 向量检索；生产组合使用</text>
+  <text x="360" y="532" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：learn-mini-agent/s04_context_memory/code.py</text>
+</svg>
