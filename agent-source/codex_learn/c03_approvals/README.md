@@ -1,24 +1,37 @@
-# c03: 审批流 —— 危险操作谁说了算
+# c03: 审批流 — 危险操作谁说了算
 
-> codex 源码对照：`tools/approvals.rs`（35KB）、`exec_policy.rs`
+> 对应原版：`codex-rs/core/src/tools/approvals.rs`（35KB）`exec_policy.rs`
 > 上一步：[c02 并行工具](../c02_parallel_tools/) ｜ 下一步：[c04 沙箱](../c04_sandbox/)
+> *"黑名单是规则漏了=事故；审批是规则没覆盖的交给人在决策环里判。"*
+
+---
 
 ## 问题
 
-黑名单永远漏：`rm -f ~/important` 不在 `rm -rf /` 黑名单里，但同样致命。
-**静态规则防不住"看起来合理但后果严重"的操作。**需要一个"人/策略在决策环里"的机制。
+黑名单永远漏：`rm -f ~/important` 不在黑名单里，但同样致命。
+c01 的预检挡住"明着坏"，挡不住"看起来合理但后果严重"的操作。
+**静态规则防不住的事，需要"人/策略在决策环里"。**
 
-## 方案：审批漏斗
+---
+
+## 方案
+
+![Approvals](images/approvals.svg)
+
+**审批漏斗**：三路分流 + 缓存加速 + 全程审计。
 
 ```
 命令 → 策略判定(auto/confirm/deny)
-        ├─ deny    → 拦
-        ├─ auto    → 放行（白名单）
-        └─ confirm → ① 查缓存（同命令短时免审）
-                     → ② 人工确认 / guardian AI 审查 / hook 自动决策
+        ├─ deny（黑名单）  → 拦
+        ├─ auto（白名单）  → 放行，零打断
+        └─ confirm（未知） → 查缓存（短时免审）→ 人工/guardian 批准或拒绝
 ```
 
+---
+
 ## 原理（读 code.py）
+
+### 第 1 步：策略判定
 
 ```python
 class ApprovalPolicy:
@@ -27,38 +40,76 @@ class ApprovalPolicy:
         if startswith(白名单):  return "auto"
         return "confirm"          # 未知 = 保守确认
 ```
-三层来源标注在审计日志：`policy`（策略）/ `cache`（缓存）/ `user`（人工）——
-**每个决策都可追溯**。
+**白名单放行（零打断）、黑名单拒绝（铁律）、其余一律确认（保守）**。
 
-### 一个细节：缓存审批（codex with_cached_approval）
+### 第 2 步：缓存审批（codex 的 with_cached_approval）
 
 ```python
 h = md5(cmd).hexdigest()[:8]
 if h in cache and now < cache[h]:      # 5 秒内同一命令
     return True, "缓存免审", "cache"
 ```
-为什么有价值？Agent 高频重复调用同一危险命令（如反复 `git push`）时，
-每次都弹窗=体验灾难。短时缓存 = 安全与流畅的平衡点。
+为什么有价值？Agent 高频重复调用同一命令（反复 `git push`）时，每次都弹窗=体验灾难。
+短时缓存 = 安全与流畅的平衡点。
 
-## 运行
+### 第 3 步：决策来源标注（可追溯）
+
+```python
+("deny", c, "policy")   # 策略拒绝
+("approve", c, "user")  # 人工批准
+("approve", c, "cache") # 缓存免审
+```
+**每个决策都带来源**——审计日志不是黑盒，出了问题知道该查哪一环。
+
+---
+
+## 代码走读
+
+- `ApprovalPolicy.judge()`：三类判定（约 15 行）
+- `ApprovalFlow.should_run()`：漏斗主流程（缓存→人工→审计）
+- `hashlib.md5`：命令指纹（缓存键）
+- `__main__`：6 条命令跑全流程 + 审计日志展示（user 模式下假批准）
+
+调用链：`命令 → judge → deny/auto 直返 or confirm(缓存/人工) → 审计落日志`
+
+---
+
+## 试一下
 
 ```bash
-python c03_approvals/code.py
-# ✅ ls（白名单） ❌ rm -rf /（黑名单） ✅ git push（批准+缓存） ✅ git push（缓存免审）
+python agent-source/codex_learn/c03_approvals/code.py
+# ✅ ls -la                    ← 白名单放行（policy）
+# ❌ rm -rf / 重要目录           ← 黑名单拒绝
+# ✅ git push origin main      ← 首次 confirm → 批准+写缓存
+# ✅ git push origin main      ← 同一命令 → 缓存免审（cache）
 ```
+
+---
+
+## 练习
+
+1. **开/关缓存**：`cache_ttl=0` 观察"不再免审"、`auto_approve=False` 观察"全部拒绝"
+2. **加限时批准**：改成"批准一次有效 30s 且只限本次会话"（比全局缓存更细）
+3. **guardian AI**：往人工确认前插一个"生成批准理由"的模拟步骤（codex guardian 的做法）
+4. **权限分级**：把 confirm 再拆成"只读确认/写确认/网络确认"三档
+5. **集成**：把 ApprovalFlow 接进 c02 的 execute_many（prepare 之后、execute 之前）
+
+---
 
 ## 自测问答
 
 **Q：审批流和黑名单的区别？**
-A：黑名单是"规则漏了 = 事故"；审批是"规则没覆盖的交给人在决策环里判"。codex 是 策略预判 + guardian AI 生成审查理由 + hooks 自定义决策 三层。
+A：黑名单"规则漏了=事故"；审批"规则没覆盖的交给人在决策环里判"。codex 是策略 + guardian AI 审查 + hooks 自定义决策三层。
 
 **Q：headless/CI 场景怎么办？**
-A：hooks 可以配置成自动批准/拒绝（无交互）。codex 有 permission hooks，支持按命令前缀规则放行——CI 里全是白名单命令时零打断。
+A：hooks 可配置成自动批准/拒绝（如仅白名单命令）。codex 有 permission hooks，CI 里零打断。
 
 **Q：审批会拖慢 Agent 吗？**
-A：会。所以白名单自动放行 + 短时缓存免审（with_cached_approval）两个机制把延迟压到最低；只有"真正危险的未知操作"才需要人。
+A：会。所以白名单自动放行 + 短时缓存免审两个机制把延迟压到最低；只有"真正危险的未知操作"才需要人。
+
+---
 
 ## 延伸
 
-- c04：审批通过后，命令还在沙箱里执行——两道独立防线
-- 关联 learn-mini-agent s09：它讲异常自愈，这里讲"先别让它发生"
+- c04：审批通过后，命令还在沙箱里执行——两道**独立**防线
+- claude_learn x02：allowed-tools 的"声明式边界"是另一种权限模型，对比学习

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Parallel — 两阶段执行，并发不乱序</text>
+
+  <!-- 模型请求 3 个调用 -->
+  <rect x="60" y="80" width="220" height="96" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="170" y="104" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">模型一次请求 3 个调用</text>
+  <text x="170" y="128" fill="#475569" font-size="10" text-anchor="middle">fetch_weather(北京)</text>
+  <text x="170" y="148" fill="#475569" font-size="10" text-anchor="middle">fetch_stats(cpu)</text>
+  <text x="170" y="168" fill="#475569" font-size="10" text-anchor="middle">fetch_weather(杭州)</text>
+
+  <line x1="280" y1="128" x2="330" y2="128" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 阶段1 prepare -->
+  <rect x="332" y="90" width="200" height="76" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="432" y="114" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">阶段1 prepare（串行）</text>
+  <text x="432" y="136" fill="#475569" font-size="10" text-anchor="middle">校验参数 / 登记工具</text>
+  <text x="432" y="154" fill="#64748b" font-size="9" text-anchor="middle">便宜 · 出错早发现 · 不占并发</text>
+
+  <line x1="532" y1="128" x2="580" y2="128" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 阶段2 execute -->
+  <rect x="582" y="80" width="120" height="180" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="642" y="104" fill="#1e3a5f" font-size="12" font-weight="700" text-anchor="middle">阶段2 execute（并发）</text>
+  <rect x="594" y="116" width="96" height="26" rx="6" fill="#ecfdf5"/>
+  <text x="642" y="134" fill="#166534" font-size="9" text-anchor="middle">线程1 · 天气(0.8s)</text>
+  <rect x="594" y="146" width="96" height="26" rx="6" fill="#ecfdf5"/>
+  <text x="642" y="164" fill="#166534" font-size="9" text-anchor="middle">线程2 · stats(0.2s)✓快</text>
+  <rect x="594" y="176" width="96" height="26" rx="6" fill="#ecfdf5"/>
+  <text x="642" y="194" fill="#166534" font-size="9" text-anchor="middle">线程3 · 天气(0.8s)</text>
+  <text x="642" y="238" fill="#64748b" font-size="8" text-anchor="middle">线程池并行，省时</text>
+
+  <!-- 回填 -->
+  <line x1="642" y1="260" x2="642" y2="320" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-b)"/>
+  <rect x="470" y="322" width="230" height="110" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="585" y="348" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">回填：按发起顺序（保因果）</text>
+  <text x="585" y="372" fill="#475569" font-size="10" text-anchor="middle">msg@0 天气（发起位0）</text>
+  <text x="585" y="390" fill="#475569" font-size="10" text-anchor="middle">msg@1 stats</text>
+  <text x="585" y="408" fill="#475569" font-size="10" text-anchor="middle">msg@2 天气</text>
+  <text x="585" y="424" fill="#64748b" font-size="8" text-anchor="middle">≠ 完成顺序！模型看到发起序</text>
+
+  <!-- 时间对比 -->
+  <rect x="60" y="356" width="340" height="80" rx="10" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+  <text x="230" y="380" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">耗时对比（3 个慢调用）</text>
+  <text x="230" y="404" fill="#475569" font-size="11" text-anchor="middle">串行 ≈ 2.20s ｜ 并行 ≈ 0.81s</text>
+  <text x="230" y="424" fill="#94a3b8" font-size="9" text-anchor="middle">并行为串行的 ~1/3（最慢者决定时间）</text>
+
+  <text x="360" y="478" fill="#94a3b8" font-size="11" text-anchor="middle">校验串行保正确、执行并发保性能、回填保序保因果</text>
+  <text x="360" y="497" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/codex_learn/c02_parallel_tools/code.py ｜ 原版：parallel.rs</text>
+</svg>

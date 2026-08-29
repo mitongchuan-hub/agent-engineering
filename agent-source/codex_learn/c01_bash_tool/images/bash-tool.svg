@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-r" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Bash Tool — 万能执行器 + 三道闸门</text>
+
+  <!-- 模型 -->
+  <rect x="50" y="80" width="180" height="90" rx="10" fill="#f0f4ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="106" fill="#1e3a5f" font-size="13" font-weight="700" text-anchor="middle">模型</text>
+  <text x="140" y="128" fill="#475569" font-size="10" text-anchor="middle">说："调 execute_bash"</text>
+  <text x="140" y="148" fill="#64748b" font-size="9" text-anchor="middle">一套单具走天下</text>
+
+  <line x1="230" y1="125" x2="280" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 三道闸 -->
+  <rect x="282" y="80" width="160" height="90" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="362" y="106" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">① 危险预检</text>
+  <text x="362" y="128" fill="#475569" font-size="10" text-anchor="middle">黑名单前缀扫描</text>
+  <text x="362" y="148" fill="#64748b" font-size="9" text-anchor="middle">rm -rf / mkfs ...</text>
+
+  <line x1="442" y1="125" x2="478" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="480" y="80" width="190" height="90" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="575" y="106" fill="#92400e" font-size="12" font-weight="700" text-anchor="middle">② 限时执行</text>
+  <text x="575" y="128" fill="#475569" font-size="10" text-anchor="middle">subprocess + timeout</text>
+  <text x="575" y="148" fill="#64748b" font-size="9" text-anchor="middle">防死命令卡死</text>
+
+  <!-- 结果回填 -->
+  <line x1="575" y1="170" x2="575" y2="248" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-g)"/>
+  <rect x="400" y="250" width="270" height="100" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="276" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">③ 结构化结果</text>
+  <text x="535" y="300" fill="#475569" font-size="10" text-anchor="middle">status / exit_code / stdout / stderr</text>
+  <text x="535" y="322" fill="#64748b" font-size="9" text-anchor="middle">模型看到真实输出 → 继续推理</text>
+
+  <!-- 拒绝路径 -->
+  <line x1="322" y1="170" x2="180" y2="250" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-r)" stroke-dasharray="6,3"/>
+  <text x="226" y="220" fill="#dc2626" font-size="10" font-weight="600" text-anchor="middle">命中黑名单 → 拒绝</text>
+  <rect x="50" y="250" width="220" height="100" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="160" y="276" fill="#b91c1c" font-size="12" font-weight="700" text-anchor="middle">blocked: 危险命令</text>
+  <text x="160" y="300" fill="#475569" font-size="10" text-anchor="middle">"rm -rf / 重要目录"</text>
+  <text x="160" y="322" fill="#64748b" font-size="9" text-anchor="middle">第一道闸 = 拦截明着坏</text>
+
+  <!-- 底部 -->
+  <text x="360" y="406" fill="#94a3b8" font-size="11" text-anchor="middle">下一步：c02 多个命令并行 / c03 审批（人参与决策）/ c04 沙箱（做不出界）</text>
+  <text x="360" y="428" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/codex_learn/c01_bash_tool/code.py</text>
+  <text x="360" y="450" fill="#cbd5e1" font-size="10" text-anchor="middle">对应原版：codex codex-rs/core/src/tools/handlers/unified_exec.rs</text>
+</svg>

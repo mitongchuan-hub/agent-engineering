@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" font-family="system-ui, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-c" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="500" fill="#fafbfc" rx="8"/>
+  <rect x="0" y="0" width="720" height="48" fill="url(#hd)" rx="8"/>
+  <rect x="0" y="40" width="720" height="8" fill="url(#hd)"/>
+  <text x="360" y="31" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">Sandbox — 默认拒绝 + 显式放行</text>
+
+  <!-- 沙箱边界 -->
+  <rect x="200" y="80" width="360" height="300" rx="14" fill="#fff8f0" stroke="#d97706" stroke-width="3" stroke-dasharray="8,4"/>
+  <text x="380" y="104" fill="#92400e" font-size="13" font-weight="700" text-anchor="middle">沙箱边界（教学版）</text>
+  <rect x="250" y="120" width="260" height="52" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="380" y="140" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">① 程序允许列表</text>
+  <text x="380" y="160" fill="#64748b" font-size="9" text-anchor="middle">echo/cat/python/node/…　其它一律拒绝</text>
+
+  <rect x="250" y="182" width="260" height="52" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="380" y="202" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">② 虚拟文件系统</text>
+  <text x="380" y="222" fill="#64748b" font-size="9" text-anchor="middle">cat 只能读沙箱内"文件"（/tmp/app.py ✓，/etc/passwd ✗）</text>
+
+  <rect x="250" y="244" width="260" height="52" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="380" y="264" fill="#166534" font-size="11" font-weight="700" text-anchor="middle">③ 超时强杀</text>
+  <text x="380" y="284" fill="#64748b" font-size="9" text-anchor="middle">sleep(10) → 2 秒就被 kill</text>
+
+  <rect x="250" y="306" width="260" height="52" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="380" y="326" fill="#334155" font-size="11" font-weight="700" text-anchor="middle">④（生产扩展）降权/禁网/只读挂载</text>
+  <text x="380" y="346" fill="#94a3b8" font-size="9" text-anchor="middle">codex 用 bwrap 容器 + Windows 作业对象</text>
+
+  <!-- 外部被拦 -->
+  <line x1="160" y1="210" x2="250" y2="210" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-c)" stroke-dasharray="5,3"/>
+  <rect x="40" y="180" width="120" height="62" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="100" y="202" fill="#b91c1c" font-size="10" font-weight="700" text-anchor="middle">cat /etc/passwd</text>
+  <text x="100" y="224" fill="#64748b" font-size="9" text-anchor="middle">→ 沙箱外 拒绝</text>
+
+  <rect x="500" y="180" width="130" height="62" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="565" y="202" fill="#b91c1c" font-size="10" font-weight="700" text-anchor="middle">rm -rf /</text>
+  <text x="565" y="224" fill="#64748b" font-size="9" text-anchor="middle">→ 程序不在列表</text>
+
+  <!-- 底部 -->
+  <rect x="110" y="396" width="500" height="64" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="360" y="420" fill="#166534" font-size="12" font-weight="700" text-anchor="middle">沙箱哲学：默认拒绝 + 显式放行</text>
+  <text x="360" y="444" fill="#64748b" font-size="9" text-anchor="middle">和审批（c03）分工：审批管"该不该做"，沙箱管"能不能做到越界"</text>
+
+  <text x="360" y="484" fill="#cbd5e1" font-size="10" text-anchor="middle">配套代码：agent-source/codex_learn/c04_sandbox/code.py ｜ 原版：sandboxing.rs + linux-sandbox</text>
+</svg>
