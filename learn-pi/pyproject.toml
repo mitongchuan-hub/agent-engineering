@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "learn-pi"
+version = "0.1.0"
+description = "A source-grounded Python reconstruction course for the Pi coding agent"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "agent-engineering contributors" }]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8.3,<10"]
+live = ["openai>=1.68,<3", "python-dotenv>=1.0,<2"]
+docs = ["markdown>=3.7,<4"]
+
+[tool.setuptools]
+packages = ["s01_agent_loop", "s02_provider_stream", "s03_agent_events", "s04_tool_contract", "s05_parallel_tools", "s06_message_queues", "s07_control_boundaries", "s08_context_boundary", "s09_session_memory"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["."]

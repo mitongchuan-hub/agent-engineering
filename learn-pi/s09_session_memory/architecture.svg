@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="title desc">
+  <title id="title">Pi v3 JSONL session tree</title>
+  <desc id="desc">A JSONL session has a header and append-only entries. Parent ids form a tree, the leaf selects the active branch, and fork copies the history into a new session file.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 8; }
+      .blue { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .green { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+      .amber { fill: #fffbeb; stroke: #b45309; stroke-width: 2; rx: 8; }
+      .purple { fill: #f5f3ff; stroke: #6d28d9; stroke-width: 2; rx: 8; }
+      .label { fill: #0f172a; font: 15px sans-serif; text-anchor: middle; }
+      .small { fill: #475569; font: 12px sans-serif; text-anchor: middle; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .blue-line { stroke: #0369a1; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .purple-line { stroke: #6d28d9; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1120" height="540" fill="#ffffff"/>
+  <text x="560" y="34" class="label" font-weight="bold">s09_session_memory: append-only JSONL tree</text>
+
+  <rect x="40" y="90" width="210" height="82" class="blue"/>
+  <text x="145" y="123" class="label">session header</text>
+  <text x="145" y="148" class="small">version 3 / id / cwd</text>
+
+  <rect x="315" y="90" width="210" height="82" class="box"/>
+  <text x="420" y="123" class="label">append entry</text>
+  <text x="420" y="148" class="small">id + parentId + data</text>
+
+  <rect x="590" y="90" width="210" height="82" class="amber"/>
+  <text x="695" y="123" class="label">leaf pointer</text>
+  <text x="695" y="148" class="small">当前追加位置</text>
+
+  <rect x="865" y="90" width="210" height="82" class="green"/>
+  <text x="970" y="123" class="label">build context</text>
+  <text x="970" y="148" class="small">root -&gt; leaf path</text>
+
+  <path d="M250 131 H315" class="line"/>
+  <path d="M525 131 H590" class="line"/>
+  <path d="M800 131 H865" class="line"/>
+
+  <rect x="210" y="300" width="160" height="72" class="box"/>
+  <text x="290" y="331" class="label">root</text>
+  <text x="290" y="354" class="small">parentId=null</text>
+  <rect x="480" y="245" width="160" height="72" class="blue"/>
+  <text x="560" y="276" class="label">main child</text>
+  <text x="560" y="299" class="small">parentId=root</text>
+  <rect x="480" y="355" width="160" height="72" class="purple"/>
+  <text x="560" y="386" class="label">branch child</text>
+  <text x="560" y="409" class="small">same parent</text>
+  <rect x="750" y="245" width="160" height="72" class="green"/>
+  <text x="830" y="276" class="label">active leaf</text>
+  <text x="830" y="299" class="small">model sees this path</text>
+
+  <path d="M290 300 V280 H480" class="line"/>
+  <path d="M290 372 V391 H480" class="purple-line"/>
+  <path d="M640 281 H750" class="blue-line"/>
+  <path d="M640 391 H690 V281 H750" class="purple-line"/>
+  <text x="560" y="475" class="small">branch 只移动 leaf；fork 将整棵历史复制到新的 Session 文件。</text>
+</svg>

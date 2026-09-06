@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" role="img" aria-labelledby="title desc">
+  <title id="title">Pi tool preparation and execution pipeline</title>
+  <desc id="desc">A tool call goes through lookup, argument preparation, schema validation and a before hook. It either becomes an immediate error result or executes and returns a tool result message.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 8; }
+      .blue { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .green { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+      .red { fill: #fef2f2; stroke: #b91c1c; stroke-width: 2; rx: 8; }
+      .amber { fill: #fffbeb; stroke: #b45309; stroke-width: 2; rx: 8; }
+      .label { fill: #0f172a; font: 15px sans-serif; text-anchor: middle; }
+      .small { fill: #475569; font: 12px sans-serif; text-anchor: middle; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .red-line { stroke: #b91c1c; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1100" height="500" fill="#ffffff"/>
+  <text x="550" y="34" class="label" font-weight="bold">s04_tool_contract: prepare before execute</text>
+
+  <rect x="35" y="105" width="135" height="78" class="blue"/>
+  <text x="102" y="137" class="label">ToolCall</text>
+  <text x="102" y="161" class="small">name + arguments</text>
+
+  <rect x="205" y="105" width="135" height="78" class="box"/>
+  <text x="272" y="137" class="label">lookup</text>
+  <text x="272" y="161" class="small">find by name</text>
+
+  <rect x="375" y="105" width="155" height="78" class="amber"/>
+  <text x="452" y="137" class="label">prepare</text>
+  <text x="452" y="161" class="small">shorthand -&gt; args</text>
+
+  <rect x="565" y="105" width="155" height="78" class="amber"/>
+  <text x="642" y="137" class="label">validate</text>
+  <text x="642" y="161" class="small">clone + schema</text>
+
+  <rect x="755" y="105" width="145" height="78" class="amber"/>
+  <text x="827" y="137" class="label">before hook</text>
+  <text x="827" y="161" class="small">allow / block</text>
+
+  <rect x="935" y="105" width="130" height="78" class="green"/>
+  <text x="1000" y="137" class="label">execute</text>
+  <text x="1000" y="161" class="small">call tool</text>
+
+  <path d="M170 144 H205" class="line"/>
+  <path d="M340 144 H375" class="line"/>
+  <path d="M530 144 H565" class="line"/>
+  <path d="M720 144 H755" class="line"/>
+  <path d="M900 144 H935" class="line"/>
+
+  <rect x="405" y="315" width="190" height="78" class="red"/>
+  <text x="500" y="347" class="label">immediate error</text>
+  <text x="500" y="371" class="small">不执行工具</text>
+
+  <rect x="750" y="315" width="190" height="78" class="green"/>
+  <text x="845" y="347" class="label">ToolResultMessage</text>
+  <text x="845" y="371" class="small">成功或执行异常</text>
+
+  <path d="M272 183 V260 H500 V315" class="red-line"/>
+  <path d="M642 183 V260 H500 V315" class="red-line"/>
+  <path d="M827 183 V260 H500 V315" class="red-line"/>
+  <path d="M1000 183 V315" class="line"/>
+  <text x="330" y="252" class="small">not found / invalid / blocked</text>
+  <text x="550" y="445" class="small">before hook 收到已校验参数；其修改值会直接传给 execute。</text>
+</svg>

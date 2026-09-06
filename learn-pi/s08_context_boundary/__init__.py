@@ -1,0 +1,41 @@
+"""第 08 章：上下文转换边界。"""
+
+from .code import (
+    AgentContext,
+    AgentMessage,
+    AssistantMessage,
+    BashExecutionMessage,
+    BranchSummaryMessage,
+    CompactionSummaryMessage,
+    CustomMessage,
+    LLMContext,
+    LLMMessage,
+    NotificationMessage,
+    PipelineTrace,
+    ToolResultMessage,
+    UserMessage,
+    build_llm_context,
+    bash_execution_to_text,
+    convert_to_llm,
+    keep_last,
+)
+
+__all__ = [
+    "AgentContext",
+    "AgentMessage",
+    "AssistantMessage",
+    "BashExecutionMessage",
+    "BranchSummaryMessage",
+    "CompactionSummaryMessage",
+    "CustomMessage",
+    "LLMContext",
+    "LLMMessage",
+    "NotificationMessage",
+    "PipelineTrace",
+    "ToolResultMessage",
+    "UserMessage",
+    "build_llm_context",
+    "bash_execution_to_text",
+    "convert_to_llm",
+    "keep_last",
+]

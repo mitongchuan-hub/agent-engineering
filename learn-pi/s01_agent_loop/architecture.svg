@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" role="img" aria-labelledby="title desc">
+  <title id="title">Minimal Pi agent loop</title>
+  <desc id="desc">A user prompt enters the agent context, the provider returns an assistant message, tool calls are executed, results return to context, and the provider is called again until a final response.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 8; }
+      .accent { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .result { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+      .label { fill: #0f172a; font: 16px sans-serif; text-anchor: middle; }
+      .small { fill: #475569; font: 13px sans-serif; text-anchor: middle; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .loop { stroke: #0369a1; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="980" height="430" fill="#ffffff"/>
+  <text x="490" y="35" class="label" font-weight="bold">s01_agent_loop: prompt -&gt; model -&gt; tool -&gt; model</text>
+
+  <rect x="40" y="105" width="155" height="78" class="box"/>
+  <text x="117" y="137" class="label">UserMessage</text>
+  <text x="117" y="161" class="small">新 prompt</text>
+
+  <rect x="260" y="92" width="190" height="105" class="accent"/>
+  <text x="355" y="128" class="label">AgentContext</text>
+  <text x="355" y="151" class="small">system + transcript</text>
+  <text x="355" y="171" class="small">+ tools</text>
+
+  <rect x="515" y="105" width="155" height="78" class="accent"/>
+  <text x="592" y="137" class="label">Provider</text>
+  <text x="592" y="161" class="small">complete(request)</text>
+
+  <rect x="735" y="92" width="195" height="105" class="box"/>
+  <text x="832" y="128" class="label">AssistantMessage</text>
+  <text x="832" y="151" class="small">text 或 toolCall</text>
+  <text x="832" y="171" class="small">stopReason</text>
+
+  <path d="M195 144 H260" class="line"/>
+  <path d="M450 144 H515" class="line"/>
+  <path d="M670 144 H735" class="line"/>
+
+  <rect x="735" y="282" width="195" height="78" class="result"/>
+  <text x="832" y="314" class="label">ToolResultMessage</text>
+  <text x="832" y="338" class="small">成功或错误结果</text>
+
+  <rect x="515" y="282" width="155" height="78" class="result"/>
+  <text x="592" y="314" class="label">Tool</text>
+  <text x="592" y="338" class="small">execute(call)</text>
+
+  <path d="M832 197 V282" class="line"/>
+  <path d="M735 321 H670" class="line"/>
+  <path d="M515 321 H355 V197" class="loop"/>
+  <path d="M450 92 V65 H592 V105" class="loop"/>
+  <text x="520" y="57" class="small">下一轮请求</text>
+
+  <path d="M832 197 V230 H965 V90 H930" class="line"/>
+  <text x="946" y="245" class="small" transform="rotate(-90 946 245)">无 toolCall: 结束</text>
+
+  <text x="490" y="405" class="small">本章按顺序执行工具；流式事件、并发和双队列在后续章节实现。</text>
+</svg>

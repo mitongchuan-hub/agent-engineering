@@ -1,0 +1,4 @@
+# Chapter 1 has no runtime dependency.
+# Install the offline test toolchain with:
+#   python -m pip install -e ".[test]"
+pytest>=8.3,<10

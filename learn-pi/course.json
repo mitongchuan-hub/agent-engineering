@@ -1,0 +1,39 @@
+{
+  "id": "learn-pi",
+  "title": "从 Pi 源码学习 Coding Agent",
+  "language": "zh-CN",
+  "upstream": {
+    "repository": "https://github.com/earendil-works/pi",
+    "commit": "9767ba275f3e9a5ee0f5c5342249b629ab1b2282",
+    "localPath": "agent-source/pi"
+  },
+  "course": {
+    "focus": "agent-core",
+    "offlineByDefault": true,
+    "sharedEnvironment": "agent-engineering",
+    "systemsDocument": "SYSTEMS.md",
+    "note": "CLI、RPC 和 SDK 是附录，不属于 Agent 主线。"
+  },
+  "systems": [
+    { "id": "agent_execution_core", "title": "Agent 执行核心", "chapters": ["s01_agent_loop", "s02_provider_stream", "s03_agent_events", "s04_tool_contract"], "status": "completed" },
+    { "id": "tool_orchestration_control", "title": "工具编排与运行控制", "chapters": ["s05_parallel_tools", "s06_message_queues", "s07_control_boundaries"], "status": "completed" },
+    { "id": "context_session_memory", "title": "上下文与会话记忆", "chapters": ["s08_context_boundary", "s09_session_memory"], "status": "completed" },
+    { "id": "context_recovery", "title": "上下文恢复系统", "chapters": ["s10_context_recovery"], "status": "planned" },
+    { "id": "extension_resources", "title": "扩展与资源系统", "chapters": ["s11_extension_boundary"], "status": "planned" },
+    { "id": "comprehensive_runtime", "title": "综合 Coding Agent", "chapters": ["s12_comprehensive"], "status": "planned" }
+  ],
+  "chapters": [
+    { "id": "s01_agent_loop", "title": "最小 Agent Loop", "system": "agent_execution_core", "status": "completed", "path": "s01_agent_loop", "topics": ["prompt", "assistant", "tool call", "tool result", "termination"], "sources": ["agent-loop.ts::runAgentLoop", "agent-loop.ts::runLoop", "types.ts::AgentContext"] },
+    { "id": "s02_provider_stream", "title": "Provider 流与 EventStream", "system": "agent_execution_core", "status": "completed", "path": "s02_provider_stream", "sources": ["event-stream.ts::EventStream", "types.ts::AssistantMessageEvent", "agent-loop.ts::streamAssistantResponse"] },
+    { "id": "s03_agent_events", "title": "Agent 状态与事件协议", "system": "agent_execution_core", "status": "completed", "path": "s03_agent_events", "sources": ["agent.ts::processEvents", "agent.ts::runWithLifecycle", "types.ts::AgentEvent"] },
+    { "id": "s04_tool_contract", "title": "工具契约与参数校验", "system": "agent_execution_core", "status": "completed", "path": "s04_tool_contract", "sources": ["agent-loop.ts::prepareToolCall", "validation.ts::validateToolArguments"] },
+    { "id": "s05_parallel_tools", "title": "并行工具与结果顺序", "system": "tool_orchestration_control", "status": "completed", "path": "s05_parallel_tools", "sources": ["agent-loop.ts::executeToolCallsParallel", "types.ts::ToolExecutionMode"] },
+    { "id": "s06_message_queues", "title": "Steering 与 Follow-up 队列", "system": "tool_orchestration_control", "status": "completed", "path": "s06_message_queues", "sources": ["agent.ts::PendingMessageQueue", "agent-loop.ts::runLoop"] },
+    { "id": "s07_control_boundaries", "title": "Abort、错误与结束边界", "system": "tool_orchestration_control", "status": "completed", "path": "s07_control_boundaries", "sources": ["agent.ts::runWithLifecycle", "agent.ts::finishRun", "agent-loop.ts::runLoop"] },
+    { "id": "s08_context_boundary", "title": "上下文转换边界", "system": "context_session_memory", "status": "completed", "path": "s08_context_boundary", "sources": ["agent-loop.ts::streamAssistantResponse", "types.ts::AgentLoopConfig"] },
+    { "id": "s09_session_memory", "title": "Session 记忆与树形历史", "system": "context_session_memory", "status": "completed", "path": "s09_session_memory", "sources": ["session-manager.ts::SessionManager", "session-manager.ts::buildSessionContext"] },
+    { "id": "s10_context_recovery", "title": "压缩、重试与上下文恢复", "system": "context_recovery", "status": "planned", "path": "s10_context_recovery", "sources": ["compaction.ts::prepareCompaction", "compaction.ts::compact"] },
+    { "id": "s11_extension_boundary", "title": "扩展工具与资源边界", "system": "extension_resources", "status": "planned", "path": "s11_extension_boundary", "sources": ["resource-loader.ts::DefaultResourceLoader", "examples/extensions"] },
+    { "id": "s12_comprehensive", "title": "综合 Coding Agent", "system": "comprehensive_runtime", "status": "planned", "path": "s12_comprehensive", "sources": ["SYSTEMS.md::系统 6"] }
+  ]
+}
