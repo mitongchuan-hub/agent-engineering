@@ -12,6 +12,11 @@
     "offlineByDefault": true,
     "sharedEnvironment": "agent-engineering",
     "systemsDocument": "SYSTEMS.md",
+    "web": {
+      "status": "completed",
+      "path": "web",
+      "sourceOfTruth": ["course.json", "sNN_*/README.md", "sNN_*/architecture.svg", "UPSTREAM.md"]
+    },
     "note": "CLI、RPC 和 SDK 是附录，不属于 Agent 主线。"
   },
   "systems": [

@@ -26,7 +26,7 @@ prompt -> provider -> assistant -> tool -> tool result -> provider
 - [第 10 章：压缩、重试与上下文恢复](s10_context_recovery/README.md)
 - [第 11 章：扩展工具与资源边界](s11_extension_boundary/README.md)
 - [第 12 章：综合 Coding Agent](s12_comprehensive/README.md)
-- [第 02 章架构图](s02_provider_stream/architecture.svg)
+- [Web 阅读器](web/README.md)
 - [第 01 章代码](s01_agent_loop/code.py)
 
 ## 运行
@@ -38,7 +38,16 @@ E:\anaconda\Scripts\conda.exe run -n agent-engineering python learn-pi/s01_agent
 E:\anaconda\Scripts\conda.exe run -n agent-engineering python -m pytest learn-pi/tests
 ```
 
-第 01 章完全离线，不需要 API Key。后续章节会逐步加入 Provider 流、事件协议、工具校验、并行执行、队列、Session 和上下文恢复。
+全部 6 个系统、12 个章节默认离线可运行，不需要 API Key。
+
+## Web 阅读器
+
+```powershell
+npm --prefix learn-pi/web install
+npm --prefix learn-pi/web run dev
+```
+
+打开 `http://localhost:3000`。阅读器直接读取 `course.json`、各章 `README.md`、架构图和 `UPSTREAM.md`，不维护第二份课程正文。
 
 ## 上游版本
 

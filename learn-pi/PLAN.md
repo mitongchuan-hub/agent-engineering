@@ -83,6 +83,6 @@ E:\anaconda\Scripts\conda.exe run -n agent-engineering python -m pytest learn-pi
 
 并完成 Web 类型检查、构建、链接和桌面/移动视口检查。
 
-## 当前迭代：课程验收
+## 当前迭代：课程已完成
 
-第 01-12 章已完成，6 个系统已完成。下一步只做全课程验收：统一测试、源码链接、文档导航和 Web 阅读器。
+第 01-12 章、6 个系统和 Web 阅读器均已完成。当前只保留全量测试、源码链接、文档导航和 Web 构建作为持续验收项。
