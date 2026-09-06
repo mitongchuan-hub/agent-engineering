@@ -1,81 +1,56 @@
-# Agent 源码精读系列（学习向）
+# 上游源码工作区
 
-> 4 大 Coding Agent 源码（真实 GitHub 克隆）的精读导览 + 结构对比 + 动手路线。
-> 与 [learn-mini-agent](../learn-mini-agent/)（手写教程）互补：**那边教原理，这边看天花板**。
+此目录只存放四个上游项目的本地检出，以及后续课程所依据的源码证据。旧版 Mini Agent、零散 Python 机制示例、横向比较表和示例应用已移除。
 
-## 📂 本目录内容
+## 当前快照
 
+| 项目 | 上游 | 分支 | 当前提交 | 本地目录 |
+| --- | --- | --- | --- | --- |
+| Pi | `https://github.com/earendil-works/pi.git` | `main` | `9767ba2` | `pi/` |
+| DeepSeek Harness | `https://github.com/deepseek-ai/DeepSeek-Harness.git` | `master` | `d347e70` | `deepseek-harness/` |
+| Codex | `https://github.com/openai/codex.git` | `main` | `6af3454` | `codex/` |
+| Claude Code | `https://github.com/anthropics/claude-code.git` | `main` | `ab9b2cf` | `claude-code/` |
+
+这些是浅克隆：当前提交的源码树完整，仅未下载更早的 Git 历史。需要研究版本演进时，在对应目录执行 `git fetch --unshallow`。
+
+这些源码仓库用于确定各项目的真实结构和行为。顶层后续建立的 `learn-pi/`、`learn-deepseek-harness/`、`learn-codex/` 与 `learn-claude-code/` 将分别使用 Python 重建教学版本；四套课程不会共享统一 Agent 运行时。原生构建与测试仍用于核验 Python 教学实现没有误读上游。
+
+## 独立入口
+
+### Pi
+
+从 `pi/packages/coding-agent/src/cli.ts` 进入，先完成 Coding Agent 的参数、配置、资源和 Session 启动链，再进入 `packages/agent` 的 Agent 与循环，最后追到 `packages/ai` 的模型 Provider 和流式协议。所有运行与测试使用仓库自己的 Node.js/pnpm 工具链。
+
+### DeepSeek Harness
+
+从 `deepseek-harness/apps/cli/src/bin.ts` 进入，沿 CLI Profile Boot、Cordis Context/Service、插件装配进入 `packages/core/agent-loop/src/agent.ts`，再分别追踪工具、上下文管理、模型、沙箱、Subagent 和终止流程。以仓库的架构文档和 TypeScript 测试校验调用链。
+
+### Codex
+
+从 `codex/codex-rs/cli/src/main.rs` 进入，分别跟踪交互式 TUI、非交互 Exec 和其他子命令如何进入 `codex-core`。随后按 Rust 类型与事件流追踪 Thread/Turn、模型客户端、工具路由、审批、沙箱、Rollout 持久化、压缩和关闭过程。
+
+### Claude Code
+
+从 `claude-code/plugins/README.md` 和各官方插件清单进入，分别学习 Commands、Agents、Skills、Hooks、MCP、权限和插件生命周期。官方仓库没有 Claude Code 核心 Agent Loop，因此核心运行行为只能通过公开文档、SDK 与受控实验验证，不能标记为源码精读结果。
+
+## 重新获取
+
+在仓库根目录执行：
+
+```powershell
+git clone --depth 1 https://github.com/earendil-works/pi.git agent-source/pi
+git clone --depth 1 https://github.com/deepseek-ai/DeepSeek-Harness.git agent-source/deepseek-harness
+git clone --depth 1 https://github.com/openai/codex.git agent-source/codex
+git clone --depth 1 https://github.com/anthropics/claude-code.git agent-source/claude-code
 ```
-agent-source/
-├── codex/                        # openai/codex（Rust，100+ crates）
-├── deepseek-harness/             # deepseek-ai/deepseek-harness（TS，60+ 包）
-├── pi/                           # earendil-works/pi（TS，10 包）
-├── claude-code/                  # anthropics/claude-code（提示词生态）
-│
-├── README.md                     # ← 本索引
-├── CODING_AGENTS_STRUCTURE.md    # 四者核心循环/工具/上下文 横向对比总表
-│
-├── deepdive-codex.md             # codex 精读：代码地图+机制拆解+路线+考点
-├── deepdive-deepseek-harness.md  # deepseek 精读：状态机+插件钩子+subagent
-├── deepdive-pi.md                # pi 精读：事件流+并行工具+40 家 provider
-└── deepdive-claude-code.md       # claude 精读：allowed-tools+多 agent 剧本
 
-# —— 四家的分步教学（learn-claude-code 格式，Python 可运行） ——
-codex_learn/       c01~c07：codex 核心机制教学（Bash 工具/并行/审批/沙箱/压缩/持久化/多 agent）
-deepseek_learn/    d01~d07：deepseek 核心机制教学（状态机/插件钩子/Inbox/严格 schema/子代理/裁剪/提示词组装）
-pi_learn/          p01~p07：pi 核心机制教学（事件流/steering/并行/失败进流/provider 层/压缩/JSONL）
-claude_learn/      x01~x06：claude-code 核心机制教学（插件结构/白名单/剧本/钩子/命令/引擎）
+查看本地是否仍处于记录的快照：
+
+```powershell
+git -C agent-source/pi rev-parse --short HEAD
+git -C agent-source/deepseek-harness rev-parse --short HEAD
+git -C agent-source/codex rev-parse --short HEAD
+git -C agent-source/claude-code rev-parse --short HEAD
 ```
 
-## 🗺️ 阅读路径（三条线任选）
-
-**A. 从易到难（推荐）**：`deepdive-pi.md`（事件流/并行工具体验好）
-→ `deepdive-deepseek-harness.md`（插件化架构）→ `deepdive-codex.md`（工程外壳）→ `deepdive-claude-code.md`（提示词) 
-
-**B. 按主题横切**：主循环（四家对比见 CODING_AGENTS_STRUCTURE.md 第 1 节）
-→ 上下文（codex compact / deepseek compaction / pi branch-summarization）
-→ 工具体系（codex approvals+parallel / deepseek tools+schema / claude allowed-tools）
-
-**C. 自测突击（每份读"自测考点"一节即可）**：约 40 分钟过完 4 份考点清单
-
-## ⭐ 分步教学（推荐：看懂机制，动手跑）
-
-| 教学项目 | 几步 | 你将亲手重建 | 入口 |
-|---|---|---|---|
-| **codex_learn** | c01~c07 | Bash 工具→并行执行→审批流→沙箱→上下文压缩→会话持久化→多 Agent | [入口](codex_learn/README.md) |
-| **deepseek_learn** | d01~d07 | 状态机循环→插件钩子→Inbox→严格 schema→子代理→结果裁剪→提示词组装 | [入口](deepseek_learn/README.md) |
-| **pi_learn** | p01~p07 | 事件流→steering→并行工具→失败进流→provider 层→分支压缩→JSONL 会话 | [入口](pi_learn/README.md) |
-| **claude_learn** | x01~x06 | 插件结构→allowed-tools 白名单→多 Agent 剧本→hooks→命令入口→插件引擎 | [入口](claude_learn/README.md) |
-
-> 每步 = 可运行 `code.py` + 详细 README（问题/SVG 架构图/原理/练习/自测问答/源码对照），共 27 步 + 27 张 SVG。
-
-## 💡 一句话速查（自测急救）
-
-| 被问 | 答案（可引用） |
-|---|---|
-| Agent 循环有几种？ | 双层 while（pi）/ turn+step 状态机（deepseek）/ 事件泵 Session（codex）/ 提示词剧本（claude） |
-| 模型调用失败怎么办？ | pi 把失败编码进流（stopReason=error）；我们 s09 用错误回传自愈 |
-| 工具并行执行？ | pi 两阶段（prepare 串行→execute 并发）；codex parallel.rs 同思路 |
-| 上下文膨胀？ | 窗口截断（我们 s04）→ codex 压缩 hooks + fallback（高级） |
-| 怎么安全执行命令？ | codex：策略匹配+沙箱+审批流；claude：allowed-tools 白名单 |
-| 多 Agent 咋做？ | codex agent/role+control；deepseek subagent 协议兼容层；claude 提示词编排 |
-| 模型无关？ | pi 40+ provider，每厂商一文件；我们 s03 ChatClient 同源 |
-| 效果怎么量化？ | pi 自带 packages/evals；我们 s06 评测集同思路 |
-
-## 🔗 与手写教程的联动
-
-看完某家源码后回 learn-mini-agent 升级对应章节：
-
-| 你在源码里学到的 | 回手写教程 |
-|---|---|
-| pi 的"失败进流" | 给 s09 错误处理做一次重构 |
-| codex 的"审批" | 给 s09 加一道防线：危险工具需确认 |
-| deepseek 的插件钩子 | 给框架加 dispatch 插桩点（s02 的 registry 扩展） |
-| claude 的 allowed-tools | 给 s08 的 mcp 桥接加工具白名单 |
-| codex/deepseek 的持久化 | 给 s04 的 buffer 加 JSONL 会话存档 |
-
-## ⚠️ 前提说明
-
-- 源码为 2026-08 GitHub 快照（浅克隆，无 git 历史；需要历史请 `git fetch --unshallow`）
-- claude-code 无引擎源码（官方闭源），仓库内容是插件/命令/hooks 生态
-- Star 数勿背死数，自测说量级即可
+更新某个项目时只在它自己的目录执行 `git pull --ff-only`，并同步更新本页记录的提交。不要把四个项目合并成一套本地 Agent 实现。
