@@ -18,9 +18,9 @@
     { "id": "agent_execution_core", "title": "Agent 执行核心", "chapters": ["s01_agent_loop", "s02_provider_stream", "s03_agent_events", "s04_tool_contract"], "status": "completed" },
     { "id": "tool_orchestration_control", "title": "工具编排与运行控制", "chapters": ["s05_parallel_tools", "s06_message_queues", "s07_control_boundaries"], "status": "completed" },
     { "id": "context_session_memory", "title": "上下文与会话记忆", "chapters": ["s08_context_boundary", "s09_session_memory"], "status": "completed" },
-    { "id": "context_recovery", "title": "上下文恢复系统", "chapters": ["s10_context_recovery"], "status": "planned" },
-    { "id": "extension_resources", "title": "扩展与资源系统", "chapters": ["s11_extension_boundary"], "status": "planned" },
-    { "id": "comprehensive_runtime", "title": "综合 Coding Agent", "chapters": ["s12_comprehensive"], "status": "planned" }
+    { "id": "context_recovery", "title": "上下文恢复系统", "chapters": ["s10_context_recovery"], "status": "completed" },
+    { "id": "extension_resources", "title": "扩展与资源系统", "chapters": ["s11_extension_boundary"], "status": "completed" },
+    { "id": "comprehensive_runtime", "title": "综合 Coding Agent", "chapters": ["s12_comprehensive"], "status": "completed" }
   ],
   "chapters": [
     { "id": "s01_agent_loop", "title": "最小 Agent Loop", "system": "agent_execution_core", "status": "completed", "path": "s01_agent_loop", "topics": ["prompt", "assistant", "tool call", "tool result", "termination"], "sources": ["agent-loop.ts::runAgentLoop", "agent-loop.ts::runLoop", "types.ts::AgentContext"] },
@@ -32,8 +32,8 @@
     { "id": "s07_control_boundaries", "title": "Abort、错误与结束边界", "system": "tool_orchestration_control", "status": "completed", "path": "s07_control_boundaries", "sources": ["agent.ts::runWithLifecycle", "agent.ts::finishRun", "agent-loop.ts::runLoop"] },
     { "id": "s08_context_boundary", "title": "上下文转换边界", "system": "context_session_memory", "status": "completed", "path": "s08_context_boundary", "sources": ["agent-loop.ts::streamAssistantResponse", "types.ts::AgentLoopConfig"] },
     { "id": "s09_session_memory", "title": "Session 记忆与树形历史", "system": "context_session_memory", "status": "completed", "path": "s09_session_memory", "sources": ["session-manager.ts::SessionManager", "session-manager.ts::buildSessionContext"] },
-    { "id": "s10_context_recovery", "title": "压缩、重试与上下文恢复", "system": "context_recovery", "status": "planned", "path": "s10_context_recovery", "sources": ["compaction.ts::prepareCompaction", "compaction.ts::compact"] },
-    { "id": "s11_extension_boundary", "title": "扩展工具与资源边界", "system": "extension_resources", "status": "planned", "path": "s11_extension_boundary", "sources": ["resource-loader.ts::DefaultResourceLoader", "examples/extensions"] },
-    { "id": "s12_comprehensive", "title": "综合 Coding Agent", "system": "comprehensive_runtime", "status": "planned", "path": "s12_comprehensive", "sources": ["SYSTEMS.md::系统 6"] }
+    { "id": "s10_context_recovery", "title": "压缩、重试与上下文恢复", "system": "context_recovery", "status": "completed", "path": "s10_context_recovery", "sources": ["compaction.ts::prepareCompaction", "compaction.ts::compact"] },
+    { "id": "s11_extension_boundary", "title": "扩展工具与资源边界", "system": "extension_resources", "status": "completed", "path": "s11_extension_boundary", "sources": ["resource-loader.ts::DefaultResourceLoader", "examples/extensions"] },
+    { "id": "s12_comprehensive", "title": "综合 Coding Agent", "system": "comprehensive_runtime", "status": "completed", "path": "s12_comprehensive", "sources": ["SYSTEMS.md::系统 6"] }
   ]
 }

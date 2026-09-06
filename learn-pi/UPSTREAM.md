@@ -75,6 +75,39 @@
 | fork 创建新 header 并复制非 header entries | `packages/coding-agent/src/core/session-manager.ts` | `forkFrom`，约第 1611-1662 行 | 新 Session id，通过 parentSession 记录来源 |
 | JSONL 坏行被跳过而非阻塞全部加载 | `packages/coding-agent/src/core/session-manager.ts` | `parseSessionEntries`、`loadEntriesFromFile` | 逐行解析，无法解析的行返回空/跳过 |
 
+## 第 10 章定位
+
+| 课程结论 | 上游文件 | 符号/位置 | 证据说明 |
+|---|---|---|---|
+| token 估算使用 usage 或 chars/4 兜底 | `packages/coding-agent/src/core/compaction/compaction.ts` | `calculateContextTokens`、`estimateContextTokens`、`estimateTokens`，约第 118-220 行 | 优先使用有效 assistant usage，没有 usage 时估算消息成本 |
+| 压缩切点避开 toolResult，并支持 split turn | `packages/coding-agent/src/core/compaction/compaction.ts` | `findCutPoint`，约第 300-430 行 | 只从 user/assistant 等合法消息中选切点，记录 turn prefix |
+| prepareCompaction 只计算准备数据，不直接写 Session | `packages/coding-agent/src/core/compaction/compaction.ts` | `prepareCompaction`，约第 750-830 行 | 生成 firstKeptEntryId、待摘要消息、token 和前次 summary |
+| compact 生成 summary 和压缩结果 | `packages/coding-agent/src/core/compaction/compaction.ts` | `compact`，约第 854-970 行 | summary、firstKeptEntryId 和 tokensBefore 交给 Session 层保存 |
+| overflow 先压缩，再最多 retry 一次 | `packages/coding-agent/src/core/agent-session.ts` | `_checkCompaction`、`_runAutoCompaction`，约第 2112-2425 行 | 失败/截断响应从活动上下文移除，压缩后继续一次 |
+| transient error 使用可取消的指数退避 retry | `packages/coding-agent/src/core/agent-session.ts` | `_prepareRetry`，约第 2894-2945 行 | retryAttempt、baseDelay 和 abort controller 控制重试 |
+| branch summary 也是独立恢复摘要路径 | `packages/coding-agent/src/core/agent-session.ts` | branch summarization 调用链，约第 3116-3305 行 | 离开分支前生成摘要，供新路径理解被放弃工作 |
+
+## 第 11 章定位
+
+| 课程结论 | 上游文件 | 符号/位置 | 证据说明 |
+|---|---|---|---|
+| ResourceLoader 统一管理 extensions、skills、prompts、themes 和上下文文件 | `packages/coding-agent/src/core/resource-loader.ts` | `ResourceLoader`、`DefaultResourceLoader`，约第 24-54、196-320 行 | loader 对外提供资源快照和 reload 接口 |
+| reload 先加载扩展，再载入资源路径并收集诊断 | `packages/coding-agent/src/core/resource-loader.ts` | `reload`，约第 388-546 行 | no* 开关、额外路径和资源诊断均在该流程合并 |
+| 扩展可以通过 resources_discover 返回额外资源路径 | `packages/coding-agent/src/core/extensions/types.ts` | `ResourcesDiscoverEvent/Result`，约第 545-560 行 | 扩展不直接改写 loader，而是提供 paths |
+| Session 启动后将扩展发现的路径交给 ResourceLoader | `packages/coding-agent/src/core/agent-session.ts` | `bindExtensions`、`extendResourcesFromExtensions`，约第 2460-2500 行 | resources_discover 结果经过 metadata 处理后调用 `extendResources` |
+| 扩展 handler 的失败被隔离并记录 | `packages/coding-agent/src/core/extensions/runner.ts` | `emitResourcesDiscover`，约第 1200-1240 行 | 单个 handler 抛错不会阻止其他扩展返回资源 |
+| 自定义工具通过 ExtensionAPI 注册 | `packages/coding-agent/src/core/extensions/types.ts` | `ExtensionAPI.registerTool`、`ToolDefinition`，约第 1242-1315 行 | 工具定义包含名称、描述、schema 和 execute |
+
+## 第 12 章定位
+
+| 课程结论 | 上游文件 | 符号/位置 | 证据说明 |
+|---|---|---|---|
+| 综合实现的核心边界来自 Agent Loop、工具、上下文、Session、恢复和扩展 | 本课程 `SYSTEMS.md` | 系统 1-6 | 组合章只连接前面已验证的契约，不新增隐藏内核 |
+| Agent Loop 负责 prompt、assistant、tool result 的闭环 | `packages/agent/src/agent-loop.ts` | `runAgentLoop`、`runLoop` | 模型调用和工具结果推动下一轮 |
+| 工具批处理需要同时保持完成顺序和结果源码顺序 | `packages/agent/src/agent-loop.ts` | `executeToolCallsParallel` | 并发执行后按输入顺序生成 tool result |
+| Session 和恢复通过 compaction entry 保留可恢复历史 | `packages/coding-agent/src/core/session-manager.ts`、`compaction/compaction.ts` | `appendCompaction`、`prepareCompaction`、`compact` | 综合章的离线 adapter 只复用这些稳定边界 |
+| 扩展通过 ResourceLoader/API 接入而不改写核心 loop | `packages/coding-agent/src/core/resource-loader.ts`、`core/extensions/types.ts` | `DefaultResourceLoader`、`ExtensionAPI` | 综合章把扩展注册工具后交给 ToolRegistry |
+
 ## 教学映射
 
 本章把 `AssistantMessageEventStream` 抽象成 `Provider.complete()`，把 TypeBox schema 暂时抽象成 Python callable，把完整工具结果暂时抽象成字符串。这些替换只服务于理解循环，不代表 Pi 的生产类型设计。

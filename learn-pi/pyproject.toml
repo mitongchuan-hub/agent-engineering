@@ -18,7 +18,7 @@ live = ["openai>=1.68,<3", "python-dotenv>=1.0,<2"]
 docs = ["markdown>=3.7,<4"]
 
 [tool.setuptools]
-packages = ["s01_agent_loop", "s02_provider_stream", "s03_agent_events", "s04_tool_contract", "s05_parallel_tools", "s06_message_queues", "s07_control_boundaries", "s08_context_boundary", "s09_session_memory"]
+packages = ["s01_agent_loop", "s02_provider_stream", "s03_agent_events", "s04_tool_contract", "s05_parallel_tools", "s06_message_queues", "s07_control_boundaries", "s08_context_boundary", "s09_session_memory", "s10_context_recovery", "s11_extension_boundary", "s12_comprehensive"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

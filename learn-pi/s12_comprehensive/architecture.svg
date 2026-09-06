@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="620" viewBox="0 0 1180 620" role="img" aria-labelledby="title desc">
+  <title id="title">Pi comprehensive coding agent architecture</title>
+  <desc id="desc">A comprehensive offline coding agent composes extensions, tools, context policy, session storage, recovery, provider, and the agent loop through explicit module boundaries.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 8; }
+      .blue { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .green { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+      .amber { fill: #fffbeb; stroke: #b45309; stroke-width: 2; rx: 8; }
+      .purple { fill: #f5f3ff; stroke: #6d28d9; stroke-width: 2; rx: 8; }
+      .red { fill: #fef2f2; stroke: #b91c1c; stroke-width: 2; rx: 8; }
+      .label { fill: #0f172a; font: 15px sans-serif; text-anchor: middle; }
+      .small { fill: #475569; font: 12px sans-serif; text-anchor: middle; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .green-line { stroke: #047857; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .purple-line { stroke: #6d28d9; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .red-line { stroke: #b91c1c; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1180" height="620" fill="#ffffff"/>
+  <text x="590" y="34" class="label" font-weight="bold">s12_comprehensive: explicit module boundaries</text>
+
+  <rect x="40" y="90" width="190" height="82" class="purple"/>
+  <text x="135" y="123" class="label">Extension API</text>
+  <text x="135" y="148" class="small">注册工具 / session_start</text>
+
+  <rect x="290" y="90" width="190" height="82" class="blue"/>
+  <text x="385" y="123" class="label">ToolRegistry</text>
+  <text x="385" y="148" class="small">查找 / 执行 batch</text>
+
+  <rect x="540" y="90" width="190" height="82" class="amber"/>
+  <text x="635" y="123" class="label">ContextPolicy</text>
+  <text x="635" y="148" class="small">transform / convert</text>
+
+  <rect x="790" y="90" width="160" height="82" class="green"/>
+  <text x="870" y="123" class="label">SessionStore</text>
+  <text x="870" y="148" class="small">JSONL / leaf</text>
+
+  <rect x="990" y="90" width="150" height="82" class="red"/>
+  <text x="1065" y="123" class="label">Recovery</text>
+  <text x="1065" y="148" class="small">compact / retry</text>
+
+  <path d="M230 131 H290" class="purple-line"/>
+  <path d="M480 131 H540" class="line"/>
+  <path d="M730 131 H790" class="line"/>
+  <path d="M950 131 H990" class="red-line"/>
+
+  <rect x="340" y="285" width="230" height="105" class="blue"/>
+  <text x="455" y="325" class="label">ComprehensiveAgent</text>
+  <text x="455" y="350" class="small">prompt -&gt; request -&gt; response</text>
+  <text x="455" y="373" class="small">tool result -&gt; next turn</text>
+
+  <rect x="700" y="285" width="180" height="105" class="green"/>
+  <text x="790" y="325" class="label">Provider</text>
+  <text x="790" y="350" class="small">Scripted / live adapter</text>
+  <text x="790" y="373" class="small">model response</text>
+
+  <path d="M635 172 V235 H455 V285" class="line"/>
+  <path d="M870 172 V235 H455 V285" class="green-line"/>
+  <path d="M1065 172 V235 H455 V285" class="red-line"/>
+  <path d="M570 337 H700" class="line"/>
+  <path d="M700 360 H570" class="green-line"/>
+  <text x="635" y="270" class="small">构造模型请求</text>
+  <text x="635" y="416" class="small">每次响应都回到 Agent 编排器</text>
+
+  <rect x="110" y="485" width="240" height="76" class="box"/>
+  <text x="230" y="517" class="label">Session entries</text>
+  <text x="230" y="541" class="small">user / assistant / toolResult</text>
+
+  <rect x="470" y="485" width="240" height="76" class="amber"/>
+  <text x="590" y="517" class="label">Agent events</text>
+  <text x="590" y="541" class="small">agent_end / settled</text>
+
+  <rect x="830" y="485" width="240" height="76" class="purple"/>
+  <text x="950" y="517" class="label">Offline tests</text>
+  <text x="950" y="541" class="small">每个边界可单独替换</text>
+
+  <path d="M385 390 V445 H230 V485" class="line"/>
+  <path d="M455 390 V485" class="line"/>
+  <path d="M525 390 V445 H950 V485" class="purple-line"/>
+  <text x="590" y="600" class="small">综合章只做组合，不新增隐藏的 Agent 内核；CLI/RPC/SDK 作为外层适配器。</text>
+</svg>

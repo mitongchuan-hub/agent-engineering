@@ -23,6 +23,9 @@ prompt -> provider -> assistant -> tool -> tool result -> provider
 - [第 07 章：Abort、错误与结束边界](s07_control_boundaries/README.md)
 - [第 08 章：上下文转换边界](s08_context_boundary/README.md)
 - [第 09 章：Session 记忆与树形历史](s09_session_memory/README.md)
+- [第 10 章：压缩、重试与上下文恢复](s10_context_recovery/README.md)
+- [第 11 章：扩展工具与资源边界](s11_extension_boundary/README.md)
+- [第 12 章：综合 Coding Agent](s12_comprehensive/README.md)
 - [第 02 章架构图](s02_provider_stream/architecture.svg)
 - [第 01 章代码](s01_agent_loop/code.py)
 

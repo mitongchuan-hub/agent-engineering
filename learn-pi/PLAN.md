@@ -23,9 +23,9 @@
 | 07 | `s07_control_boundaries` | stop、abort、error、terminate 和 settled 的边界是什么 | `agent.ts`、`agent-loop.ts` | 已完成 |
 | 08 | `s08_context_boundary` | 应用消息如何裁剪并转换为模型消息 | `transformContext`、`convertToLlm` | 已完成 |
 | 09 | `s09_session_memory` | Agent transcript 如何追加持久化并形成树形分支 | `agent-session.ts`、`session-manager.ts` | 已完成 |
-| 10 | `s10_context_recovery` | 溢出、重试、压缩和分支摘要如何恢复上下文 | `core/compaction`、`agent-session.ts` | 待开始 |
-| 11 | `s11_extension_boundary` | 自定义工具和资源如何进入 Agent，而不污染核心循环 | `resource-loader.ts`、扩展示例 | 待开始 |
-| 12 | `s12_comprehensive` | 如何组合为模块化、可测试的最小 Coding Agent | 前 11 章稳定契约 | 待开始 |
+| 10 | `s10_context_recovery` | 溢出、重试、压缩和分支摘要如何恢复上下文 | `core/compaction`、`agent-session.ts` | 已完成 |
+| 11 | `s11_extension_boundary` | 自定义工具和资源如何进入 Agent，而不污染核心循环 | `resource-loader.ts`、扩展示例 | 已完成 |
+| 12 | `s12_comprehensive` | 如何组合为模块化、可测试的最小 Coding Agent | 前 11 章稳定契约 | 已完成 |
 
 CLI、print/json/RPC、SDK 和完整 Runtime 装配只作为附录解释产品接入方式，不占用 Agent 主线章节。
 
@@ -48,11 +48,11 @@ README 固定结构：本章问题、源码调用链、最小实现、动手实�
 | 系统 | 章节 | 当前状态 |
 |---|---|---|
 | Agent 执行核心 | `s01-s04` | 已完成 |
-| 工具编排与运行控制 | `s05-s07` | `s05` 已完成 |
-| 上下文与会话记忆 | `s08-s09` | 待开始 |
-| 上下文恢复 | `s10` | 待开始 |
-| 扩展与资源 | `s11` | 待开始 |
-| 综合 Coding Agent | `s12` | 待开始 |
+| 工具编排与运行控制 | `s05-s07` | 已完成 |
+| 上下文与会话记忆 | `s08-s09` | 已完成 |
+| 上下文恢复 | `s10` | 已完成 |
+| 扩展与资源 | `s11` | 已完成 |
+| 综合 Coding Agent | `s12` | 已完成 |
 
 ## 实施阶段
 
@@ -83,6 +83,6 @@ E:\anaconda\Scripts\conda.exe run -n agent-engineering python -m pytest learn-pi
 
 并完成 Web 类型检查、构建、链接和桌面/移动视口检查。
 
-## 当前迭代：第 10 章
+## 当前迭代：课程验收
 
-第 01-09 章已完成。系统 1、2、3 已完成。下一步进入系统 4，实现 `s10_context_recovery`：压缩、重试、分支摘要和上下文恢复。
+第 01-12 章已完成，6 个系统已完成。下一步只做全课程验收：统一测试、源码链接、文档导航和 Web 阅读器。
